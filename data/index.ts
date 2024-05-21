@@ -76,7 +76,7 @@ export const projects = [
     des: "A Discord clone with voice, video, and text chat features. Built with Next, TailwindCSS, Prisma and MySQL.",
     img: "/p1.svg",
     iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/c.svg", "/p.svg"],
-    link: "https://github.com/adrianhajdin?tab=repositories",
+    link: "https://github.com/i1Zeus/discord-clone",
   },
   {
     id: 2,
@@ -84,7 +84,7 @@ export const projects = [
     des: "A Notion clone with drag-and-drop, dark mode, and real-time collaboration features. Built with Next.js, TailwindCSS, Prisma and MySQL.",
     img: "/p2.svg",
     iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/c.svg", "/p.svg"],
-    link: "https://github.com/adrianhajdin/zoom-clone",
+    link: "https://github.com/i1Zeus/notion-clone",
   },
   {
     id: 3,
@@ -92,7 +92,7 @@ export const projects = [
     des: "A REAL Software-as-a-Service app with AI features and a payments and credits system using the latest tech stack.",
     img: "/p3.svg",
     iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/c.svg", "/p.svg"],
-    link: "https://github.com/adrianhajdin/ai_saas_app",
+    link: "https://github.com/i1Zeus/AI-Saas",
   },
   {
     id: 4,
@@ -100,7 +100,7 @@ export const projects = [
     des: "An ECommerce admin dashboard with CRUD operations, authentication, and role-based access control. Built with Next.js, TailwindCSS, Prisma and MySQL.",
     img: "/p4.svg",
     iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/c.svg", "/p.svg"],
-    link: "https://github.com/adrianhajdin/iphone",
+    link: "https://github.com/i1Zeus/ecommerce-admin",
   },
 ];
 
