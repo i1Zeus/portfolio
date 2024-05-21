@@ -5,6 +5,8 @@ export const navItems = [
   { name: "Contact", link: "#contact" },
 ];
 
+export const words = ["better", "cute", "beautiful", "modern"];
+
 export const gridItems = [
   {
     id: 1,
