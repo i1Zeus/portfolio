@@ -13,7 +13,7 @@ const RecentProjects = () => {
         <span className="text-purple">recent projects</span>
       </h1>
       <div className="gap-x-24 gap-y-8 flex flex-wrap items-center justify-center p-4 mt-10">
-        {projects.map(({ id, title, des, iconLists, img, link }) => (
+        {projects.map(({ id, title, des, iconLists, img, link }: any) => (
           <div
             className="lg:min-h-[32.5rem] sm:h-[41rem] h-[32rem] flex items-center justify-center sm:w-[570px] w-[80vw]"
             key={id}
@@ -45,7 +45,7 @@ const RecentProjects = () => {
 
               <div className="mt-7 flex items-center justify-between mb-3">
                 <div className="flex items-center">
-                  {iconLists.map((icon, index) => (
+                  {iconLists.map((icon: any, index: any) => (
                     <div
                       key={index}
                       className="border border-white/[.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
