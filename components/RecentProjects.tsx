@@ -1,8 +1,7 @@
 "use client";
 
-import { FaLocationArrow } from "react-icons/fa6";
-
 import { projects } from "@/data";
+import { BsGithub } from "react-icons/bs";
 import { PinContainer } from "./ui/3d-pin";
 
 const RecentProjects = () => {
@@ -53,16 +52,16 @@ const RecentProjects = () => {
                         transform: `translateX(-${5 * index + 2}px)`,
                       }}
                     >
-                      <img src={icon} alt="icon5" className="p-2" />
+                      <img src={icon} alt="icon" className="p-2" />
                     </div>
                   ))}
                 </div>
 
                 <div className="flex items-center justify-center">
                   <p className="lg:text-xl md:text-xs text-purple flex text-sm">
-                    Check it out
+                    View on
                   </p>
-                  <FaLocationArrow className="ms-3" color="#CBACF9" />
+                  <BsGithub className="ms-2" color="#CBACF9" />
                 </div>
               </div>
             </PinContainer>
