@@ -152,12 +152,12 @@ export const testimonials = [
 ];
 
 export const companies = [
-  {
-    id: 1,
-    name: "GPS LVN",
-    img: "/lvn.svg",
-    nameImg: "/lvnName.svg",
-  },
+  // {
+  //   id: 1,
+  //   name: "GPS LVN",
+  //   img: "/lvn.svg",
+  //   nameImg: "/lvnName.svg",
+  // },
   {
     id: 2,
     name: "Enab Web App",
