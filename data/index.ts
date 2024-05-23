@@ -139,15 +139,21 @@ export const testimonials = [
   },
   {
     quote:
-      "Well done on the graduation project you completed. It is very well-organized, and all your work is precise. It is something truly refined and outstanding. Your attention to detail and dedication are evident in every aspect of the project, making it exceptionally impressive. Keep up the excellent work! ",
+      "Well done on the project you completed. It is very well-organized, and all your work is precise. It is something truly refined and outstanding. Your attention to detail and dedication are evident in every aspect of the project, making it exceptionally impressive. Keep up the excellent work!",
     name: "Ali Issa",
     title: "",
   },
   {
     quote:
-      "Well done on the graduation project you completed. It is very well-organized, and all your work is precise. It is something truly refined and outstanding. Your attention to detail and dedication are evident in every aspect of the project, making it exceptionally impressive. Keep up the excellent work! ",
+      "I'm pleased to recommend Hussein for their exceptional skills and dedication. As the CTO and Founder of Enab Web App, I have seen firsthand Hussein's professionalism, attention to detail, and innovative thinking. He consistently deliver high-quality work and collaborate effectively with the team. Hussein's contributions have greatly enhanced our platform. I'm confident they will excel in any future role.",
     name: "Hassan Khalid",
     title: "CTO and The Founder of Enab Web App",
+  },
+  {
+    quote:
+      "One of my best decision was asking u to work together on a project, never seen someone with the passion u have, ambitious, passionate, fast, smart and u don't know what impossible mean. I'm so proud of u and I'm sure u will be one of the best developers in the world. Keep going and never give up.",
+    name: "Mohammed Alaa",
+    title: "",
   },
 ];
 
@@ -175,8 +181,8 @@ export const companies = [
 export const workExperience = [
   {
     id: 1,
-    title: "Frontend Engineer Intern",
-    desc: "Assisted in the development of a web-based platform using Next.js, enhancing interactivity.",
+    title: "Web Developer",
+    desc: "Assisted in the development of a web-based platform using Next.js, Vue.js and more, enhancing interactivity.",
     className: "md:col-span-2",
     thumbnail: "/exp1.svg",
   },
