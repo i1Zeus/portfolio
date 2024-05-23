@@ -28,7 +28,7 @@ export const navItems = [
   },
 ];
 
-export const words = ["better", "cute", "beautiful", "modern"];
+export const words = ["collaborate", "Integrate", "unite", "partner"];
 
 export const gridItems = [
   {
