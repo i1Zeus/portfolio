@@ -1,15 +1,17 @@
 import { FaLocationArrow } from "react-icons/fa6";
 
-import { socialMedia } from "@/data";
+import { socialMedia, words } from "@/data";
 import MagicButton from "./MagicButton";
+import { FlipWords } from "./ui/FlipWords";
 
 const Footer = () => {
   return (
     <footer className="w-full mb-[100px] pb-10 md:mb-5" id="contact">
       <div className="flex flex-col items-center">
         <h1 className="heading lg:max-w-[45vw] text-balance">
-          Ready to <span className="text-purple">corporate</span> with me on
-          your next project?
+          Ready to
+          <FlipWords words={words} />
+          with me on your next project?
         </h1>
         <p className="text-white-200 md:mt-10 my-5 text-center">
           Reach out to me today and let&apos;s discuss how I can help you
