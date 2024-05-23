@@ -37,8 +37,8 @@ const Footer = () => {
         </p>
 
         <div className="md:gap-3 flex items-center gap-6">
-          {socialMedia.map(({ id, img, link }) => (
-            <a href={link} target="_blank">
+          {socialMedia.map(({ id, img, link, name }) => (
+            <a href={link} target="_blank" title={name}>
               <div
                 key={id}
                 className="backdrop-filter backdrop-blur-lg saturate-180 bg-black-200 border-black-300 flex items-center justify-center w-10 h-10 bg-opacity-75 border rounded-lg cursor-pointer"

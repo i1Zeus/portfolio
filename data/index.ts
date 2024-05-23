@@ -212,22 +212,26 @@ export const workExperience = [
 export const socialMedia = [
   {
     id: 1,
-    img: "/git.svg",
+    name: "GitHub",
     link: "https://github.com/i1Zeus",
+    img: "/git.svg",
   },
   {
     id: 2,
-    img: "/twit.svg",
+    name: "X Formally Twitter",
     link: "https://x.com/i_1Zeus",
+    img: "/twit.svg",
   },
   {
     id: 3,
-    img: "/link.svg",
+    name: "LinkedIn",
     link: "https://www.linkedin.com/in/izeus6994/",
+    img: "/link.svg",
   },
   {
     id: 4,
-    img: "/insta.svg",
+    name: "Instagram",
     link: "https://www.instagram.com/hxg.1",
+    img: "/insta.svg",
   },
 ];
