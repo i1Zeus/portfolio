@@ -213,13 +213,21 @@ export const socialMedia = [
   {
     id: 1,
     img: "/git.svg",
+    link: "https://github.com/i1Zeus",
   },
   {
     id: 2,
     img: "/twit.svg",
+    link: "https://x.com/i_1Zeus",
   },
   {
     id: 3,
     img: "/link.svg",
+    link: "https://www.linkedin.com/in/izeus6994/",
+  },
+  {
+    id: 4,
+    img: "/insta.svg",
+    link: "https://www.instagram.com/hxg.1",
   },
 ];
