@@ -158,43 +158,43 @@ export const testimonials = [
     quote:
       "Hussein is one of the people we have interacted with. His behavior is very pleasant, and he has assisted us with many things. Whenever we needed something, he would do it for us, and whatever we requested, he would respond affirmatively. His capabilities are impressive and strong. Wishing you all the best, my dear.",
     name: "Ameer Riyadh",
-    title: "",
+    title: "App Developer",
   },
   {
     quote:
       "Well done on the project you completed. It is very well-organized, and all your work is precise. It is something truly refined and outstanding. Your attention to detail and dedication are evident in every aspect of the project, making it exceptionally impressive. Keep up the excellent work!",
     name: "Ali Issa",
-    title: "",
+    title: "Project Manager",
   },
   {
     quote:
-      "I'm pleased to recommend Hussein for their exceptional skills and dedication. As the CTO and Founder of Enab Web App, I have seen firsthand Hussein's professionalism, attention to detail, and innovative thinking. He consistently deliver high-quality work and collaborate effectively with the team. Hussein's contributions have greatly enhanced our platform. I'm confident they will excel in any future role.",
+      "I'm pleased to recommend Hussein for their exceptional skills and dedication. As the CTO and Founder of Enab Web App, I have seen firsthand Hussein's professionalism, attention to detail, and innovative thinking. He consistently delivers high-quality work and collaborates effectively with the team. Hussein's contributions have greatly enhanced our platform. I'm confident he will excel in any future role.",
     name: "Hassan Khalid",
-    title: "CTO and The Founder of Enab Web App",
+    title: "CTO and Founder of Enab Web App",
   },
   {
     quote:
-      "One of my best decision was asking u to work together on a project, never seen someone with the passion u have, ambitious, passionate, fast, smart and u don't know what impossible mean. I'm so proud of u and I'm sure u will be one of the best developers in the world. Keep going and never give up.",
-    name: "Mohammed Alaa",
-    title: "",
+      "One of the best programmers I've worked with. Time flew by while working with him, and his future in this field is very promising and strong. His skills and dedication are unmatched, and he consistently exceeds expectations. I have no doubt that he will achieve great success in his career.",
+    name: "Steven",
+    title: "Senior Developer",
+  },
+  {
+    quote:
+      "Great problem solvers I've encountered. He delivers fast results with high-quality work. His efficiency and attention to detail are remarkable, and he consistently goes above and beyond to ensure the success of every project. It's a pleasure to work with someone so skilled and dedicated.",
+    name: "Hassan Mohammed",
+    title: "Web Developer",
   },
 ];
 
 export const companies = [
-  // {
-  //   id: 1,
-  //   name: "GPS LVN",
-  //   img: "/lvn.svg",
-  //   nameImg: "/lvnName.svg",
-  // },
   {
-    id: 2,
+    id: 1,
     name: "Enab Web App",
     img: "/enab.svg",
     nameImg: "/enabName.svg",
   },
   {
-    id: 3,
+    id: 2,
     name: "CSIT ELITES",
     img: "/csit.svg",
     nameImg: "/csitName.svg",
