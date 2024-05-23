@@ -57,7 +57,7 @@ export const FlipWords = ({
           opacity: 0,
           y: -40,
           x: 40,
-          filter: "blur(8px)",
+          filter: "blur(3px)",
           scale: 2,
           position: "absolute",
         }}
@@ -70,7 +70,7 @@ export const FlipWords = ({
         {currentWord.split("").map((letter, index) => (
           <motion.span
             key={currentWord + index}
-            initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+            initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{
               delay: index * 0.08,
