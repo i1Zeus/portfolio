@@ -5,15 +5,7 @@ import MagicButton from "./MagicButton";
 
 const Footer = () => {
   return (
-    <footer className="w-full pt-20 pb-10" id="contact">
-      <div className="-bottom-72 min-h-96 absolute left-0 w-full">
-        <img
-          src="/footer-grid.svg"
-          alt="grid"
-          className=" w-full h-full opacity-50"
-        />
-      </div>
-
+    <footer className="w-full mb-[100px] pb-10 md:mb-5" id="contact">
       <div className="flex flex-col items-center">
         <h1 className="heading lg:max-w-[45vw] text-balance">
           Ready to <span className="text-purple">corporate</span> with me on
