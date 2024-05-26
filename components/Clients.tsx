@@ -19,6 +19,7 @@ const Clients = () => {
             {companies.map(({ id, name, img, nameImg }) => (
               <div className="md:max-w-60 max-w-32 flex gap-2" key={id}>
                 <Image
+                  priority
                   src={img}
                   alt={name}
                   className="md:w-10 w-5"
@@ -26,6 +27,7 @@ const Clients = () => {
                   height={10}
                 />
                 <Image
+                  priority
                   src={nameImg}
                   alt={name}
                   className="md:w-24 w-20"

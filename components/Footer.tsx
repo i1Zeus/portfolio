@@ -38,7 +38,7 @@ const Footer = () => {
                 key={id}
                 className="backdrop-filter backdrop-blur-lg saturate-180 bg-black-200 border-black-300 flex items-center justify-center w-10 h-10 bg-opacity-75 border rounded-lg cursor-pointer"
               >
-                <Image src={img} alt="icons" width={20} height={20} />
+                <Image src={img} alt="icons" width={20} height={20} priority />
               </div>
             </a>
           ))}
