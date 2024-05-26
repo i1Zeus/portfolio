@@ -24,12 +24,14 @@ const RecentProjects = () => {
                   className="lg:rounded-3xl size-full relative overflow-hidden"
                   style={{ backgroundColor: "#13162D" }}
                 >
-                  <Image src="/bg.png" alt="bgimg" />
+                  <Image src="/bg.png" alt="bgimg" width={1000} height={1000} />
                 </div>
                 <Image
                   src={img}
                   alt={title}
                   className="absolute bottom-0 z-10"
+                  width={500}
+                  height={500}
                 />
               </div>
 
@@ -57,7 +59,13 @@ const RecentProjects = () => {
                         transform: `translateX(-${5 * index + 2}px)`,
                       }}
                     >
-                      <Image src={icon} alt="icon" className="p-2" />
+                      <Image
+                        src={icon}
+                        alt="icon"
+                        className="p-2"
+                        width={50}
+                        height={50}
+                      />
                     </div>
                   ))}
                 </div>
