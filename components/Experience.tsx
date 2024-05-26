@@ -1,5 +1,4 @@
 import { workExperience } from "@/data";
-import Image from "next/image";
 import { Button } from "./ui/MovingBorder";
 
 const Experience = () => {
@@ -17,13 +16,10 @@ const Experience = () => {
             className="border-slate-800 flex-1 text-white"
           >
             <div className="lg:flex-row lg:items-center md:p-5 lg:p-10 flex flex-col gap-2 p-3 py-6">
-              <Image
-                priority
+              <img
                 src={card.thumbnail}
                 alt={card.thumbnail}
                 className="lg:w-32 md:w-20 w-16"
-                width={10}
-                height={10}
               />
               <div className="lg:ms-5">
                 <h1 className="text-start md:text-2xl text-xl font-bold">
