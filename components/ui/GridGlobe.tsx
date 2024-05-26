@@ -397,7 +397,7 @@ export function GridGlobe() {
   return (
     <div className="-left-5 top-36 md:top-40 size-full absolute flex items-center justify-center">
       <div className="max-w-7xl h-96 relative w-full px-4 mx-auto overflow-hidden">
-        <div className="bg-gradient-to-b from-transparent dark:to-black to-white absolute inset-x-0 bottom-0 z-40 w-full h-40 pointer-events-none select-none" />
+        <div className="bg-gradient-to-b from-transparent to-black absolute inset-x-0 bottom-0 z-40 w-full h-40 pointer-events-none select-none" />
         <div className="h-72 md:h-full absolute z-10 w-full">
           <World data={sampleArcs} globeConfig={globeConfig} />;
         </div>
