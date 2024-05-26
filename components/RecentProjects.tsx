@@ -1,6 +1,7 @@
 "use client";
 
 import { projects } from "@/data";
+import Image from "next/image";
 import { BsGithub } from "react-icons/bs";
 import { PinContainer } from "./ui/3d-pin";
 
@@ -23,9 +24,13 @@ const RecentProjects = () => {
                   className="lg:rounded-3xl size-full relative overflow-hidden"
                   style={{ backgroundColor: "#13162D" }}
                 >
-                  <img src="/bg.png" alt="bgimg" />
+                  <Image src="/bg.png" alt="bgimg" />
                 </div>
-                <img src={img} alt={title} className="absolute bottom-0 z-10" />
+                <Image
+                  src={img}
+                  alt={title}
+                  className="absolute bottom-0 z-10"
+                />
               </div>
 
               <h1 className="lg:text-2xl md:text-xl line-clamp-1 text-base font-bold">
@@ -52,7 +57,7 @@ const RecentProjects = () => {
                         transform: `translateX(-${5 * index + 2}px)`,
                       }}
                     >
-                      <img src={icon} alt="icon" className="p-2" />
+                      <Image src={icon} alt="icon" className="p-2" />
                     </div>
                   ))}
                 </div>
