@@ -8,6 +8,7 @@ import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNav";
 import { navItems } from "@/data";
 
+// Main App Page
 export default function Home() {
   return (
     <main className="bg-black-100 sm:px-10 overflow-clip relative flex flex-col items-center justify-center px-5 mx-auto">
