@@ -3,6 +3,7 @@
 import { projects } from "@/data";
 import { BsGithub } from "react-icons/bs";
 import { PinContainer } from "./ui/3d-pin";
+import Image from "next/image";
 
 const RecentProjects = () => {
   return (
@@ -23,9 +24,11 @@ const RecentProjects = () => {
                   className="lg:rounded-3xl size-full relative overflow-hidden"
                   style={{ backgroundColor: "#13162D" }}
                 >
-                  <img src="/bg.png" alt="bgimg" />
+                  <img src="/bg.png" />
                 </div>
-                <img
+                <Image
+                  height={500}
+                  width={500}
                   src={`/project/${img}`}
                   alt={title}
                   className="absolute bottom-0 z-10"
@@ -56,7 +59,13 @@ const RecentProjects = () => {
                         transform: `translateX(-${5 * index + 2}px)`,
                       }}
                     >
-                      <img src={`/logo/${icon}`} alt="icon" className="p-2" />
+                      <Image
+                        height={100}
+                        width={100}
+                        src={`/logo/${icon}`}
+                        alt="icon"
+                        className="p-2"
+                      />
                     </div>
                   ))}
                 </div>
