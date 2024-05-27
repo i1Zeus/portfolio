@@ -17,7 +17,7 @@ const Experience = () => {
           >
             <div className="lg:flex-row lg:items-center md:p-5 lg:p-10 flex flex-col gap-2 p-3 py-6">
               <img
-                src={card.thumbnail}
+                src={`/experience/${card.thumbnail}`}
                 alt={card.thumbnail}
                 className="lg:w-32 md:w-20 w-16"
               />

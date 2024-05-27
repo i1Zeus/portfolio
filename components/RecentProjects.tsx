@@ -25,7 +25,11 @@ const RecentProjects = () => {
                 >
                   <img src="/bg.png" alt="bgimg" />
                 </div>
-                <img src={img} alt={title} className="absolute bottom-0 z-10" />
+                <img
+                  src={`/project/${img}`}
+                  alt={title}
+                  className="absolute bottom-0 z-10"
+                />
               </div>
 
               <h1 className="lg:text-2xl md:text-xl line-clamp-1 text-base font-bold">
@@ -52,7 +56,7 @@ const RecentProjects = () => {
                         transform: `translateX(-${5 * index + 2}px)`,
                       }}
                     >
-                      <img src={icon} alt="icon" className="p-2" />
+                      <img src={`/logo/${icon}`} alt="icon" className="p-2" />
                     </div>
                   ))}
                 </div>
