@@ -21,14 +21,14 @@ const Clients = () => {
                 <Image
                   width={24}
                   height={24}
-                  src={`/company/${img}`}
+                  src={`./company/${img}`}
                   alt={name}
                   className="md:w-10 w-5"
                 />
                 <Image
                   width={24}
                   height={24}
-                  src={`/company/${nameImg}`}
+                  src={`./company/${nameImg}`}
                   alt={name}
                   className="md:w-24 w-20"
                 />
