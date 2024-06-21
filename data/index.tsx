@@ -28,7 +28,7 @@ export const navItems = [
   },
 ];
 
-export const words = ["collaborate", "Integrate", "unite", "partner"];
+export const words = ["collaborate", "Integrate", "partner"];
 
 export const gridItems = [
   {
@@ -236,18 +236,18 @@ export const socialMedia = [
     id: 2,
     name: "X Formally Twitter",
     link: "https://x.com/i_1Zeus",
-    img: "twit.svg",
+    img: "x.svg",
   },
   {
     id: 3,
     name: "LinkedIn",
     link: "https://www.linkedin.com/in/izeus6994/",
-    img: "link.svg",
+    img: "linkedIn.svg",
   },
   {
     id: 4,
     name: "Instagram",
     link: "https://www.instagram.com/hxg.1",
-    img: "insta.svg",
+    img: "instagram.svg",
   },
 ];

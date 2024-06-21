@@ -25,7 +25,7 @@ const Footer = () => {
           />
         </a>
       </div>
-      <div className="md:flex-row flex flex-col items-center justify-between mt-16">
+      <div className="md:flex-row flex flex-col items-center justify-between mt-16 gap-5">
         <p className="md:text-base md:font-normal text-sm font-light">
           Copyright © 2024 Hussein Najah
         </p>
