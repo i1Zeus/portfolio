@@ -1,3 +1,5 @@
+// Data for the web app.
+
 import { BiCode, BiHome, BiMessage, BiUser, BiUserPlus } from "react-icons/bi";
 
 export const navItems = [
