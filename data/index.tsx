@@ -6,27 +6,27 @@ export const navItems = [
   {
     name: "Home",
     link: "",
-    icon: <BiHome className="size-5 text-white" />,
+    icon: <BiHome className="text-white size-5" />,
   },
   {
     name: "About",
     link: "#about",
-    icon: <BiUser className="size-5 text-white" />,
+    icon: <BiUser className="text-white size-5" />,
   },
   {
     name: "Projects",
     link: "#projects",
-    icon: <BiCode className="size-5 text-white" />,
+    icon: <BiCode className="text-white size-5" />,
   },
   {
     name: "Testimonials",
     link: "#testimonials",
-    icon: <BiUserPlus className="size-5 text-white" />,
+    icon: <BiUserPlus className="text-white size-5" />,
   },
   {
     name: "Contact",
     link: "#contact",
-    icon: <BiMessage className="size-5 text-white" />,
+    icon: <BiMessage className="text-white size-5" />,
   },
 ];
 
@@ -237,7 +237,7 @@ export const socialMedia = [
   {
     id: 2,
     name: "X Formally Twitter",
-    link: "https://x.com/i_1Zeus",
+    link: "https://x.com/i1Zeus",
     img: "x.svg",
   },
   {
