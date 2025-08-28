@@ -1,5 +1,3 @@
-// Data for the web app.
-
 import { BiCode, BiHome, BiMessage, BiUser, BiUserPlus } from "react-icons/bi";
 
 export const navItems = [
@@ -98,35 +96,35 @@ export const gridItems = [
 export const projects = [
   {
     id: 1,
-    title: "Discord Clone",
-    des: "A Discord clone with voice, video, and text chat features. Built with Next, TailwindCSS, Prisma and MySQL.",
+    title: "Taeen Platform",
+    des: "Taeen تعيين - Iraq's Fashion-Growing Recruitment Platform. Developed a modern recruitment platform connecting job seekers with opportunities across Iraq.",
     img: "dc.svg",
     iconLists: ["next.svg", "tail.svg", "ts.svg", "c.svg", "p.svg"],
-    link: "https://github.com/i1Zeus/discord-clone",
+    link: "https://taeen.iq",
   },
   {
     id: 2,
-    title: "Notion Clone",
-    des: "A Notion clone with drag-and-drop, dark mode, and real-time collaboration features. Built with Next.js, TailwindCSS, Prisma and MySQL.",
+    title: "Estore | Iraq's Leading E-commerce Platform",
+    des: "Contributed to both web and mobile app development, enhancing user experience and implementing new features for Iraq's leading e-commerce platform.",
     img: "nc.svg",
     iconLists: ["next.svg", "tail.svg", "ts.svg", "c.svg", "p.svg"],
-    link: "https://github.com/i1Zeus/notion-clone",
+    link: "https://www.estore.iq/",
   },
   {
     id: 3,
-    title: "Generative AI Platform",
-    des: "A REAL Software-as-a-Service app with AI features and a payments and credits system using the latest tech stack.",
+    title: "Hoster | Web Hosting Platform",
+    des: "Developed web and mobile app versions to deliver a seamless hosting management experience for developers. Implemented responsive design patterns and cross-platform functionality.",
     img: "qg.svg",
     iconLists: ["next.svg", "tail.svg", "ts.svg", "c.svg", "p.svg"],
-    link: "https://github.com/i1Zeus/AI-Saas",
+    link: "https://www.hoster.iq",
   },
   {
     id: 4,
-    title: "ECommerce Admin",
-    des: "An ECommerce admin dashboard with CRUD operations, authentication, and role-based access control. Built with Next.js, TailwindCSS, Prisma and MySQL.",
+    title: "DevHouse Work Platform",
+    des: "Contributed to the frontend and backend of a work management platform, building responsive UI components and integrating APIs. Focused on performance optimization and user experience improvements.",
     img: "ea.svg",
     iconLists: ["next.svg", "tail.svg", "ts.svg", "c.svg", "p.svg"],
-    link: "https://github.com/i1Zeus/ecommerce-admin",
+    link: "https://work.dev-house.com",
   },
   ,
   {
@@ -140,11 +138,11 @@ export const projects = [
   ,
   {
     id: 6,
-    title: "ECommerce Store",
-    des: "An ECommerce store that allows users to buy products, add to cart, and checkout. Built with Next.js, TailwindCSS, Prisma and MySQL.",
+    title: "DevHouse | Company Website",
+    des: "Developed a company website using React.js, TailwindCSS, and TypeScript, ensuring a responsive and user-friendly design. Implemented a modern and intuitive user interface with smooth navigation and interactive elements.",
     img: "es.svg",
     iconLists: ["next.svg", "tail.svg", "ts.svg", "c.svg", "p.svg"],
-    link: "https://github.com/i1Zeus/ecommerce-store",
+    link: "https://www.dev-house.com",
   },
 ];
 
@@ -193,6 +191,12 @@ export const companies = [
     name: "CSIT ELITES",
     img: "csit.svg",
     nameImg: "csitName.svg",
+  },
+  {
+    id: 3,
+    name: "Devhouse",
+    img: "devhouse.svg",
+    nameImg: "devhouseName.svg",
   },
 ];
 

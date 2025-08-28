@@ -1,8 +1,12 @@
 import { FaLocationArrow } from "react-icons/fa6";
+import dynamic from "next/dynamic";
 
 import { socialMedia, words } from "@/data";
 import MagicButton from "./MagicButton";
-import { FlipWords } from "./ui/FlipWords";
+
+const FlipWords = dynamic(() => import("./ui/FlipWords").then((m) => m.FlipWords), {
+  ssr: false,
+});
 
 const Footer = () => {
   return (

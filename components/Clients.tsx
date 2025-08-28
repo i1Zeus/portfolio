@@ -1,6 +1,10 @@
 import { companies, testimonials } from "@/data";
 import Image from "next/image";
-import { InfiniteMovingCards } from "./ui/InfiniteMovingCards";
+import dynamic from "next/dynamic";
+
+const InfiniteMovingCards = dynamic(() => import("./ui/InfiniteMovingCards").then((m) => m.InfiniteMovingCards), {
+  ssr: false,
+});
 
 const Clients = () => {
   return (

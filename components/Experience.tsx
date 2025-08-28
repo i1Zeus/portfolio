@@ -1,5 +1,9 @@
+import dynamic from "next/dynamic";
 import { workExperience } from "@/data";
-import { Button } from "./ui/MovingBorder";
+
+const Button = dynamic(() => import("./ui/MovingBorder").then((m) => m.Button), {
+  ssr: false,
+});
 
 const Experience = () => {
   return (

@@ -1,8 +1,11 @@
 "use client";
-
+import dynamic from "next/dynamic";
 import { projects } from "@/data";
-import ProjectCard from "./ProjectCard";
 import { ProjectCardProps } from "./ProjectCard";
+
+const ProjectCard = dynamic(() => import("./ProjectCard"), {
+  ssr: false,
+});
 
 const RecentProjects = () => {
   return (
@@ -11,7 +14,7 @@ const RecentProjects = () => {
         A small selection of{" "}
         <span className="text-purple">recent projects</span>
       </h1>
-      <div className="flex flex-wrap items-center justify-center p-4 mt-10 gap-x-24 gap-y-8">
+      <div className="flex flex-wrap items-center justify-center p-4 mt-10 gap-x-16 gap-y-6">
         {(projects as ProjectCardProps[]).map((project) => (
           <ProjectCard key={project.id} {...project} />
         ))}

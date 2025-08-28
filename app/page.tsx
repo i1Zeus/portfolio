@@ -1,12 +1,19 @@
+import dynamic from "next/dynamic";
 import Approach from "@/components/Approach";
 import Clients from "@/components/Clients";
 import Experience from "@/components/Experience";
 import Footer from "@/components/Footer";
-import Grid from "@/components/Grid";
 import Hero from "@/components/hero";
 import RecentProjects from "@/components/RecentProjects";
-import { FloatingNav } from "@/components/ui/FloatingNav";
 import { navItems } from "@/data";
+
+const FloatingNav = dynamic(() => import("@/components/ui/FloatingNav").then((m) => m.FloatingNav), {
+  ssr: false,
+});
+
+const Grid = dynamic(() => import("@/components/Grid"), {
+  ssr: false,
+});
 
 // Main App Page
 export default function Home() {
