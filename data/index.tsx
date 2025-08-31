@@ -247,7 +247,7 @@ export const socialMedia = [
   {
     id: 3,
     name: "LinkedIn",
-    link: "https://www.linkedin.com/in/izeus6994/",
+    link: "https://www.linkedin.com/in/i1zeus",
     img: "linkedIn.svg",
   },
   {
