@@ -2,15 +2,18 @@ import { companies, testimonials } from "@/data";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 
-const InfiniteMovingCards = dynamic(() => import("./ui/InfiniteMovingCards").then((m) => m.InfiniteMovingCards), {
-  ssr: false,
-});
+const InfiniteMovingCards = dynamic(
+  () => import("./ui/InfiniteMovingCards").then((m) => m.InfiniteMovingCards),
+  {
+    ssr: false,
+  }
+);
 
 const Clients = () => {
   return (
     <div className="py-20" id="testimonials">
       <h1 className="heading">
-        Kind Words From <span className="text-purple">Satisfied Clients</span>
+        Kind Words From <span className="text-purple">People</span>
       </h1>
       <div className="flex flex-col items-center">
         <div className="h-[50vh] md:h-[30rem] rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden">
@@ -25,14 +28,14 @@ const Clients = () => {
                 <Image
                   width={24}
                   height={24}
-                  src={`./company/${img}`}
+                  src={`/company/${img}`}
                   alt={name}
                   className="md:w-10 w-5"
                 />
                 <Image
                   width={24}
                   height={24}
-                  src={`./company/${nameImg}`}
+                  src={`/company/${nameImg}`}
                   alt={name}
                   className="md:w-24 w-20"
                 />

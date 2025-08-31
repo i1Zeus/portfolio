@@ -1,9 +1,13 @@
-import dynamic from "next/dynamic";
 import { workExperience } from "@/data";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 
-const Button = dynamic(() => import("./ui/MovingBorder").then((m) => m.Button), {
-  ssr: false,
-});
+const Button = dynamic(
+  () => import("./ui/MovingBorder").then((m) => m.Button),
+  {
+    ssr: false,
+  }
+);
 
 const Experience = () => {
   return (
@@ -20,8 +24,10 @@ const Experience = () => {
             className="border-slate-800 flex-1 text-white"
           >
             <div className="lg:flex-row lg:items-center md:p-5 lg:p-10 flex flex-col gap-2 p-3 py-6">
-              <img
-                src={`./experience/${card.thumbnail}`}
+              <Image
+                width={128}
+                height={128}
+                src={`/experience/${card.thumbnail}`}
                 alt={card.thumbnail}
                 className="lg:w-32 md:w-20 w-16"
               />

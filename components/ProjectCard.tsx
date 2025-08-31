@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { PinContainer } from "./ui/3d-pin";
 
 export interface ProjectCardProps {
@@ -18,10 +19,10 @@ const ProjectCard = ({
   img,
   link,
 }: ProjectCardProps) => {
-  const handleGithubClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    window.open(link, "_blank");
-  };
+  // const handleGithubClick = (e: React.MouseEvent) => {
+  //   e.stopPropagation();
+  //   window.open(link, "_blank");
+  // };
 
   return (
     <motion.div
@@ -29,23 +30,27 @@ const ProjectCard = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.02 }}
-      className="group lg:min-h-[28rem] sm:h-[35rem] h-[28rem] flex items-center justify-center sm:w-[480px] w-[90vw] max-w-[480px] cursor-pointer"
+      className="group sm:h-[37rem] h-[28rem] flex items-center justify-center sm:w-[480px] w-[80vw] cursor-pointer"
       onClick={() => window.open(link, "_blank")}
     >
       <PinContainer title={title} href={link}>
-        <div className="relative flex items-center justify-center sm:w-[480px] sm:h-[35vh] h-[28vh] w-[90vw] max-w-[480px] overflow-hidden mb-6 group">
+        <div className="relative flex items-center justify-center sm:w-[480px] sm:h-[35vh] h-[28vh] w-[80vw] max-w-[480px] overflow-hidden mb-6 group">
           <div
             className="relative overflow-hidden transition-transform duration-300 lg:rounded-3xl size-full group-hover:scale-105"
             style={{ backgroundColor: "#13162D" }}
           >
-            <img
-              src="./bg.png"
+            <Image
+              width={128}
+              height={128}
+              src="/bg.png"
               alt="bgimg"
               className="object-cover w-full h-full"
             />
           </div>
-          <img
-            src={`./project/${img}`}
+          <Image
+            width={1200}
+            height={1200}
+            src={`/project/${img}`}
             alt={title}
             className="absolute bottom-0 z-10 transition-transform duration-300 group-hover:scale-110"
           />
@@ -71,7 +76,13 @@ const ProjectCard = ({
                 className="border border-white/[.2] rounded-full bg-black lg:w-9 lg:h-9 w-7 h-7 flex justify-center items-center transition-colors"
                 style={{ transform: `translateX(-${4 * index + 2}px)` }}
               >
-                <img src={`./logo/${icon}`} alt="icon" className="p-1.5" />
+                <Image
+                  width={128}
+                  height={128}
+                  src={`/logo/${icon}`}
+                  alt="icon"
+                  className="p-1.5"
+                />
               </motion.div>
             ))}
           </div>

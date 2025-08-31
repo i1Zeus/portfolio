@@ -1,12 +1,16 @@
-import { FaLocationArrow } from "react-icons/fa6";
 import dynamic from "next/dynamic";
+import { FaLocationArrow } from "react-icons/fa6";
 
 import { socialMedia, words } from "@/data";
+import Image from "next/image";
 import MagicButton from "./MagicButton";
 
-const FlipWords = dynamic(() => import("./ui/FlipWords").then((m) => m.FlipWords), {
-  ssr: false,
-});
+const FlipWords = dynamic(
+  () => import("./ui/FlipWords").then((m) => m.FlipWords),
+  {
+    ssr: false,
+  }
+);
 
 const Footer = () => {
   return (
@@ -41,7 +45,12 @@ const Footer = () => {
                 key={id}
                 className="backdrop-filter backdrop-blur-lg saturate-180 bg-black-200 border-black-300 flex items-center justify-center w-10 h-10 bg-opacity-75 border rounded-lg cursor-pointer"
               >
-                <img src={`./socialMedia/${img}`} alt="icons" />
+                <Image
+                  width={24}
+                  height={24}
+                  src={`/socialMedia/${img}`}
+                  alt="icons"
+                />
               </div>
             </a>
           ))}
