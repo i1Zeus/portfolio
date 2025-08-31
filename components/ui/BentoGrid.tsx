@@ -3,14 +3,21 @@
 import { useState } from "react";
 import { IoCheckmarkDone, IoCopy } from "react-icons/io5";
 
-import Lottie from "react-lottie";
+import dynamic from "next/dynamic";
 
 import { cn } from "@/utils/cn";
 
 import animationData from "@/data/confetti.json";
+import Image from "next/image";
 import MagicButton from "../MagicButton";
 import { BackgroundGradientAnimation } from "./GradientBg";
 import { GridGlobe } from "./GridGlobe";
+
+// Dynamically import the Lottie component to avoid SSR issues
+const LottieAnimation = dynamic(() => import("./LottieAnimation"), {
+  ssr: false,
+  loading: () => <div style={{ height: 200, width: 400 }} />,
+});
 
 export const BentoGrid = ({
   className,
@@ -55,18 +62,9 @@ export const BentoGridItem = ({
 
   const [copied, setCopied] = useState(false);
 
-  const defaultOptions = {
-    loop: copied,
-    autoplay: copied,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
-
   const handleCopy = () => {
     const text = "husseinnajah123@gmail.com";
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
       navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => {
@@ -91,7 +89,9 @@ export const BentoGridItem = ({
       <div className={`${id === 6 && "flex justify-center"} h-full`}>
         <div className="absolute w-full h-full">
           {img && (
-            <img
+            <Image
+              width={128}
+              height={128}
               src={img}
               alt={img}
               className={cn(imgClassName, "object-cover object-center ")}
@@ -104,7 +104,9 @@ export const BentoGridItem = ({
           } `}
         >
           {spareImg && (
-            <img
+            <Image
+              width={128}
+              height={128}
               src={spareImg}
               alt={spareImg}
               className="object-cover object-center size-full"
@@ -129,7 +131,7 @@ export const BentoGridItem = ({
           </div>
 
           {/* for the github 3d globe */}
-          {id === 2 && <GridGlobe />}
+          {/* {id === 2 && <GridGlobe />} */}
 
           {/* Tech stack list div */}
           {id === 3 && (
@@ -168,7 +170,13 @@ export const BentoGridItem = ({
                   copied ? "block" : "block"
                 }`}
               >
-                <Lottie options={defaultOptions} height={200} width={400} />
+                <LottieAnimation
+                  animationData={animationData}
+                  loop={copied}
+                  autoplay={copied}
+                  height={200}
+                  width={400}
+                />
               </div>
 
               <MagicButton
