@@ -1,14 +1,20 @@
-import { FaLocationArrow } from "react-icons/fa";
 import dynamic from "next/dynamic";
+import { FaDownload, FaLocationArrow } from "react-icons/fa";
 import MagicButton from "./MagicButton";
 
-const Spotlight = dynamic(() => import("./ui/Spotlight").then((m) => m.Spotlight), {
-  ssr: false,
-});
+const Spotlight = dynamic(
+  () => import("./ui/Spotlight").then((m) => m.Spotlight),
+  {
+    ssr: false,
+  },
+);
 
-const TextGenerateEffect = dynamic(() => import("./ui/TextGenerateEffect").then((m) => m.TextGenerateEffect), {
-  ssr: false,
-});
+const TextGenerateEffect = dynamic(
+  () => import("./ui/TextGenerateEffect").then((m) => m.TextGenerateEffect),
+  {
+    ssr: false,
+  },
+);
 
 const Hero = () => {
   return (
@@ -43,15 +49,24 @@ const Hero = () => {
             words="Transforming Ideas into Seamless Reality"
           />
           <p className="md:text-lg lg:text-2xl text-[40px] md:tracking-wider mb-4 text-sm text-center capitalize">
-            Hi I&apos;m Hussein, a Web Developer Based in Iraq.
+            Hi I&apos;m Hussein, a Software Engineer Based in Iraq.
           </p>
-          <a href="#about">
-            <MagicButton
-              title="Show my work"
-              position="right"
-              icon={<FaLocationArrow />}
-            />
-          </a>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <a href="#about">
+              <MagicButton
+                title="Show my work"
+                position="right"
+                icon={<FaLocationArrow />}
+              />
+            </a>
+            <a href="/Hussein Najah-Software Eng.pdf" download>
+              <MagicButton
+                title="Download CV"
+                position="right"
+                icon={<FaDownload />}
+              />
+            </a>
+          </div>
         </div>
       </div>
     </div>

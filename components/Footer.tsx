@@ -9,7 +9,7 @@ const FlipWords = dynamic(
   () => import("./ui/FlipWords").then((m) => m.FlipWords),
   {
     ssr: false,
-  }
+  },
 );
 
 const Footer = () => {
@@ -25,7 +25,7 @@ const Footer = () => {
           Reach out to me today and let&apos;s discuss how I can help you
           achieve your goals.
         </p>
-        <a href="mailto:husseinnajah123@gmail.com">
+        <a href="mailto:husseinnajah.it@gmail.com">
           <MagicButton
             title="Let's get in touch"
             icon={<FaLocationArrow />}

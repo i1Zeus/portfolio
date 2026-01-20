@@ -1,6 +1,8 @@
+"use client";
+
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { PinContainer } from "./ui/3d-pin";
+import { useRouter } from "next/navigation";
 
 export interface ProjectCardProps {
   id: number;
@@ -19,88 +21,77 @@ const ProjectCard = ({
   img,
   link,
 }: ProjectCardProps) => {
-  // const handleGithubClick = (e: React.MouseEvent) => {
-  //   e.stopPropagation();
-  //   window.open(link, "_blank");
-  // };
+  const router = useRouter();
+
+  const handleCardClick = () => {
+    router.push(`/project/${id}`);
+  };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      whileHover={{ scale: 1.02 }}
-      className="group sm:h-[37rem] h-[28rem] flex items-center justify-center sm:w-[480px] w-[80vw] cursor-pointer"
-      onClick={() => window.open(link, "_blank")}
+    <div
+      className="flex items-center justify-center p-1 w-full h-full cursor-pointer"
+      onClick={handleCardClick}
     >
-      <PinContainer title={title} href={link}>
-        <div className="relative flex items-center justify-center sm:w-[480px] sm:h-[35vh] h-[28vh] w-[80vw] max-w-[480px] overflow-hidden mb-6 group">
-          <div
-            className="relative overflow-hidden transition-transform duration-300 lg:rounded-3xl size-full group-hover:scale-105"
-            style={{ backgroundColor: "#13162D" }}
+      <div className="flex flex-col items-center justify-center sm:w-[450px] w-[90vw] overflow-hidden sm:min-h-[30rem] h-auto mb-10 group relative shadow-2xl shadow-zinc-900 rounded-[22px] bg-black-100 border border-white/[0.1] transition-all duration-200 hover:shadow-emerald-500/[0.1]">
+        {/* Image Section */}
+        <div className="relative w-full h-52 md:h-64 lg:h-72 overflow-hidden rounded-t-[22px] bg-[#13162d]">
+          <Image
+            src="/bg.png"
+            alt="bg-img"
+            fill
+            className="object-cover opacity-20"
+          />
+          <motion.div
+            className="w-full h-full absolute top-0 left-0 z-10 p-5 flex items-center justify-center"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.3 }}
           >
             <Image
-              width={128}
-              height={128}
-              src="/bg.png"
-              alt="bgimg"
-              className="object-cover w-full h-full"
+              src={`/project/${img}`}
+              alt={title}
+              width={400}
+              height={300}
+              className="z-10 absolute bottom-0 rotate-2 rounded-t-xl w-[90%] shadow-2xl"
             />
-          </div>
-          <Image
-            width={1200}
-            height={1200}
-            src={`/project/${img}`}
-            alt={title}
-            className="absolute bottom-0 z-10 transition-transform duration-300 group-hover:scale-110"
-          />
+          </motion.div>
         </div>
 
-        <h1 className="text-sm font-bold transition-colors lg:text-xl md:text-lg line-clamp-1 group-hover:text-purple">
-          {title}
-        </h1>
+        {/* Content Section */}
+        <div className="relative p-6 w-full z-20 bg-black-100/50 backdrop-blur-sm flex flex-col justify-between flex-grow">
+          <div>
+            <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1 text-white">
+              {title}
+            </h1>
 
-        <p className="lg:text-lg lg:font-normal line-clamp-3 text-xs font-light text-[#BEC1DD] my-2">
-          {des}
-        </p>
-
-        <div className="flex items-center justify-between mb-3 mt-5">
-          <div className="flex items-center">
-            {iconLists.map((icon: string, index: number) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.1 }}
-                className="border border-white/[.2] rounded-full bg-black lg:w-9 lg:h-9 w-7 h-7 flex justify-center items-center transition-colors"
-                style={{ transform: `translateX(-${4 * index + 2}px)` }}
-              >
-                <Image
-                  width={128}
-                  height={128}
-                  src={`/logo/${icon}`}
-                  alt="icon"
-                  className="p-1.5"
-                />
-              </motion.div>
-            ))}
-          </div>
-
-          {/* <motion.div
-            className="flex items-center justify-center transition-colors cursor-pointer hover:text-purple"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleGithubClick}
-          >
-            <p className="flex text-xs lg:text-lg md:text-xs text-purple">
-              View on
+            <p className="lg:text-lg lg:font-normal font-light text-sm line-clamp-1 text-[#BEC1DD] mt-2">
+              {des}
             </p>
-            <BsGithub className="ms-2" color="#CBACF9" />
-          </motion.div> */}
+          </div>
+
+          <div className="flex items-center justify-between mt-7 mb-3">
+            <div className="flex items-center">
+              {iconLists.map((icon, index) => (
+                <div
+                  key={icon}
+                  className="border border-white/[0.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
+                  style={{
+                    transform: `translateX(-${5 * index * 2}px)`,
+                  }}
+                >
+                  <Image
+                    src={`/logo/${icon}`}
+                    alt={icon}
+                    width={24}
+                    height={24}
+                    className="p-0.5"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </PinContainer>
-    </motion.div>
+      </div>
+    </div>
   );
 };
 
