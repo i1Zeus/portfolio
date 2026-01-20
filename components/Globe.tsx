@@ -1,10 +1,12 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
-import { Color, Scene, Fog, PerspectiveCamera, Vector3 } from "three";
-import ThreeGlobe from "three-globe";
-import { useThree, Object3DNode, Canvas, extend } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
 import countries from "@/data/globe.json";
+import { OrbitControls } from "@react-three/drei";
+import { Canvas, extend, Object3DNode, useThree } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
+import { Color, Fog, PerspectiveCamera, Scene, Vector3 } from "three";
+import ThreeGlobe from "three-globe";
+
+extend({ ThreeGlobe });
 
 declare module "@react-three/fiber" {
   interface ThreeElements {
@@ -73,13 +75,6 @@ export function Globe({ globeConfig, data }: WorldProps) {
 
   const globeRef = useRef<ThreeGlobe | null>(null);
 
-  // Only extend ThreeGlobe on client side
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      extend({ ThreeGlobe });
-    }
-  }, []);
-
   const defaultProps = {
     pointSize: 1,
     atmosphereColor: "#ffffff",
@@ -147,9 +142,9 @@ export function Globe({ globeConfig, data }: WorldProps) {
       (v, i, a) =>
         a.findIndex((v2) =>
           ["lat", "lng"].every(
-            (k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"]
-          )
-        ) === i
+            (k) => v2[k as "lat" | "lng"] === v[k as "lat" | "lng"],
+          ),
+        ) === i,
     );
 
     setGlobeData(filteredPoints);
@@ -206,7 +201,7 @@ export function Globe({ globeConfig, data }: WorldProps) {
       .ringMaxRadius(defaultProps.maxRings)
       .ringPropagationSpeed(RING_PROPAGATION_SPEED)
       .ringRepeatPeriod(
-        (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings
+        (defaultProps.arcTime * defaultProps.arcLength) / defaultProps.rings,
       );
   };
 
@@ -218,11 +213,11 @@ export function Globe({ globeConfig, data }: WorldProps) {
       numbersOfRings = genRandomNumbers(
         0,
         data.length,
-        Math.floor((data.length * 4) / 5)
+        Math.floor((data.length * 4) / 5),
       );
 
       globeRef.current.ringsData(
-        globeData.filter((d, i) => numbersOfRings.includes(i))
+        globeData.filter((d, i) => numbersOfRings.includes(i)),
       );
     }, 2000);
 
