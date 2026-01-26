@@ -96,6 +96,14 @@ export const gridItems = [
 export const projects = [
   {
     id: 1,
+    title: "NexoGroup",
+    des: "NexoGroup - E-commerce platform for selling electronics products. including pc parts and other, it's has all the modern features and security. fully responsive and mobile first. designed by me. built from the ground up where user comes first.",
+    img: "nexogroup.png",
+    iconLists: ["next.svg", "tail.svg", "ts.svg", "p.svg"],
+    link: "https://www.nexogroup.store/en",
+  },
+  {
+    id: 2,
     title: "Taeen Platform",
     des: "Taeen تعيين - Iraq's Fastest Growing Recruitment Platform. Developed a modern recruitment platform connecting job seekers with opportunities across Iraq.",
     img: "dc.svg",
@@ -103,7 +111,7 @@ export const projects = [
     link: "https://taeen.iq",
   },
   {
-    id: 2,
+    id: 3,
     title: "Estore | Iraq's Leading E-commerce Platform",
     des: "Contributed to both web and mobile app development, enhancing user experience and implementing new features for Iraq's leading e-commerce platform.",
     img: "nc.svg",
@@ -111,23 +119,23 @@ export const projects = [
     link: "https://www.estore.iq/",
   },
   {
-    id: 3,
+    id: 4,
     title: "Hoster | Web Hosting Platform",
     des: "Developed web and mobile app versions to deliver a seamless hosting management experience for developers. Implemented responsive design patterns and cross-platform functionality.",
     img: "qg.svg",
     iconLists: ["next.svg", "tail.svg", "ts.svg"],
-    link: "https://www.hoster.iq",
+    // link: "https://www.hoster.iq",
   },
   {
-    id: 4,
+    id: 5,
     title: "DevHouse Work Platform",
     des: "Contributed to the frontend and backend of a work management platform, building responsive UI components and integrating APIs. Focused on performance optimization and user experience improvements.",
     img: "ea.svg",
     iconLists: ["next.svg", "tail.svg", "ts.svg"],
-    link: "https://work.dev-house.com",
+    // link: "https://work.dev-house.com",
   },
   {
-    id: 5,
+    id: 6,
     title: "Abdulkareem for Charity",
     des: "A charity website created by a set of collage developers including myself, to help rising money for a charity event, any other event like environment, animals, etc.",
     img: "ak.svg",
@@ -135,12 +143,12 @@ export const projects = [
     link: "https://github.com/Gruce/abdulkareem-for-charity",
   },
   {
-    id: 6,
+    id: 7,
     title: "DevHouse | Company Website",
     des: "Developed a company website using React.js, TailwindCSS, and TypeScript, ensuring a responsive and user-friendly design. Implemented a modern and intuitive user interface with smooth navigation and interactive elements.",
     img: "es.svg",
     iconLists: ["re.svg", "tail.svg", "ts.svg"],
-    link: "https://www.dev-house.com",
+    // link: "https://www.dev-house.com",
   },
 ];
 

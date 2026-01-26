@@ -37,13 +37,16 @@ const ProjectDetails = ({ params }: { params: { id: string } }) => {
 
         <div className="relative w-full aspect-video rounded-3xl overflow-hidden border border-white/[0.1] shadow-2xl mb-10 bg-[#13162d]">
           <Image
+            unoptimized
             src="/bg.png"
             alt="bg-img"
-            fill
-            className="object-cover opacity-20"
+            width={300}
+            height={500}
+            className="object-contain opacity-20"
           />
           <div className="absolute inset-0 flex items-center justify-center p-4">
             <Image
+              unoptimized
               src={`/project/${project.img}`}
               alt={project.title}
               width={800}

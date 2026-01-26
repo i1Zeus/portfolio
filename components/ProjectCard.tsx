@@ -36,6 +36,7 @@ const ProjectCard = ({
         {/* Image Section */}
         <div className="relative w-full h-52 md:h-64 lg:h-72 overflow-hidden rounded-t-[22px] bg-[#13162d]">
           <Image
+            unoptimized
             src="/bg.png"
             alt="bg-img"
             fill
@@ -47,6 +48,7 @@ const ProjectCard = ({
             transition={{ duration: 0.3 }}
           >
             <Image
+              unoptimized
               src={`/project/${img}`}
               alt={title}
               width={400}
