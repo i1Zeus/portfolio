@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 
-const inter = Inter({ subsets: ["latin"] });
+import dynamic from "next/dynamic";
+
+const TerminalOverlay = dynamic(() => import("@/components/TerminalOverlay"), {
+  ssr: false,
+});
 
 export const metadata: Metadata = {
   title: "Hussein's Portfolio",
@@ -18,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -26,6 +29,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <TerminalOverlay />
         </ThemeProvider>
       </body>
     </html>

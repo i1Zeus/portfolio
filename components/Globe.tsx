@@ -3,8 +3,31 @@ import countries from "@/data/globe.json";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas, extend, Object3DNode, useThree } from "@react-three/fiber";
 import { useEffect, useRef, useState } from "react";
-import { Color, Fog, PerspectiveCamera, Scene, Vector3 } from "three";
+import { Color, Fog, PerspectiveCamera, Scene, Vector3, BufferGeometry } from "three";
 import ThreeGlobe from "three-globe";
+
+// Suppress Three.js BufferGeometry computeBoundingSphere NaN warnings globally
+if (typeof window !== "undefined") {
+  const originalCompute = BufferGeometry.prototype.computeBoundingSphere;
+  BufferGeometry.prototype.computeBoundingSphere = function () {
+    const oldError = console.error;
+    console.error = function (...args) {
+      if (
+        args[0] &&
+        typeof args[0] === "string" &&
+        args[0].includes("THREE.BufferGeometry.computeBoundingSphere()")
+      ) {
+        return;
+      }
+      oldError.apply(console, args);
+    };
+    try {
+      originalCompute.call(this);
+    } finally {
+      console.error = oldError;
+    }
+  };
+}
 
 extend({ ThreeGlobe });
 

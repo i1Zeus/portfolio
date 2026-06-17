@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaLocationArrow } from "react-icons/fa6";
 import ProjectGallery from "@/components/ProjectGallery";
+import ArchitectureDiagram from "@/components/ArchitectureDiagram";
 
 const ProjectDetails = ({ params }: { params: { id: string } }) => {
   const project = projects.find((p) => p.id === Number(params.id));
@@ -106,6 +107,9 @@ const ProjectDetails = ({ params }: { params: { id: string } }) => {
             )}
           </div>
         </div>
+
+        {/* Project Architecture */}
+        <ArchitectureDiagram architecture={project.architecture} />
 
         {/* Project Gallery Bento Grid */}
         <ProjectGallery images={project.images || []} />
