@@ -4,6 +4,7 @@ import { projects } from "@/data";
 import Image from "next/image";
 import Link from "next/link";
 import { FaLocationArrow } from "react-icons/fa6";
+import ProjectGallery from "@/components/ProjectGallery";
 
 const ProjectDetails = ({ params }: { params: { id: string } }) => {
   const project = projects.find((p) => p.id === Number(params.id));
@@ -23,7 +24,7 @@ const ProjectDetails = ({ params }: { params: { id: string } }) => {
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black-100 bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
       </div>
 
-      <div className="max-w-4xl w-full z-10">
+      <div className="max-w-6xl w-full z-10">
         <Link
           href="/#projects"
           className="text-purple hover:underline mb-8 inline-block select-none"
@@ -105,9 +106,13 @@ const ProjectDetails = ({ params }: { params: { id: string } }) => {
             )}
           </div>
         </div>
+
+        {/* Project Gallery Bento Grid */}
+        <ProjectGallery images={project.images || []} />
       </div>
     </div>
   );
 };
 
 export default ProjectDetails;
+

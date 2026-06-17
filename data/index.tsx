@@ -95,12 +95,34 @@ export const gridItems = [
 
 export const projects = [
   {
+    id: 0,
+    title: "iZeus-ERP",
+    des: "Independently designed, developed, and deployed a full-stack Enterprise Resource Planning (ERP) system from the ground up, integrating core business operations into a centralized platform that was successfully sold and implemented for clients.Architected scalable frontend and backend solutions to support business process automation and efficient data management.Collaborated directly with clients to gather requirements, customize workflows, and deliver solutions aligned with operational needs.",
+    img: "izeus-erp.png",
+    iconLists: ["re.svg", "tail.svg", "ts.svg", "p.svg"],
+    link: "",
+    images: [
+      "/project/erp/1.png",
+      "/project/erp/2.png",
+      "/project/erp/3.png",
+      "/project/erp/4.png",
+      "/project/erp/5.png",
+      "/project/erp/6.png",
+    ],
+  },
+  {
     id: 1,
     title: "NexoGroup",
     des: "NexoGroup - E-commerce platform for selling electronics products. including pc parts and other, it's has all the modern features and security. fully responsive and mobile first. designed by me. built from the ground up where user comes first.",
     img: "nexogroup.png",
     iconLists: ["next.svg", "tail.svg", "ts.svg", "p.svg"],
     link: "https://www.nexogroup.store/en",
+    images: [
+      "/project/nc/1.png",
+      "/project/nc/2.png",
+      "/project/nc/3.png",
+      "/project/nc/4.png",
+    ],
   },
   {
     id: 2,
@@ -109,6 +131,15 @@ export const projects = [
     img: "dc.svg",
     iconLists: ["re.svg", "tail.svg", "ts.svg"],
     link: "https://taeen.iq",
+    images: [
+      "/project/taeen/1.png",
+      "/project/taeen/2.png",
+      "/project/taeen/3.png",
+      "/project/taeen/4.png",
+      "/project/taeen/5.png",
+      "/project/taeen/6.png",
+      "/project/taeen/7.png",
+    ],
   },
   {
     id: 3,
@@ -128,27 +159,11 @@ export const projects = [
   },
   {
     id: 5,
-    title: "DevHouse Work Platform",
-    des: "Contributed to the frontend and backend of a work management platform, building responsive UI components and integrating APIs. Focused on performance optimization and user experience improvements.",
-    img: "ea.svg",
-    iconLists: ["next.svg", "tail.svg", "ts.svg"],
-    // link: "https://work.dev-house.com",
-  },
-  {
-    id: 6,
     title: "Abdulkareem for Charity",
     des: "A charity website created by a set of collage developers including myself, to help rising money for a charity event, any other event like environment, animals, etc.",
     img: "ak.svg",
     iconLists: ["laravel.svg", "tail.svg", "php.svg", "mySql.svg", "boot.svg"],
     link: "https://github.com/Gruce/abdulkareem-for-charity",
-  },
-  {
-    id: 7,
-    title: "DevHouse | Company Website",
-    des: "Developed a company website using React.js, TailwindCSS, and TypeScript, ensuring a responsive and user-friendly design. Implemented a modern and intuitive user interface with smooth navigation and interactive elements.",
-    img: "es.svg",
-    iconLists: ["re.svg", "tail.svg", "ts.svg"],
-    // link: "https://www.dev-house.com",
   },
 ];
 
