@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { projects } from "@/data";
-import { locales, Locale, defaultLocale } from "@/data/locales";
+import { locales, Locale, defaultLocale, siteUrl } from "@/data/locales";
 import { getDictionary } from "@/data/dictionaries";
 import ProjectDetailsClient from "@/components/ProjectDetailsClient";
 
@@ -30,8 +30,7 @@ export async function generateMetadata({
   const safeLocale: Locale = params.locale === "ar" ? "ar" : defaultLocale;
   const dict = getDictionary(safeLocale);
   const project = projects.find((p) => p.id === Number(params.id));
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://husseinnajah.com";
+  const baseUrl = siteUrl;
 
   if (!project) {
     return {

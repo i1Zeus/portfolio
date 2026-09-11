@@ -51,7 +51,8 @@ export function middleware(request: NextRequest) {
     pathname.includes(".") ||
     pathname === "/favicon.ico" ||
     pathname === "/robots.txt" ||
-    pathname === "/sitemap.xml"
+    pathname === "/sitemap.xml" ||
+    pathname === "/sitemap"
   ) {
     return NextResponse.next();
   }

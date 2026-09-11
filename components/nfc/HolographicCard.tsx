@@ -35,7 +35,7 @@ export default function HolographicCard() {
     const currentUrl =
       typeof window !== "undefined"
         ? window.location.href
-        : "https://husseinnajah.com/qr";
+        : "https://www.hussein-najah.com/qr";
 
     QRCode.toDataURL(currentUrl, {
       width: 260,

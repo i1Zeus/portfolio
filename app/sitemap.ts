@@ -1,9 +1,8 @@
 import { MetadataRoute } from "next";
 import { projects } from "@/data";
-import { locales } from "@/data/locales";
+import { locales, siteUrl } from "@/data/locales";
 
-const baseUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://husseinnajah.com";
+const baseUrl = siteUrl;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes: MetadataRoute.Sitemap = [];

@@ -138,9 +138,9 @@ export default function LocalizedQrPage() {
     // {
     //   id: "portfolio",
     //   name: dict.socialProfile.links.portfolio.name,
-    //   handle: "husseinnajah.com",
+    //   handle: "hussein-najah.com",
     //   url: `/${locale}`,
-    //   copyValue: `https://husseinnajah.com/${locale}`,
+    //   copyValue: `https://www.hussein-najah.com/${locale}`,
     //   icon: <FaGlobe />,
     //   gradient: "bg-gradient-to-br from-purple to-indigo-900",
     //   accentColor: "#CBACF9",
@@ -153,7 +153,7 @@ export default function LocalizedQrPage() {
       handle:
         locale === "ar" ? "تحميل السيرة الذاتية PDF" : "Download PDF Resume",
       url: "/hussein-najah-cv.pdf",
-      copyValue: "https://husseinnajah.com/hussein-najah-cv.pdf",
+      copyValue: "https://www.hussein-najah.com/hussein-najah-cv.pdf",
       icon: <FaFilePdf />,
       gradient: "bg-gradient-to-br from-rose-700 to-red-900",
       accentColor: "#e11d48",

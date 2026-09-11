@@ -20,7 +20,7 @@ export const defaultProfileData: VCardData = {
   title: "Software Engineer",
   organization: "Independent / Dev",
   email: "husseinnajah.it@gmail.com",
-  website: "https://husseinnajah.com",
+  website: "https://www.hussein-najah.com",
   linkedin: "https://www.linkedin.com/in/i1zeus",
   github: "https://github.com/i1Zeus",
   x: "https://x.com/i1Zeus",

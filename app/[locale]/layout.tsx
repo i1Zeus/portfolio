@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import "../globals.css";
 import { ThemeProvider } from "../provider";
 import { LocaleProvider } from "@/components/LocaleContext";
-import { Locale, defaultLocale, locales, localeDetails } from "@/data/locales";
+import { Locale, defaultLocale, locales, localeDetails, siteUrl } from "@/data/locales";
 import { getDictionary } from "@/data/dictionaries";
 
 const TerminalOverlay = dynamic(() => import("@/components/TerminalOverlay"), {
@@ -37,8 +37,7 @@ export async function generateMetadata({
   const safeLocale: Locale = params.locale === "ar" ? "ar" : defaultLocale;
   const dict = getDictionary(safeLocale);
   const isArabic = safeLocale === "ar";
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://husseinnajah.com";
+  const baseUrl = siteUrl;
 
   return {
     metadataBase: new URL(baseUrl),
@@ -48,7 +47,7 @@ export async function generateMetadata({
     },
     description: dict.meta.description,
     keywords: dict.meta.keywords,
-    authors: [{ name: "Hussein Najah", url: "https://husseinnajah.com" }],
+    authors: [{ name: "Hussein Najah", url: baseUrl }],
     creator: "Hussein Najah",
     alternates: {
       canonical: `/${safeLocale}`,
@@ -105,8 +104,7 @@ export default function RootLocaleLayout({
   const safeLocale: Locale = params.locale === "ar" ? "ar" : defaultLocale;
   const dir = localeDetails[safeLocale].dir;
   const dict = getDictionary(safeLocale);
-  const baseUrl =
-    process.env.NEXT_PUBLIC_SITE_URL || "https://husseinnajah.com";
+  const baseUrl = siteUrl;
 
   const jsonLd = {
     "@context": "https://schema.org",

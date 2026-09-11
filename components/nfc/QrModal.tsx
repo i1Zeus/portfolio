@@ -17,7 +17,7 @@ interface QrModalProps {
 export default function QrModal({ isOpen, onClose }: QrModalProps) {
   const [qrUrl, setQrUrl] = useState<string>("");
   const [copied, setCopied] = useState(false);
-  const [pageUrl, setPageUrl] = useState("https://husseinnajah.com/qr");
+  const [pageUrl, setPageUrl] = useState("https://www.hussein-najah.com/qr");
   const { dict } = useLocale();
 
   useEffect(() => {

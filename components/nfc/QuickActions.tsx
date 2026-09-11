@@ -45,7 +45,7 @@ export default function QuickActions({ onOpenQr }: QuickActionsProps) {
       title: dict.socialProfile.cardRole,
       organization: "Software Engineer",
       email: "husseinnajah.it@gmail.com",
-      website: `https://husseinnajah.com/${locale}`,
+      website: `https://www.hussein-najah.com/${locale}`,
       linkedin: "https://www.linkedin.com/in/i1zeus",
       github: "https://github.com/i1Zeus",
       x: "https://x.com/i1Zeus",
@@ -69,7 +69,7 @@ export default function QuickActions({ onOpenQr }: QuickActionsProps) {
       url:
         typeof window !== "undefined"
           ? window.location.href
-          : `https://husseinnajah.com/${locale}/qr`,
+          : `https://www.hussein-najah.com/${locale}/qr`,
     };
 
     if (navigator.share) {

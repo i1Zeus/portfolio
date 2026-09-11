@@ -1,5 +1,8 @@
 export type Locale = "en" | "ar";
 
+export const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.hussein-najah.com";
+
 export const defaultLocale: Locale = "en";
 export const locales: Locale[] = ["en", "ar"];
 
