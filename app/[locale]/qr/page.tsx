@@ -205,10 +205,10 @@ export default function LocalizedQrPage() {
           </Link>
 
           {/* Center NFC Status Pill */}
-          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono bg-purple/10 border border-purple/20 text-purple/90 backdrop-blur-md">
+          {/* <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono bg-purple/10 border border-purple/20 text-purple/90 backdrop-blur-md">
             <MdNfc className="text-sm animate-pulse text-purple" />
             <span>{dict.socialProfile.nfcCardActive}</span>
-          </div>
+          </div> */}
 
           <div className="flex items-center gap-2">
             <LanguageSwitcher />
