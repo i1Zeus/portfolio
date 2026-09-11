@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useLocale } from "./LocaleContext";
 
 export interface ProjectCardProps {
   id: number;
@@ -19,12 +20,12 @@ const ProjectCard = ({
   des,
   iconLists,
   img,
-  link,
 }: ProjectCardProps) => {
   const router = useRouter();
+  const { locale, dir } = useLocale();
 
   const handleCardClick = () => {
-    router.push(`/project/${id}`);
+    router.push(`/${locale}/project/${id}`);
   };
 
   return (
@@ -59,13 +60,13 @@ const ProjectCard = ({
         </div>
 
         {/* Content Section */}
-        <div className="relative p-6 w-full z-20 bg-black-100/50 backdrop-blur-sm flex flex-col justify-between flex-grow">
+        <div className="relative p-6 w-full z-20 bg-black-100/50 backdrop-blur-sm flex flex-col justify-between flex-grow text-start">
           <div>
             <h1 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1 text-white">
               {title}
             </h1>
 
-            <p className="lg:text-lg lg:font-normal font-light text-sm line-clamp-1 text-[#BEC1DD] mt-2">
+            <p className="lg:text-lg lg:font-normal font-light text-sm line-clamp-2 text-[#BEC1DD] mt-2 leading-relaxed">
               {des}
             </p>
           </div>
@@ -77,7 +78,10 @@ const ProjectCard = ({
                   key={icon}
                   className="border border-white/[0.2] rounded-full bg-black lg:w-10 lg:h-10 w-8 h-8 flex justify-center items-center"
                   style={{
-                    transform: `translateX(-${5 * index * 2}px)`,
+                    transform:
+                      dir === "rtl"
+                        ? `translateX(${5 * index * 2}px)`
+                        : `translateX(-${5 * index * 2}px)`,
                   }}
                 >
                   <Image

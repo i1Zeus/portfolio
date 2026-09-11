@@ -1,6 +1,9 @@
-import { companies, testimonials } from "@/data";
+"use client";
+
+import { companies } from "@/data";
 import Image from "next/image";
 import dynamic from "next/dynamic";
+import { useLocale } from "./LocaleContext";
 
 const InfiniteMovingCards = dynamic(
   () => import("./ui/InfiniteMovingCards").then((m) => m.InfiniteMovingCards),
@@ -10,16 +13,20 @@ const InfiniteMovingCards = dynamic(
 );
 
 const Clients = () => {
+  const { dict, dir } = useLocale();
+
   return (
     <div className="py-20" id="testimonials">
       <h1 className="heading">
-        Kind Words From <span className="text-purple">People</span>
+        {dict.clients.headingPrefix}{" "}
+        <span className="text-purple">{dict.clients.headingHighlight}</span>
       </h1>
       <div className="flex flex-col items-center">
-        <div className="h-[50vh] md:h-[30rem] rounded-md flex flex-col antialiased  items-center justify-center relative overflow-hidden">
+        <div className="h-[50vh] md:h-[30rem] rounded-md flex flex-col antialiased items-center justify-center relative overflow-hidden">
           <InfiniteMovingCards
-            items={testimonials}
-            direction="right"
+            key={dir}
+            items={dict.clients.items}
+            direction={dir === "rtl" ? "left" : "right"}
             speed="slow"
           />
           <div className="md:gap-16 max-lg: flex flex-wrap items-center justify-center gap-4 mt-10">

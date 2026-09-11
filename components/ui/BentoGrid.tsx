@@ -6,6 +6,7 @@ import { IoCheckmarkDone, IoCopy } from "react-icons/io5";
 import dynamic from "next/dynamic";
 
 import { cn } from "@/utils/cn";
+import { useLocale } from "../LocaleContext";
 
 import animationData from "@/data/confetti.json";
 import Image from "next/image";
@@ -61,6 +62,7 @@ export const BentoGridItem = ({
   const rightLists = ["VueJS", "NuxtJS", "ReactJS"];
 
   const [copied, setCopied] = useState(false);
+  const { dict } = useLocale();
 
   const handleCopy = () => {
     const text = "husseinnajah.it@gmail.com";
@@ -180,7 +182,7 @@ export const BentoGridItem = ({
               </div>
 
               <MagicButton
-                title={copied ? "Email Copied!" : "Copy Email"}
+                title={copied ? dict.bento.emailCopied : dict.bento.copyEmail}
                 icon={copied ? <IoCheckmarkDone /> : <IoCopy />}
                 position="left"
                 handleClick={handleCopy}

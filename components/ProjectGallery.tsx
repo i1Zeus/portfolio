@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaEye } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
+import { useLocale } from "./LocaleContext";
 
 interface ProjectGalleryProps {
   images: string[];
@@ -91,6 +92,7 @@ const getGridSpans = (count: number) => {
 };
 
 export default function ProjectGallery({ images }: ProjectGalleryProps) {
+  const { dict, dir } = useLocale();
   const [shuffledImages, setShuffledImages] = useState<
     { src: string; span: string }[]
   >([]);
@@ -149,10 +151,10 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
   return (
     <div className="w-full mt-20">
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-2">
-        Project <span className="text-purple">Gallery</span>
+        {dict.projects.galleryTitle}
       </h2>
       <p className="text-center text-white-200 text-sm md:text-base font-light mb-10">
-        Interact with the bento layout to view full screenshots and details
+        {dict.projects.gallerySubtitle}
       </p>
 
       {/* Bento Grid */}
@@ -187,7 +189,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
                   <FaEye size={24} />
                 </motion.div>
                 <span className="text-white font-medium mt-3 text-sm tracking-wide">
-                  View Screenshot
+                  {dict.projects.viewFullImage}
                 </span>
               </div>
             </div>
@@ -208,8 +210,9 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
             {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-5 right-5 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200"
-              aria-label="Close Lightbox"
+              className="absolute top-5 end-5 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200 cursor-pointer"
+              aria-label={dict.projects.lightboxClose}
+              title={dict.projects.lightboxClose}
             >
               <IoClose size={24} />
             </button>
@@ -220,10 +223,11 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
                 e.stopPropagation();
                 navigateLightbox("prev");
               }}
-              className="absolute left-5 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200"
-              aria-label="Previous Image"
+              className="absolute start-5 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200 cursor-pointer"
+              aria-label={dict.projects.lightboxPrev}
+              title={dict.projects.lightboxPrev}
             >
-              <FaArrowLeft size={20} />
+              <FaArrowLeft size={20} className={dir === "rtl" ? "rotate-180" : ""} />
             </button>
 
             {/* Next Button */}
@@ -232,10 +236,11 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
                 e.stopPropagation();
                 navigateLightbox("next");
               }}
-              className="absolute right-5 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200"
-              aria-label="Next Image"
+              className="absolute end-5 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200 cursor-pointer"
+              aria-label={dict.projects.lightboxNext}
+              title={dict.projects.lightboxNext}
             >
-              <FaArrowRight size={20} />
+              <FaArrowRight size={20} className={dir === "rtl" ? "rotate-180" : ""} />
             </button>
 
             {/* Main Lightbox Content */}

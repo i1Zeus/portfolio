@@ -26,6 +26,10 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-inter)", "Inter", "sans-serif"],
+        cairo: ["var(--font-cairo)", "Cairo", "sans-serif"],
+      },
       colors: {
         black: {
           DEFAULT: "#000",

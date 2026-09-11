@@ -1,6 +1,9 @@
+"use client";
+
 import dynamic from "next/dynamic";
 import { FaDownload, FaLocationArrow } from "react-icons/fa";
 import MagicButton from "./MagicButton";
+import { useLocale } from "./LocaleContext";
 
 const Spotlight = dynamic(
   () => import("./ui/Spotlight").then((m) => m.Spotlight),
@@ -17,6 +20,9 @@ const TextGenerateEffect = dynamic(
 );
 
 const Hero = () => {
+  const { dict, dir } = useLocale();
+  const isRtl = dir === "rtl";
+
   return (
     <div className="pt-36 pb-20">
       {/* Spotlights */}
@@ -40,29 +46,34 @@ const Hero = () => {
       </div>
 
       <div className="relative z-10 flex justify-center my-20">
-        <div className="max-w--[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
-          <h2 className="max-w-80 text-xs tracking-widest text-center text-blue-100 uppercase">
-            Iraqi&apos;s web magic next.js
+        <div className="max-w-[89vw] md:max-w-2xl lg:max-w-[60vw] flex flex-col items-center justify-center">
+          <h2 className="max-w-96 text-xs tracking-widest text-center text-blue-100 uppercase">
+            {dict.hero.tagline}
           </h2>
           <TextGenerateEffect
-            className="text-center text-[40px] md:text-5xl lg:text-6xl"
-            words="Transforming Ideas into Seamless Reality"
+            key={dict.hero.title}
+            className="text-center text-[36px] md:text-5xl lg:text-6xl"
+            words={dict.hero.title}
           />
-          <p className="md:text-lg lg:text-2xl text-[40px] md:tracking-wider mb-4 text-sm text-center capitalize">
-            Hi I&apos;m Hussein, a Software Engineer Based in Iraq.
+          <p className="md:text-lg lg:text-2xl text-[16px] md:tracking-wider mb-4 text-center">
+            {dict.hero.description}
           </p>
-          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 mt-4">
             <a href="#about">
               <MagicButton
-                title="Show my work"
-                position="right"
-                icon={<FaLocationArrow />}
+                title={dict.hero.showWork}
+                position={isRtl ? "left" : "right"}
+                icon={
+                  <FaLocationArrow
+                    className={isRtl ? "-scale-x-100" : ""}
+                  />
+                }
               />
             </a>
             <a href="/hussein-najah-cv.pdf" download>
               <MagicButton
-                title="Download CV"
-                position="right"
+                title={dict.hero.downloadCv}
+                position={isRtl ? "left" : "right"}
                 icon={<FaDownload />}
               />
             </a>

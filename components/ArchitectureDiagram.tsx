@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { BiCloud, BiDesktop, BiServer } from "react-icons/bi";
 import { FaDatabase } from "react-icons/fa6";
+import { useLocale } from "./LocaleContext";
 
 interface NodeData {
   id: string;
@@ -38,6 +39,7 @@ interface ConnectionCoord {
 export default function ArchitectureDiagram({
   architecture,
 }: ArchitectureDiagramProps) {
+  const { dict, locale } = useLocale();
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [selectedNode, setSelectedNode] = useState<NodeData | null>(null);
   const [connections, setConnections] = useState<ConnectionCoord[]>([]);
@@ -152,10 +154,10 @@ export default function ArchitectureDiagram({
   return (
     <div className="w-full mt-24">
       <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-2">
-        System <span className="text-purple">Architecture</span>
+        {dict.projects.architectureTitle}
       </h2>
       <p className="text-center text-white-200 text-sm md:text-base font-light mb-12">
-        Explore interactive system flows, components, and communication layers
+        {dict.projects.architectureSubtitle}
       </p>
 
       <div
@@ -223,7 +225,7 @@ export default function ArchitectureDiagram({
           {/* Column 1: Client/Frontend Layer */}
           <div className="flex flex-col gap-6">
             <div className="text-xs uppercase tracking-wider text-indigo-400 font-bold border-b border-indigo-950/40 pb-2 mb-2 select-none flex items-center gap-2">
-              <BiDesktop /> Presentation / Client
+              <BiDesktop /> {dict.projects.clientLayer}
             </div>
             {frontendNodes.map((node) => (
               <div
@@ -250,7 +252,7 @@ export default function ArchitectureDiagram({
                       {node.label}
                     </h3>
                     <span className="text-[10px] text-zinc-500 uppercase mt-0.5 block tracking-wider">
-                      Client-side UI
+                      {dict.projects.clientUi}
                     </span>
                   </div>
                 </div>
@@ -261,7 +263,7 @@ export default function ArchitectureDiagram({
           {/* Column 2: Server/Backend Layer */}
           <div className="flex flex-col gap-6 justify-center">
             <div className="text-xs uppercase tracking-wider text-purple-400 font-bold border-b border-purple-950/40 pb-2 mb-2 select-none flex items-center gap-2">
-              <BiServer /> Application Services
+              <BiServer /> {dict.projects.serverLayer}
             </div>
             {backendNodes.map((node) => (
               <div
@@ -288,7 +290,7 @@ export default function ArchitectureDiagram({
                       {node.label}
                     </h3>
                     <span className="text-[10px] text-zinc-500 uppercase mt-0.5 block tracking-wider">
-                      Server API logic
+                      {dict.projects.serverApi}
                     </span>
                   </div>
                 </div>
@@ -299,7 +301,7 @@ export default function ArchitectureDiagram({
           {/* Column 3: Data & Integrations Layer */}
           <div className="flex flex-col gap-6">
             <div className="text-xs uppercase tracking-wider text-emerald-400 font-bold border-b border-emerald-950/40 pb-2 mb-2 select-none flex items-center gap-2">
-              <FaDatabase /> Storage & Integration
+              <FaDatabase /> {dict.projects.storageLayer}
             </div>
             {dataNodes.map((node) => (
               <div
@@ -332,7 +334,7 @@ export default function ArchitectureDiagram({
                       {node.label}
                     </h3>
                     <span className="text-[10px] text-zinc-500 uppercase mt-0.5 block tracking-wider">
-                      {node.type === "database" ? "Data Store" : "External API"}
+                      {node.type === "database" ? dict.projects.dataStore : dict.projects.externalApi}
                     </span>
                   </div>
                 </div>
@@ -374,8 +376,7 @@ export default function ArchitectureDiagram({
             </motion.div>
           ) : (
             <div className="text-zinc-500 text-sm font-light italic flex items-center justify-center h-[80px]">
-              Hover or click on any system node to inspect architectural
-              specifications.
+              {dict.projects.architectureHint}
             </div>
           )}
         </div>

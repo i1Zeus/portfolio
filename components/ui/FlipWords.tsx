@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import React, { useEffect, useState, useMemo } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/utils/cn";
-let interval: any;
 
 export const FlipWords = ({
   words,
@@ -13,76 +12,89 @@ export const FlipWords = ({
   duration?: number;
   className?: string;
 }) => {
-  const [currentWord, setCurrentWord] = useState(words[0]);
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+
+  // Reset index when words array changes
+  useEffect(() => {
+    setCurrentWordIndex(0);
+  }, [words]);
 
   useEffect(() => {
-    startAnimation();
+    if (!words || words.length <= 1) return;
+
+    const intervalId = setInterval(() => {
+      setCurrentWordIndex((prev) => (prev + 1) % words.length);
+    }, duration);
 
     return () => {
-      clearInterval(interval);
+      clearInterval(intervalId);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [words, duration]);
 
-  const startAnimation = () => {
-    let i = 0;
-    interval = setInterval(() => {
-      i++;
-      if (i === words.length) {
-        i = 0;
-      }
-      const word = words[i];
-      setCurrentWord(word);
-    }, duration);
-  };
+  const currentWord = words[currentWordIndex] || words[0] || "";
+
+  // Check if current word contains Arabic characters
+  const isArabic = useMemo(() => /[\u0600-\u06FF]/.test(currentWord), [currentWord]);
 
   return (
-    <AnimatePresence>
-      <motion.div
+    <AnimatePresence mode="wait">
+      <motion.span
+        key={currentWord}
         initial={{
           opacity: 0,
           y: 10,
+          filter: "blur(4px)",
         }}
         animate={{
           opacity: 1,
           y: 0,
+          filter: "blur(0px)",
+        }}
+        exit={{
+          opacity: 0,
+          y: -20,
+          filter: "blur(4px)",
+          transition: { duration: 0.25 },
         }}
         transition={{
           duration: 0.4,
           ease: "easeInOut",
-          type: "spring",
-          stiffness: 100,
-          damping: 10,
-        }}
-        exit={{
-          opacity: 0,
-          y: -40,
-          x: 40,
-          filter: "blur(3px)",
-          scale: 2,
-          position: "absolute",
         }}
         className={cn(
-          "z-10 inline-block relative text-center text-purple px-2",
+          "z-10 inline-block relative text-center text-purple px-1.5",
           className
         )}
-        key={currentWord}
       >
-        {currentWord.split("").map((letter, index) => (
-          <motion.span
-            key={currentWord + index}
-            initial={{ opacity: 0, y: 8, filter: "blur(3px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              delay: index * 0.08,
-              duration: 0.4,
-            }}
-            className="inline-block"
-          >
-            {letter}
-          </motion.span>
-        ))}
-      </motion.div>
+        {isArabic ? (
+          // In Arabic, letters must remain connected as a single text node
+          <span className="inline-block font-arabic">
+            {currentWord}
+          </span>
+        ) : (
+          // For Latin words, animate letter by letter without breaking word boundaries
+          currentWord.split(" ").map((word, wordIdx) => (
+            <span key={word + wordIdx} className="inline-block whitespace-nowrap">
+              {word.split("").map((letter, letterIdx) => (
+                <motion.span
+                  key={word + letterIdx}
+                  initial={{ opacity: 0, y: 8, filter: "blur(2px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{
+                    delay: (wordIdx * word.length + letterIdx) * 0.05,
+                    duration: 0.3,
+                  }}
+                  className="inline-block"
+                >
+                  {letter}
+                </motion.span>
+              ))}
+              {wordIdx < currentWord.split(" ").length - 1 && (
+                <span className="inline-block">&nbsp;</span>
+              )}
+            </span>
+          ))
+        )}
+      </motion.span>
     </AnimatePresence>
   );
 };

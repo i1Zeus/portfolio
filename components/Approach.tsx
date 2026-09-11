@@ -1,26 +1,35 @@
 "use client";
 
 import React from "react";
-
 import dynamic from "next/dynamic";
-
-const CanvasRevealEffect = dynamic(() => import("@/components/ui/CanvasRevealEffect").then((m) => m.CanvasRevealEffect), {
-  ssr: false,
-});
-
 import { AnimatePresence, motion } from "framer-motion";
+import { useLocale } from "./LocaleContext";
+
+const CanvasRevealEffect = dynamic(
+  () =>
+    import("@/components/ui/CanvasRevealEffect").then(
+      (m) => m.CanvasRevealEffect
+    ),
+  {
+    ssr: false,
+  }
+);
 
 const Approach = () => {
+  const { dict } = useLocale();
+  const phases = dict.approach.phases;
+
   return (
     <section className="w-full py-20">
       <h1 className="heading">
-        How I <span className="text-purple">Do Things</span>
+        {dict.approach.headingPrefix}{" "}
+        <span className="text-purple">{dict.approach.headingHighlight}</span>
       </h1>
       <div className="lg:flex-row flex flex-col items-center justify-center w-full gap-4 my-20">
         <Card
-          title="Planning & Strategy"
-          icon={<AceternityIcon order="Phase I" />}
-          description="We'll collaborate to map out your website's goals, target audience, and key functionalities. We'll discuss things like site structure, navigation, and content requirements."
+          title={phases[0].title}
+          icon={<AceternityIcon order={phases[0].order} />}
+          description={phases[0].description}
         >
           <CanvasRevealEffect
             animationSpeed={5.1}
@@ -28,9 +37,9 @@ const Approach = () => {
           />
         </Card>
         <Card
-          title="Development & Progress Update"
-          icon={<AceternityIcon order="Phase II" />}
-          description="Once we agree on the plan, I cue my lofi playlist and dive into coding. From initial sketches to polished code, I keep you updated every step of the way."
+          title={phases[1].title}
+          icon={<AceternityIcon order={phases[1].order} />}
+          description={phases[1].description}
         >
           <CanvasRevealEffect
             animationSpeed={3}
@@ -44,9 +53,9 @@ const Approach = () => {
           <div className="absolute inset-0 [mask-image:radial-gradient(400px_at_center,white,transparent)] bg-black/90" />
         </Card>
         <Card
-          title="Development & Launch"
-          icon={<AceternityIcon order="Phase III" />}
-          description="This is where the magic happens! Based on the approved design, I'll translate everything into functional code, building your website from the ground up."
+          title={phases[2].title}
+          icon={<AceternityIcon order={phases[2].order} />}
+          description={phases[2].description}
         >
           <CanvasRevealEffect
             animationSpeed={3}
@@ -75,7 +84,7 @@ const Card = ({
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="border group/canvas-card flex items-center justify-center border-white/[0.2]  max-w-sm w-full mx-auto p-4 relative lg:h-[35rem] rounded-3xl"
+      className="border group/canvas-card flex items-center justify-center border-white/[0.2] max-w-sm w-full mx-auto p-4 relative lg:h-[35rem] rounded-3xl"
       style={{
         background: "rgb(4,7,29)",
         backgroundColor:
@@ -107,7 +116,7 @@ const Card = ({
           {title}
         </h2>
         <p
-          className="group-hover/canvas-card:opacity-100 group-hover/canvas-card:text-white group-hover/canvas-card:-translate-y-2 relative z-10 mt-4 text-sm text-center transition duration-200 opacity-0"
+          className="group-hover/canvas-card:opacity-100 group-hover/canvas-card:text-white group-hover/canvas-card:-translate-y-2 relative z-10 mt-4 text-sm text-center transition duration-200 opacity-0 leading-relaxed"
           style={{ color: "#E4ECFF" }}
         >
           {description}
