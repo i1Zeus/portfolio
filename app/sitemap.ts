@@ -4,63 +4,39 @@ import { locales, siteUrl } from "@/data/locales";
 
 const baseUrl = siteUrl;
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const routes: MetadataRoute.Sitemap = [];
-
-  // Home Page entries
-  for (const locale of locales) {
-    routes.push({
-      url: `${baseUrl}/${locale}`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1.0,
-      alternates: {
-        languages: {
-          en: `${baseUrl}/en`,
-          ar: `${baseUrl}/ar`,
-          "x-default": `${baseUrl}/en`,
-        },
+/** One entry per locale, each listing every language version as an alternate. */
+const localized = (
+  path: string,
+  options: Omit<MetadataRoute.Sitemap[number], "url" | "alternates">,
+  images: (locale: string) => string[] = () => []
+): MetadataRoute.Sitemap =>
+  locales.map((locale) => ({
+    url: `${baseUrl}/${locale}${path}`,
+    alternates: {
+      languages: {
+        en: `${baseUrl}/en${path}`,
+        ar: `${baseUrl}/ar${path}`,
+        "x-default": `${baseUrl}/en${path}`,
       },
-    });
-  }
+    },
+    images: images(locale),
+    ...options,
+  }));
 
-  // Project pages entries
-  for (const project of projects) {
-    for (const locale of locales) {
-      routes.push({
-        url: `${baseUrl}/${locale}/project/${project.id}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.8,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/project/${project.id}`,
-            ar: `${baseUrl}/ar/project/${project.id}`,
-            "x-default": `${baseUrl}/en/project/${project.id}`,
-          },
-        },
-      });
-    }
-  }
+export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date();
 
-  // NFC & QR pages
-  for (const pageName of ["nfc", "qr"]) {
-    for (const locale of locales) {
-      routes.push({
-        url: `${baseUrl}/${locale}/${pageName}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.6,
-        alternates: {
-          languages: {
-            en: `${baseUrl}/en/${pageName}`,
-            ar: `${baseUrl}/ar/${pageName}`,
-            "x-default": `${baseUrl}/en/${pageName}`,
-          },
-        },
-      });
-    }
-  }
-
-  return routes;
+  return [
+    ...localized("", { lastModified, changeFrequency: "weekly", priority: 1 }, (locale) => [
+      `${baseUrl}/og/home-${locale}.jpg`,
+    ]),
+    ...projects.flatMap((project) =>
+      localized(`/project/${project.id}`, { lastModified, changeFrequency: "monthly", priority: 0.8 }, () => [
+        `${baseUrl}/project/${project.img}`,
+        ...(project.images ?? []).map((src) => `${baseUrl}${src}`),
+      ])
+    ),
+    // /qr renders the same card and declares /nfc as canonical, so only /nfc is listed.
+    ...localized("/nfc", { lastModified, changeFrequency: "monthly", priority: 0.5 }),
+  ];
 }

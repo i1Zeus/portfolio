@@ -68,6 +68,8 @@ export function downloadVCard(data: VCardData = defaultProfileData) {
 
 export function triggerHapticFeedback(pattern: number | number[] = [25, 40, 25]) {
   if (typeof window !== "undefined" && "navigator" in window && "vibrate" in navigator) {
+    // Browsers block (and log) vibration until the visitor has interacted with the page.
+    if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return;
     try {
       navigator.vibrate(pattern);
     } catch {

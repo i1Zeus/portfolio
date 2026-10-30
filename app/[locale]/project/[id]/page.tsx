@@ -1,15 +1,20 @@
 import { Metadata } from "next";
-import { projects } from "@/data";
-import { locales, Locale, defaultLocale, siteUrl } from "@/data/locales";
+import { projects, projectTags } from "@/data";
+import { locales, Locale, defaultLocale } from "@/data/locales";
 import { getDictionary } from "@/data/dictionaries";
+import { PERSON_ID, absoluteUrl, breadcrumbs, pageMetadata, snippet } from "@/data/seo";
+import JsonLd from "@/components/JsonLd";
 import ProjectDetailsClient from "@/components/ProjectDetailsClient";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: string;
     id: string;
-  };
+  }>;
 }
+
+// Only the generated project ids exist; unknown ids 404 instead of rendering on demand.
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const paths: { locale: string; id: string }[] = [];
@@ -24,57 +29,66 @@ export async function generateStaticParams() {
   return paths;
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const safeLocale: Locale = params.locale === "ar" ? "ar" : defaultLocale;
+const resolve = async (params: PageProps["params"]) => {
+  const { locale, id } = await params;
+  const safeLocale: Locale = locale === "ar" ? "ar" : defaultLocale;
   const dict = getDictionary(safeLocale);
-  const project = projects.find((p) => p.id === Number(params.id));
-  const baseUrl = siteUrl;
-
-  if (!project) {
-    return {
-      title: dict.projects.notFound,
-    };
-  }
-
-  const localized = dict.projects.items[project.id];
-  const title = localized?.title || project.title;
-  const des = localized?.des || project.des;
-
+  const project = projects.find((p) => p.id === Number(id));
+  const localized = project ? dict.projects.items[project.id] : undefined;
   return {
-    title: `${title} | Hussein Najah`,
-    description: des.slice(0, 160),
-    alternates: {
-      canonical: `${baseUrl}/${safeLocale}/project/${params.id}`,
-      languages: {
-        en: `${baseUrl}/en/project/${params.id}`,
-        ar: `${baseUrl}/ar/project/${params.id}`,
-        "x-default": `${baseUrl}/en/project/${params.id}`,
-      },
-    },
-    openGraph: {
-      title: `${title} | Hussein Najah`,
-      description: des.slice(0, 160),
-      url: `${baseUrl}/${safeLocale}/project/${params.id}`,
-      images: [
-        {
-          url: `/project/${project.img}`,
-          width: 800,
-          height: 500,
-          alt: title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${title} | Hussein Najah`,
-      description: des.slice(0, 160),
-      images: [`/project/${project.img}`],
-    },
+    id,
+    locale: safeLocale,
+    dict,
+    project,
+    title: localized?.title || project?.title || dict.projects.notFound,
+    description: snippet(localized?.des || project?.des || ""),
   };
+};
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id, locale, project, title, description } = await resolve(params);
+  if (!project) return { title };
+
+  return pageMetadata({
+    locale,
+    path: `/project/${id}`,
+    title,
+    description,
+    type: "article",
+    image: { url: `/og/project-${project.id}.jpg`, alt: title },
+  });
 }
 
-export default function ProjectPage({ params }: PageProps) {
-  return <ProjectDetailsClient id={params.id} />;
+export default async function ProjectPage({ params }: PageProps) {
+  const { id, locale, dict, project, title, description } = await resolve(params);
+  const path = `/${locale}/project/${id}`;
+
+  return (
+    <>
+      {project && (
+        <JsonLd
+          data={[
+            {
+              "@type": "CreativeWork",
+              "@id": `${absoluteUrl(path)}#work`,
+              name: title,
+              description,
+              url: absoluteUrl(path),
+              image: absoluteUrl(`/og/project-${project.id}.jpg`),
+              inLanguage: locale,
+              keywords: projectTags[project.id]?.join(", "),
+              author: { "@id": PERSON_ID },
+              creator: { "@id": PERSON_ID },
+              ...(project.link ? { sameAs: project.link } : {}),
+            },
+            breadcrumbs([
+              { name: dict.meta.breadcrumbHome, path: `/${locale}` },
+              { name: title, path },
+            ]),
+          ]}
+        />
+      )}
+      <ProjectDetailsClient id={id} />
+    </>
+  );
 }

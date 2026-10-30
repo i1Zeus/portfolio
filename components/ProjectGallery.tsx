@@ -9,9 +9,10 @@ import { useLocale } from "./LocaleContext";
 
 interface ProjectGalleryProps {
   images: string[];
+  title: string;
 }
 
-const getGridSpans = (count: number) => {
+const getGridSpans = (count: number, rand: () => number = Math.random) => {
   if (count === 0) return [];
   if (count === 1) return ["md:col-span-3 md:row-span-2"];
 
@@ -33,17 +34,17 @@ const getGridSpans = (count: number) => {
         "md:col-span-1 md:row-span-1",
       ],
     ];
-    return options[Math.floor(Math.random() * options.length)];
+    return options[Math.floor(rand() * options.length)];
   }
 
   // Block definitions (always 3 columns total width)
   const getBlockType1 = () =>
-    Math.random() > 0.5
+    rand() > 0.5
       ? ["md:col-span-2 md:row-span-2", "md:col-span-1 md:row-span-2"] // Large left, Tall right
       : ["md:col-span-1 md:row-span-2", "md:col-span-2 md:row-span-2"]; // Tall left, Large right
 
   const getBlockType2 = () =>
-    Math.random() > 0.5
+    rand() > 0.5
       ? ["md:col-span-2 md:row-span-1", "md:col-span-1 md:row-span-1"] // Wide left, Small right
       : ["md:col-span-1 md:row-span-1", "md:col-span-2 md:row-span-1"]; // Small left, Wide right
 
@@ -81,7 +82,7 @@ const getGridSpans = (count: number) => {
   }
 
   // Shuffle the blocks themselves so order of block types changes
-  const shuffledBlocks = [...blocks].sort(() => Math.random() - 0.5);
+  const shuffledBlocks = [...blocks].sort(() => rand() - 0.5);
 
   const spans: string[] = [];
   shuffledBlocks.forEach((generator) => {
@@ -91,23 +92,20 @@ const getGridSpans = (count: number) => {
   return spans;
 };
 
-export default function ProjectGallery({ images }: ProjectGalleryProps) {
+const layout = (images: string[], rand: () => number) => {
+  const shuffled = [...images].sort(() => rand() - 0.5);
+  const spans = getGridSpans(shuffled.length, rand);
+  return shuffled.map((src, i) => ({ src, span: spans[i] }));
+};
+
+export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
   const { dict, dir } = useLocale();
-  const [shuffledImages, setShuffledImages] = useState<
-    { src: string; span: string }[]
-  >([]);
+  // Start in a fixed order so the images are in the server HTML, then shuffle on the client.
+  const [shuffledImages, setShuffledImages] = useState(() => layout(images, () => 0.5));
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    if (images && images.length > 0) {
-      const shuffled = [...images].sort(() => Math.random() - 0.5);
-      const spans = getGridSpans(shuffled.length);
-      const items = shuffled.map((src, i) => ({
-        src,
-        span: spans[i],
-      }));
-      setShuffledImages(items);
-    }
+    if (images.length > 0) setShuffledImages(layout(images, Math.random));
   }, [images]);
 
   const openLightbox = (index: number) => {
@@ -172,9 +170,8 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
             {/* Image Wrapper */}
             <div className="relative w-full h-full">
               <Image
-                unoptimized
                 src={item.src}
-                alt={`Project screenshot ${index + 1}`}
+                alt={`${title} — screenshot ${index + 1}`}
                 fill
                 className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
               />
@@ -257,9 +254,8 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
                 className="relative w-full h-full flex items-center justify-center"
               >
                 <Image
-                  unoptimized
                   src={shuffledImages[lightboxIndex].src}
-                  alt={`Project image ${lightboxIndex + 1}`}
+                  alt={`${title} — screenshot ${lightboxIndex + 1}`}
                   fill
                   className="object-contain max-w-full max-h-full"
                 />

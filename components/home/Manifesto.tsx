@@ -17,6 +17,7 @@ export default function Manifesto() {
       skew = 0,
       direction = -1,
       lastY = window.scrollY,
+      half = track.scrollWidth / 2,
       frame = 0;
 
     const loop = () => {
@@ -25,7 +26,6 @@ export default function Manifesto() {
       lastY = y;
       if (velocity !== 0) direction = velocity > 0 ? -1 : 1;
 
-      const half = track.scrollWidth / 2;
       offset += direction * (0.6 + Math.min(Math.abs(velocity) * 0.5, 18));
       if (offset <= -half) offset += half;
       if (offset > 0) offset -= half;
@@ -34,8 +34,25 @@ export default function Manifesto() {
       track.style.transform = `translate3d(${offset}px,0,0) skewX(${skew}deg)`;
       frame = requestAnimationFrame(loop);
     };
-    frame = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(frame);
+
+    // Only animate while the marquee is on screen.
+    const io = new IntersectionObserver(([entry]) => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+      if (entry.isIntersecting) {
+        lastY = window.scrollY;
+        frame = requestAnimationFrame(loop);
+      }
+    });
+    const ro = new ResizeObserver(() => (half = track.scrollWidth / 2));
+    io.observe(track);
+    ro.observe(track);
+
+    return () => {
+      cancelAnimationFrame(frame);
+      io.disconnect();
+      ro.disconnect();
+    };
   }, []);
 
   const run = [...words, ...words];

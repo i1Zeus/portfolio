@@ -79,7 +79,6 @@ export default function ProjectDetailsClient({ id }: ProjectDetailsClientProps) 
         <section className={cn("mt-10 md:mt-14", sectionPad)}>
           <div className="reveal group relative aspect-[16/10] w-full overflow-hidden border border-line bg-stage md:aspect-[16/8]">
             <Image
-              unoptimized
               src={`/project/${project.img}`}
               alt={title}
               fill
@@ -117,7 +116,7 @@ export default function ProjectDetailsClient({ id }: ProjectDetailsClientProps) 
 
         <div className={cn("pb-10", sectionPad)}>
           {localizedArchitecture && <ArchitectureDiagram architecture={localizedArchitecture} />}
-          <ProjectGallery images={project.images || []} />
+          <ProjectGallery images={project.images || []} title={title} />
         </div>
 
         <Link

@@ -95,19 +95,88 @@ export const gridItems = [
 
 export const projects = [
   {
+    id: 6,
+    title: "IMA Portal | Iraqi Medical Association — Basra Branch",
+    des: "Designed and built the official digital portal of the Iraqi Medical Association's Basra branch, a full-stack platform that moves the association's services online: an accredited doctor directory with a profile page and QR code for every doctor, in-person electronic exams with auto-graded multiple choice, seminars and courses with CME credit tracking, secure electronic elections, surveys, research and medical book management, and digital certificates with admin approval and QR verification. Bilingual Arabic/English with full RTL/LTR support and light and dark themes.",
+    img: "ida.webp",
+    iconLists: ["re.svg", "tail.svg", "ts.svg", "p.svg"],
+    link: "https://ida.basrahdocassos.iq/",
+    images: [
+      "/project/ida/1.webp",
+      "/project/ida/2.webp",
+      "/project/ida/3.webp",
+      "/project/ida/4.webp",
+      "/project/ida/5.webp",
+      "/project/ida/6.webp",
+    ],
+    architecture: {
+      nodes: [
+        {
+          id: "fe",
+          label: "TanStack Start (React SSR)",
+          type: "frontend",
+          details:
+            "Server-rendered React app on TanStack Start with file-based routing, Tailwind CSS, Arabic/English i18n with RTL/LTR switching, and light and dark themes.",
+        },
+        {
+          id: "api",
+          label: "Server Functions",
+          type: "backend",
+          details:
+            "Type-safe TanStack Start server functions for doctor accreditation, exam sessions and grading, CME credits, elections, surveys and certificate issuance with QR verification.",
+        },
+        {
+          id: "auth",
+          label: "Better Auth",
+          type: "backend",
+          details:
+            "Session-based authentication with role-based access for doctors, students, examiners and association administrators.",
+        },
+        {
+          id: "rt",
+          label: "Socket.IO Realtime",
+          type: "backend",
+          details:
+            "Real-time channel that pushes live updates to exam sessions, elections and admin dashboards.",
+        },
+        {
+          id: "db",
+          label: "PostgreSQL + Prisma",
+          type: "database",
+          details:
+            "Relational schema managed with Prisma ORM for doctors, specialties, exams, CME ledgers, elections, surveys and certificates.",
+        },
+        {
+          id: "r2",
+          label: "Cloudflare R2 Storage",
+          type: "database",
+          details:
+            "Object storage for accreditation documents, research papers, medical books and generated certificates.",
+        },
+      ],
+      edges: [
+        { from: "fe", to: "api", label: "Server function calls" },
+        { from: "fe", to: "rt", label: "WebSocket events" },
+        { from: "api", to: "auth", label: "Session & role checks" },
+        { from: "api", to: "db", label: "Prisma Client" },
+        { from: "api", to: "r2", label: "S3-compatible uploads" },
+      ],
+    },
+  },
+  {
     id: 0,
     title: "iZeus-ERP",
     des: "Independently designed, developed, and deployed a full-stack Enterprise Resource Planning (ERP) system from the ground up, integrating core business operations into a centralized platform that was successfully sold and implemented for clients.Architected scalable frontend and backend solutions to support business process automation and efficient data management.Collaborated directly with clients to gather requirements, customize workflows, and deliver solutions aligned with operational needs.",
-    img: "izeus-erp.png",
+    img: "izeus-erp.webp",
     iconLists: ["re.svg", "tail.svg", "ts.svg", "p.svg"],
     link: "",
     images: [
-      "/project/erp/1.png",
-      "/project/erp/2.png",
-      "/project/erp/3.png",
-      "/project/erp/4.png",
-      "/project/erp/5.png",
-      "/project/erp/6.png",
+      "/project/erp/1.webp",
+      "/project/erp/2.webp",
+      "/project/erp/3.webp",
+      "/project/erp/4.webp",
+      "/project/erp/5.webp",
+      "/project/erp/6.webp",
     ],
     architecture: {
       nodes: [
@@ -167,14 +236,14 @@ export const projects = [
     id: 1,
     title: "NexoGroup",
     des: "NexoGroup - E-commerce platform for selling electronics products. including pc parts and other, it's has all the modern features and security. fully responsive and mobile first. designed by me. built from the ground up where user comes first.",
-    img: "nexogroup.png",
+    img: "nexogroup.webp",
     iconLists: ["next.svg", "tail.svg", "ts.svg", "p.svg"],
     link: "https://www.nexogroup.store/en",
     images: [
-      "/project/nc/1.png",
-      "/project/nc/2.png",
-      "/project/nc/3.png",
-      "/project/nc/4.png",
+      "/project/nc/1.webp",
+      "/project/nc/2.webp",
+      "/project/nc/3.webp",
+      "/project/nc/4.webp",
     ],
     architecture: {
       nodes: [
@@ -219,17 +288,17 @@ export const projects = [
     id: 2,
     title: "Taeen Platform",
     des: "Taeen تعيين - Iraq's Fastest Growing Recruitment Platform. Developed a modern recruitment platform connecting job seekers with opportunities across Iraq.",
-    img: "dc.svg",
+    img: "dc.webp",
     iconLists: ["re.svg", "tail.svg", "ts.svg"],
     link: "https://taeen.iq",
     images: [
-      "/project/taeen/1.png",
-      "/project/taeen/2.png",
-      "/project/taeen/3.png",
-      "/project/taeen/4.png",
-      "/project/taeen/5.png",
-      "/project/taeen/6.png",
-      "/project/taeen/7.png",
+      "/project/taeen/1.webp",
+      "/project/taeen/2.webp",
+      "/project/taeen/3.webp",
+      "/project/taeen/4.webp",
+      "/project/taeen/5.webp",
+      "/project/taeen/6.webp",
+      "/project/taeen/7.webp",
     ],
     architecture: {
       nodes: [
@@ -282,7 +351,7 @@ export const projects = [
     id: 3,
     title: "Estore | Iraq's Leading E-commerce Platform",
     des: "Contributed to both web and mobile app development, upgrading the platform to React 19 and integrating Odoo ERP to manage central business data alongside compatible realtime services.",
-    img: "nc.svg",
+    img: "nc.webp",
     iconLists: ["next.svg", "tail.svg", "ts.svg", "re.svg"],
     link: "https://www.estore.iq/",
     architecture: {
@@ -336,7 +405,7 @@ export const projects = [
     id: 4,
     title: "Hoster | Web Hosting Platform",
     des: "Developed web and mobile app versions to deliver a seamless hosting management experience for developers. Implemented responsive design patterns and cross-platform functionality.",
-    img: "qg.svg",
+    img: "qg.webp",
     iconLists: ["re.svg", "tail.svg", "ts.svg"],
     // link: "https://www.hoster.iq",
     architecture: {
@@ -381,7 +450,7 @@ export const projects = [
     id: 5,
     title: "Abdulkareem for Charity",
     des: "A charity website created by a set of collage developers including myself, to help rising money for a charity event, any other event like environment, animals, etc.",
-    img: "ak.svg",
+    img: "ak.webp",
     iconLists: ["laravel.svg", "tail.svg", "php.svg", "mySql.svg", "boot.svg"],
     link: "https://github.com/Gruce/abdulkareem-for-charity",
     architecture: {
@@ -539,6 +608,7 @@ export const socialMedia = [
 export const contactEmail = "husseinnajah.it@gmail.com";
 
 export const projectTags: Record<number, string[]> = {
+  6: ["TanStack Start", "PostgreSQL", "Prisma", "Better Auth", "Socket.IO", "Cloudflare R2"],
   0: ["React", "NestJS", "PostgreSQL", "Prisma", "Cloudflare R2"],
   1: ["Next.js", "Prisma", "PostgreSQL", "Stripe", "Tailwind"],
   2: ["React", "NestJS", "WebSocket", "PostgreSQL", "SindiPay"],
@@ -550,7 +620,7 @@ export const projectTags: Record<number, string[]> = {
 export const stackGroups = [
   {
     key: "frontend",
-    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "React Native"],
+    items: ["React", "Next.js", "TanStack Start", "TypeScript", "Tailwind CSS", "Framer Motion", "React Native"],
   },
   {
     key: "backend",

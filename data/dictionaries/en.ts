@@ -4,7 +4,7 @@ export const en: Dictionary = {
   meta: {
     title: "Hussein Najah | Full-Stack Software Engineer & UI/UX Developer",
     description:
-      "Modern & Minimal Web Developer Portfolio. Hussein Najah is a dedicated Full-Stack Software Engineer & UI/UX Developer based in Iraq, specializing in Next.js, React, TypeScript, and high-performance web systems.",
+      "Hussein Najah is a full-stack software engineer in Basra, Iraq, building fast ERP systems, e-commerce platforms and web apps with Next.js, React and TypeScript.",
     keywords: [
       "Hussein Najah",
       "Software Engineer",
@@ -21,6 +21,11 @@ export const en: Dictionary = {
     ogDescription:
       "Explore the portfolio of Hussein Najah: scalable enterprise solutions, modern web platforms, and interactive digital experiences.",
     personJobTitle: "Full-Stack Software Engineer",
+    nfcTitle: "Digital Business Card",
+    nfcDescription:
+      "Save Hussein Najah's contact card, scan the QR code and connect on LinkedIn, GitHub, X and Instagram, all from one tap.",
+    imageAlt: "Hussein Najah, full-stack software engineer",
+    breadcrumbHome: "Home",
   },
   nav: {
     home: "Home",
@@ -175,6 +180,43 @@ export const en: Dictionary = {
     close: "Close",
     notFound: "Project not found",
     items: {
+      6: {
+        id: 6,
+        title: "IMA Portal | Iraqi Medical Association — Basra Branch",
+        des: "Designed and built the official digital portal of the Iraqi Medical Association's Basra branch, a full-stack platform that moves the association's services online: an accredited doctor directory with a profile page and QR code for every doctor, in-person electronic exams with auto-graded multiple choice, seminars and courses with CME credit tracking, secure electronic elections, surveys, research and medical book management, and digital certificates with admin approval and QR verification. Bilingual Arabic/English with full RTL/LTR support and light and dark themes.",
+        architectureNodes: {
+          fe: {
+            label: "TanStack Start (React SSR)",
+            details:
+              "Server-rendered React app on TanStack Start with file-based routing, Tailwind CSS, Arabic/English i18n with RTL/LTR switching, and light and dark themes.",
+          },
+          api: {
+            label: "Server Functions",
+            details:
+              "Type-safe TanStack Start server functions for doctor accreditation, exam sessions and grading, CME credits, elections, surveys and certificate issuance with QR verification.",
+          },
+          auth: {
+            label: "Better Auth",
+            details:
+              "Session-based authentication with role-based access for doctors, students, examiners and association administrators.",
+          },
+          rt: {
+            label: "Socket.IO Realtime",
+            details:
+              "Real-time channel that pushes live updates to exam sessions, elections and admin dashboards.",
+          },
+          db: {
+            label: "PostgreSQL + Prisma",
+            details:
+              "Relational schema managed with Prisma ORM for doctors, specialties, exams, CME ledgers, elections, surveys and certificates.",
+          },
+          r2: {
+            label: "Cloudflare R2 Storage",
+            details:
+              "Object storage for accreditation documents, research papers, medical books and generated certificates.",
+          },
+        },
+      },
       0: {
         id: 0,
         title: "iZeus-ERP",

@@ -105,7 +105,6 @@ export default function Work() {
                   className="relative block aspect-[4/3] overflow-hidden border border-line bg-stage lg:aspect-auto lg:min-h-0 lg:flex-1"
                 >
                   <Image
-                    unoptimized
                     src={`/project/${project.img}`}
                     alt={title}
                     fill

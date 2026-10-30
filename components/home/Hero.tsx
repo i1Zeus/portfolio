@@ -17,7 +17,7 @@ const baghdadTime = () =>
     .split(":");
 
 /** Variable-weight “magnet”: characters near the pointer get heavier. */
-const useWeightMagnet = (ref: React.RefObject<HTMLElement>, enabled: boolean) => {
+const useWeightMagnet = (ref: React.RefObject<HTMLElement | null>, enabled: boolean) => {
   useEffect(() => {
     const root = ref.current;
     if (
@@ -143,6 +143,9 @@ export default function Hero() {
             ref={titleRef}
             className="display text-[clamp(3.4rem,min(10vw,12.5vh),12rem)] ltr:[font-variation-settings:'wght'_250] max-lg:ltr:[font-variation-settings:'wght'_380]"
           >
+            <span className="sr-only">
+              {dict.socialProfile.cardHolderName} — {dict.meta.personJobTitle}.{" "}
+            </span>
             {h.heroTitle.map((line, i) => (
               <SplitText key={line} text={line} className="block" delay={i * 120} />
             ))}

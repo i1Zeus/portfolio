@@ -77,13 +77,16 @@ export default function SiteEffects({ waitForBoot = false }: { waitForBoot?: boo
       targetScale = 1,
       frame = 0;
 
+    // Runs only while the ring is catching up with the pointer, then sleeps.
     const loop = () => {
       rx += (x - rx) * 0.18;
       ry += (y - ry) * 0.18;
       scale += (targetScale - scale) * 0.18;
       ring.style.transform = `translate3d(${rx}px, ${ry}px, 0) scale(${scale})`;
       dot.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      frame = requestAnimationFrame(loop);
+      const settled =
+        Math.abs(x - rx) < 0.1 && Math.abs(y - ry) < 0.1 && Math.abs(targetScale - scale) < 0.001;
+      frame = settled ? 0 : requestAnimationFrame(loop);
     };
 
     const onMove = (e: PointerEvent) => {
@@ -92,6 +95,7 @@ export default function SiteEffects({ waitForBoot = false }: { waitForBoot?: boo
       const interactive = (e.target as Element | null)?.closest?.("a, button, [data-cursor]");
       targetScale = interactive ? 1.9 : 1;
       ring.style.opacity = dot.style.opacity = "1";
+      if (!frame) frame = requestAnimationFrame(loop);
     };
     const onLeave = () => {
       ring.style.opacity = dot.style.opacity = "0";

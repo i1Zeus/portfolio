@@ -89,7 +89,8 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Match all paths except static files, _next, favicon
-    "/((?!_next/static|_next/image|favicon.ico).*)",
+    // Only paths that still need a locale prefix: skip /en, /ar, Next.js
+    // internals and any file with an extension, so page views never hit middleware.
+    "/((?!_next/|en(?:/|$)|ar(?:/|$)|.*\\..*).*)",
   ],
 };

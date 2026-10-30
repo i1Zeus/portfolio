@@ -43,6 +43,10 @@ export interface Dictionary {
     ogTitle: string;
     ogDescription: string;
     personJobTitle: string;
+    nfcTitle: string;
+    nfcDescription: string;
+    imageAlt: string;
+    breadcrumbHome: string;
   };
   nav: {
     home: string;
