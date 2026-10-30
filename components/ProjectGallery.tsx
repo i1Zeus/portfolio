@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaEye } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { useLocale } from "./LocaleContext";
@@ -103,17 +103,21 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
   // Start in a fixed order so the images are in the server HTML, then shuffle on the client.
   const [shuffledImages, setShuffledImages] = useState(() => layout(images, () => 0.5));
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (images.length > 0) setShuffledImages(layout(images, Math.random));
   }, [images]);
 
   const openLightbox = (index: number) => {
+    openerRef.current = document.activeElement as HTMLElement | null;
     setLightboxIndex(index);
   };
 
   const closeLightbox = useCallback(() => {
     setLightboxIndex(null);
+    openerRef.current?.focus();
   }, []);
 
   const navigateLightbox = useCallback(
@@ -136,13 +140,24 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") navigateLightbox("prev");
-      if (e.key === "ArrowRight") navigateLightbox("next");
+      // Arrow keys follow the reading direction.
+      if (e.key === "ArrowLeft") navigateLightbox(dir === "rtl" ? "next" : "prev");
+      if (e.key === "ArrowRight") navigateLightbox(dir === "rtl" ? "prev" : "next");
+      // Keep Tab inside the dialog.
+      if (e.key === "Tab" && dialogRef.current) {
+        const buttons = Array.from(dialogRef.current.querySelectorAll<HTMLElement>("button"));
+        const i = buttons.indexOf(document.activeElement as HTMLElement);
+        const next = e.shiftKey ? (i <= 0 ? buttons.length - 1 : i - 1) : (i + 1) % buttons.length;
+        e.preventDefault();
+        buttons[next]?.focus();
+      }
     };
+
+    dialogRef.current?.querySelector<HTMLElement>("button")?.focus();
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIndex, closeLightbox, navigateLightbox]);
+  }, [lightboxIndex, closeLightbox, navigateLightbox, dir]);
 
   if (!images || images.length === 0) return null;
 
@@ -158,39 +173,41 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
       {/* Bento Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:grid-flow-row-dense gap-4 md:gap-6 auto-rows-[250px]">
         {shuffledImages.map((item, index) => (
-          <motion.div
+          <motion.button
+            type="button"
             key={item.src}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className={`relative rounded-none border border-line bg-stage overflow-hidden cursor-pointer group flex flex-col justify-between ${item.span}`}
+            className={`relative rounded-none border border-line bg-stage overflow-hidden cursor-pointer group flex flex-col justify-between text-start ${item.span}`}
             onClick={() => openLightbox(index)}
+            aria-label={`${dict.projects.viewFullImage}: ${title} ${index + 1}`}
           >
             {/* Image Wrapper */}
-            <div className="relative w-full h-full">
+            <span className="relative block w-full h-full">
               <Image
                 src={item.src}
                 alt={`${title} — screenshot ${index + 1}`}
                 fill
                 className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
               />
-              {/* Glassmorphism Hover Overlay */}
-              <div className="absolute inset-0 bg-ink/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-sm z-10">
-                <motion.div
+              {/* Hover / focus overlay */}
+              <span className="absolute inset-0 bg-ink/70 opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-sm z-10">
+                <motion.span
                   initial={{ scale: 0.8, opacity: 0 }}
                   whileHover={{ scale: 1.1 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  className="p-4 rounded-none bg-white/10 border border-white/20 text-white backdrop-blur-md shadow-lg"
+                  className="block p-4 rounded-none bg-white/10 border border-white/20 text-white backdrop-blur-md shadow-lg"
                 >
                   <FaEye size={24} />
-                </motion.div>
+                </motion.span>
                 <span className="text-paper font-mono uppercase mt-3 text-[11px] tracking-[0.12em]">
                   {dict.projects.viewFullImage}
                 </span>
-              </div>
-            </div>
-          </motion.div>
+              </span>
+            </span>
+          </motion.button>
         ))}
       </div>
 
@@ -201,6 +218,10 @@ export default function ProjectGallery({ images, title }: ProjectGalleryProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${title} — ${lightboxIndex + 1} / ${shuffledImages.length}`}
             className="fixed inset-0 z-50 flex items-center justify-center bg-ink/95 backdrop-blur-xl"
             onClick={closeLightbox}
           >

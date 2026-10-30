@@ -46,6 +46,20 @@ export default function Work() {
 
   const total = String(projects.length).padStart(2, "0");
 
+  // Keyboard users: when focus lands on an off-screen card, scroll to where the track shows it.
+  const revealFocused = (e: React.FocusEvent<HTMLDivElement>) => {
+    const track = trackRef.current;
+    const section = sectionRef.current;
+    const card = (e.target as HTMLElement).closest("article");
+    if (!distance || !track || !section || !card) return;
+    const t = track.getBoundingClientRect();
+    const c = card.getBoundingClientRect();
+    const lead = dir === "rtl" ? t.right - c.right : c.left - t.left;
+    const offset = Math.min(distance, Math.max(0, lead - window.innerWidth * 0.2));
+    const top = section.getBoundingClientRect().top + window.scrollY + offset;
+    requestAnimationFrame(() => window.scrollTo({ top, behavior: "instant" }));
+  };
+
   return (
     <section
       id="work"
@@ -56,6 +70,7 @@ export default function Work() {
       <div className="lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden">
         <motion.div
           ref={trackRef}
+          onFocus={revealFocused}
           style={distance ? { x } : undefined}
           className="flex flex-col lg:h-full lg:w-max lg:flex-row"
         >

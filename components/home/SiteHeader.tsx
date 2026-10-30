@@ -41,9 +41,9 @@ export default function SiteHeader() {
       className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em]"
       dir="ltr"
     >
-      <span className={locale === "en" ? "text-paper" : "text-paper/40 hover:text-paper"}>EN</span>
-      <span className="text-paper/30">/</span>
-      <span className={cn("font-cairo text-[14px] leading-none", locale === "ar" ? "text-paper" : "text-paper/40 hover:text-paper")}>
+      <span className={locale === "en" ? "text-paper" : "text-paper/55 hover:text-paper"}>EN</span>
+      <span className="text-paper/30" aria-hidden="true">/</span>
+      <span className={cn("font-cairo text-[14px] leading-none", locale === "ar" ? "text-paper" : "text-paper/55 hover:text-paper")}>
         ع
       </span>
     </button>
@@ -76,7 +76,7 @@ export default function SiteHeader() {
                     href={href(id)}
                     className="group flex items-baseline gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em] text-paper/60 transition-colors hover:text-paper"
                   >
-                    <span className="text-paper/35 group-hover:text-paper/70" dir="ltr">
+                    <span className="text-paper/55 group-hover:text-paper/70" dir="ltr">
                       0{i + 1}
                     </span>
                     {dict.home.nav[id]}

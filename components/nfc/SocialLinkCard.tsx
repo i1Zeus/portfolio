@@ -50,7 +50,7 @@ export default function SocialLinkCard({ item, index }: SocialLinkCardProps) {
   return (
     <li className="reveal border-b border-line" style={{ transitionDelay: `${index * 60}ms` }}>
       <div className="group relative flex items-center gap-3 py-4 transition-colors hover:bg-paper/[0.03] sm:gap-4">
-        <span className="label w-6 shrink-0 text-paper/35" dir="ltr">
+        <span className="label w-6 shrink-0 text-paper/55" dir="ltr">
           {String(index + 1).padStart(2, "0")}
         </span>
         <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-line text-base text-paper/80 transition-colors group-hover:border-paper group-hover:bg-paper group-hover:text-ink">
@@ -74,7 +74,7 @@ export default function SocialLinkCard({ item, index }: SocialLinkCardProps) {
             {item.handle}
           </p>
           {item.description && (
-            <p className="mt-0.5 hidden truncate text-[12px] text-paper/40 sm:block">{item.description}</p>
+            <p className="mt-0.5 hidden truncate text-[12px] text-paper/55 sm:block">{item.description}</p>
           )}
         </div>
 

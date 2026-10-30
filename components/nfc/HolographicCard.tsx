@@ -137,7 +137,7 @@ export default function HolographicCard() {
 
               {/* Middle Row: Name & Role */}
               <div className="relative z-10 text-start">
-                <p className="label mb-2 text-paper/40" dir="ltr">
+                <p className="label mb-2 text-paper/55" dir="ltr">
                   ••••&nbsp;&nbsp;••••&nbsp;&nbsp;••••&nbsp;&nbsp;2026
                 </p>
                 <h2 className="display text-[clamp(2rem,9vw,2.9rem)] text-paper">{p.cardHolderName}</h2>
@@ -150,7 +150,7 @@ export default function HolographicCard() {
                   <span className="h-1.5 w-1.5 rounded-full bg-paper" />
                   @i1Zeus
                 </span>
-                <span className="label text-[10px] text-paper/45">{p.tapToFlip}</span>
+                <span className="label text-[10px] text-paper/55">{p.tapToFlip}</span>
               </div>
             </div>
 
@@ -190,7 +190,7 @@ export default function HolographicCard() {
 
               {/* Bottom Status */}
               <div className="relative z-10 flex items-center justify-between gap-3">
-                <span className="label truncate text-[10px] text-paper/40">{p.signatureRequired}</span>
+                <span className="label truncate text-[10px] text-paper/55">{p.signatureRequired}</span>
                 <span className="label shrink-0 text-[10px] text-paper/70">{p.tapToFlip}</span>
               </div>
             </div>

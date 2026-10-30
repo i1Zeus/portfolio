@@ -43,7 +43,7 @@ export default function Stack() {
                   <span className="heading text-[1.6rem] text-paper/85 transition-colors group-hover:text-paper">
                     {item}
                   </span>
-                  <span className="font-mono text-[10px] text-paper/35">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-mono text-[10px] text-paper/55">{String(i + 1).padStart(2, "0")}</span>
                 </li>
               ))}
             </ul>
@@ -57,7 +57,7 @@ export default function Stack() {
           {h.expertise.map((e, i) => (
             <span key={e}>
               <span className="whitespace-nowrap">{e}</span>
-              {i < h.expertise.length - 1 && <span className="mx-3 text-paper/25">/</span>}
+              {i < h.expertise.length - 1 && <span className="mx-3 text-paper/25" aria-hidden="true">/</span>}
             </span>
           ))}
         </p>

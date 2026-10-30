@@ -6,7 +6,11 @@
     "dev": "next dev -p 4040",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "playwright test",
+    "images": "node scripts/optimize-images.mjs",
+    "og": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/og-images.mjs"
   },
   "dependencies": {
     "@types/canvas-confetti": "^1.9.0",
@@ -23,12 +27,16 @@
     "tailwind-merge": "^2.3.0"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@eslint/eslintrc": "^3.3.7",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^20",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "eslint": "^8",
+    "eslint": "^9.39.5",
     "eslint-config-next": "^15.5.28",
     "postcss": "^8.5.32",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },

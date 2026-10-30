@@ -28,7 +28,7 @@ export default function Words() {
             style={{ transitionDelay: `${(i % 3) * 80}ms` }}
           >
             <span
-              className="font-display text-6xl font-light text-paper/40 transition-colors group-hover:text-ink/40"
+              className="font-display text-6xl font-light text-paper/55 transition-colors group-hover:text-ink/60"
               dir="ltr"
             >
               {String(i + 1).padStart(2, "0")}

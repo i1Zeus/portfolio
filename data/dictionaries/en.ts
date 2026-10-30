@@ -17,9 +17,6 @@ export const en: Dictionary = {
       "Portfolio",
       "i1Zeus",
     ],
-    ogTitle: "Hussein Najah | Full-Stack Software Engineer",
-    ogDescription:
-      "Explore the portfolio of Hussein Najah: scalable enterprise solutions, modern web platforms, and interactive digital experiences.",
     personJobTitle: "Full-Stack Software Engineer",
     nfcTitle: "Digital Business Card",
     nfcDescription:
@@ -27,21 +24,10 @@ export const en: Dictionary = {
     imageAlt: "Hussein Najah, full-stack software engineer",
     breadcrumbHome: "Home",
   },
-  nav: {
-    home: "Home",
-    about: "About",
-    projects: "Projects",
-    testimonials: "Testimonials",
-    contact: "Contact",
-  },
-  hero: {
-    tagline: "Iraqi's web magic next.js",
-    title: "Transforming Ideas into Seamless Reality",
-    description: "Hi I'm Hussein, a Software Engineer Based in Iraq.",
-    showWork: "Show my work",
-    downloadCv: "Download CV",
-  },
+
+
   home: {
+    downloadCv: "Download CV",
     bootLabel: "Hussein Najah — Portfolio",
     available: "Open to new projects",
     location: "Basra",
@@ -152,8 +138,6 @@ export const en: Dictionary = {
     rights: "All rights reserved.",
   },
   projects: {
-    headingPrefix: "A small selection of",
-    headingHighlight: "recent projects",
     backToProjects: "Back to Projects",
     descriptionTitle: "Description",
     techStackTitle: "Tech Stack",
@@ -204,8 +188,6 @@ export const en: Dictionary = {
     backHome: "Back to Home",
   },
   clients: {
-    headingPrefix: "Kind Words From",
-    headingHighlight: "People",
     items: [
       {
         quote:
@@ -239,35 +221,8 @@ export const en: Dictionary = {
       },
     ],
   },
-  experience: {
-    headingPrefix: "My",
-    headingHighlight: "Work Experience",
-    items: [
-      {
-        id: 1,
-        title: "Web Developer",
-        desc: "Assisted in the development of a web-based platform using Next.js, Vue.js and more, enhancing interactivity.",
-      },
-      {
-        id: 2,
-        title: "UI/UX Designer & Developer",
-        desc: "Designed and developed a responsive web app for a startup, focusing on user experience.",
-      },
-      {
-        id: 3,
-        title: "Freelance Web Dev Project",
-        desc: "Led the dev of a web app for a client, from initial concept to deployment.",
-      },
-      {
-        id: 4,
-        title: "Lead Frontend Developer",
-        desc: "Developed and maintained user-facing features using modern frontend technologies.",
-      },
-    ],
-  },
+
   approach: {
-    headingPrefix: "How I",
-    headingHighlight: "Do Things",
     phases: [
       {
         order: "Phase I",
@@ -289,15 +244,7 @@ export const en: Dictionary = {
       },
     ],
   },
-  footer: {
-    readyPrefix: "Ready to",
-    flipWords: ["collaborate", "Integrate", "partner"],
-    readySuffix: "with me on your next project?",
-    description:
-      "Reach out to me today and let's discuss how I can help you achieve your goals.",
-    ctaButton: "Let's get in touch",
-    copyright: "Copyright © 2026 Hussein Najah. All rights reserved.",
-  },
+
   terminal: {
     buttonTitle: "Open Developer Terminal (Ctrl + `)",
     headerTitle: "Developer Command Prompt (CLI)",
@@ -329,11 +276,9 @@ I am a dedicated full-stack developer and UI/UX engineer with a passion for cons
 - X:         https://x.com/i1Zeus
 - Instagram: https://www.instagram.com/hxg.1`,
     cmdNotFound: "Command not recognized: '{command}'. Type 'help' to see list of commands.",
-    langChanged: "Language switched to English.",
   },
   socialProfile: {
     portfolioBack: "Portfolio",
-    nfcCardActive: "NFC CARD ACTIVE",
     location: "Basra, IQ",
     cardHolderName: "Hussein Najah",
     cardRole: "Software Engineer • Full Stack",

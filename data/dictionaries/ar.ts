@@ -18,9 +18,6 @@ export const ar: Dictionary = {
       "معرض أعمال",
       "i1Zeus",
     ],
-    ogTitle: "حسين نجاح | مهندس برمجيات ومطور ويب متكامل",
-    ogDescription:
-      "استكشف مشاريع وحلول حسين نجاح: أنظمة تخطيط موارد المؤسسات (ERP)، منصات التجارة الإلكترونية، وتجارب الويب التفاعلية الحديثة.",
     personJobTitle: "مهندس برمجيات ومطور ويب متكامل",
     nfcTitle: "بطاقة العمل الرقمية",
     nfcDescription:
@@ -28,21 +25,10 @@ export const ar: Dictionary = {
     imageAlt: "حسين نجاح، مهندس برمجيات ومطور ويب متكامل",
     breadcrumbHome: "الرئيسية",
   },
-  nav: {
-    home: "الرئيسية",
-    about: "عني",
-    projects: "المشاريع",
-    testimonials: "الآراء",
-    contact: "تواصل معي",
-  },
-  hero: {
-    tagline: "إبداع الويب العراقي بأحدث تقنيات Next.js",
-    title: "تحويل الأفكار إلى واقع رقمي متكامل واستثنائي",
-    description: "مرحباً، أنا حسين، مهندس برمجيات مقيم في العراق.",
-    showWork: "استعرض أعمالي",
-    downloadCv: "تحميل السيرة الذاتية",
-  },
+
+
   home: {
+    downloadCv: "تحميل السيرة الذاتية",
     bootLabel: "حسين نجاح — معرض الأعمال",
     available: "متاح لمشاريع جديدة",
     location: "بصرة",
@@ -153,8 +139,6 @@ export const ar: Dictionary = {
     rights: "جميع الحقوق محفوظة.",
   },
   projects: {
-    headingPrefix: "مجموعة مختارة من",
-    headingHighlight: "أحدث المشاريع",
     backToProjects: "العودة إلى المشاريع",
     descriptionTitle: "تفاصيل المشروع",
     techStackTitle: "التقنيات المستخدمة",
@@ -204,8 +188,6 @@ export const ar: Dictionary = {
     backHome: "العودة للرئيسية",
   },
   clients: {
-    headingPrefix: "كلمات وشهادات من",
-    headingHighlight: "شركاء النجاح",
     items: [
       {
         quote:
@@ -239,35 +221,8 @@ export const ar: Dictionary = {
       },
     ],
   },
-  experience: {
-    headingPrefix: "مسيرتي و",
-    headingHighlight: "خبراتي المهنية",
-    items: [
-      {
-        id: 1,
-        title: "مطور ويب (Web Developer)",
-        desc: "المساهمة في بناء وتطوير منصات ويب باستخدام Next.js و Vue.js وغيرها لتعزيز التفاعلية وسرعة الأداء.",
-      },
-      {
-        id: 2,
-        title: "مصمم ومطور واجهات UI/UX",
-        desc: "تصميم وتطوير تطبيقات ويب متجاوبة تركز على تقديم أفضل تجربة مستخدم ممكنة للشركات الناشئة.",
-      },
-      {
-        id: 3,
-        title: "مشاريع ويب حرة (Freelance)",
-        desc: "قيادة وتطوير مشاريع ويب متكاملة للعملاء من مرحلة الفكرة والتخطيط حتى الإطلاق النهائي.",
-      },
-      {
-        id: 4,
-        title: "مطور واجهات أول (Lead Frontend)",
-        desc: "بناء وتطوير وصيانة ميزات الواجهات الأمامية باستخدام أحدث أطر العمل والتقنيات العصرية.",
-      },
-    ],
-  },
+
   approach: {
-    headingPrefix: "منهجية و",
-    headingHighlight: "سير العمل",
     phases: [
       {
         order: "المرحلة الأولى",
@@ -289,15 +244,7 @@ export const ar: Dictionary = {
       },
     ],
   },
-  footer: {
-    readyPrefix: "هل أنت مستعد",
-    flipWords: ["للتعاون", "للتكامل", "للشراكة"],
-    readySuffix: "معي في مشروعك القادم؟",
-    description:
-      "تواصل معي اليوم ودعنا نناقش كيف يمكنني مساعدتك في تحويل رؤيتك إلى نجاح حقيقي.",
-    ctaButton: "ابدأ التواصل معي",
-    copyright: "جميع الحقوق محفوظة © 2026 حسين نجاح.",
-  },
+
   terminal: {
     buttonTitle: "فتح موجه أوامر المطور (Ctrl + `)",
     headerTitle: "موجه أوامر المطور (CLI)",
@@ -329,11 +276,9 @@ export const ar: Dictionary = {
 - منصة إكس:       https://x.com/i1Zeus
 - إنستغرام:      https://www.instagram.com/hxg.1`,
     cmdNotFound: "الأمر غير معروف: '{command}'. اكتب 'help' لعرض قائمة الأوامر.",
-    langChanged: "تم تبديل اللغة إلى العربية بنجاح.",
   },
   socialProfile: {
     portfolioBack: "الموقع الرئيسي",
-    nfcCardActive: "بطاقة NFC نشطة",
     location: "بصرة، العراق",
     cardHolderName: "حسين نجاح",
     cardRole: "مهندس برمجيات • فل ستاك",

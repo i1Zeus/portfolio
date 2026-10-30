@@ -157,12 +157,12 @@ export default function NfcPage() {
               className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em]"
               dir="ltr"
             >
-              <span className={locale === "en" ? "text-paper" : "text-paper/40 hover:text-paper"}>EN</span>
-              <span className="text-paper/30">/</span>
+              <span className={locale === "en" ? "text-paper" : "text-paper/55 hover:text-paper"}>EN</span>
+              <span className="text-paper/30" aria-hidden="true">/</span>
               <span
                 className={cn(
                   "font-cairo text-[14px] leading-none",
-                  locale === "ar" ? "text-paper" : "text-paper/40 hover:text-paper"
+                  locale === "ar" ? "text-paper" : "text-paper/55 hover:text-paper"
                 )}
               >
                 ع
@@ -184,7 +184,7 @@ export default function NfcPage() {
               className={navBtn}
               dir="ltr"
             >
-              SFX <span className={isMuted ? "text-paper/40" : "text-paper"}>{isMuted ? "OFF" : "ON"}</span>
+              SFX <span className={isMuted ? "text-paper/55" : "text-paper"}>{isMuted ? "OFF" : "ON"}</span>
             </button>
           </div>
         </div>
@@ -268,7 +268,7 @@ export default function NfcPage() {
           <p className="label">
             <span dir="ltr">©2026</span> {p.cardHolderName} — {dict.home.rights}
           </p>
-          <p className="label text-paper/40" dir="ltr">
+          <p className="label text-paper/55" dir="ltr">
             NFC · ISO/IEC 14443-A
           </p>
         </footer>

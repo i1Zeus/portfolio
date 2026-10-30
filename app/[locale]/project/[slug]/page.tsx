@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: subtitle ? `${title} | ${subtitle}` : title,
     description,
     type: "article",
-    image: { url: `/og/project-${project.id}.jpg`, alt: title },
+    image: { url: `/og/${project.slug}-${locale}.jpg`, alt: title },
   });
 }
 
@@ -65,7 +65,7 @@ export default async function ProjectPage({ params }: PageProps) {
             name: title,
             description,
             url: absoluteUrl(path),
-            image: absoluteUrl(`/og/project-${project.id}.jpg`),
+            image: absoluteUrl(`/og/${project.slug}-${locale}.jpg`),
             inLanguage: locale,
             keywords: project.tags.join(", "),
             author: { "@id": PERSON_ID },

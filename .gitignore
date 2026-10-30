@@ -38,3 +38,10 @@ next-env.d.ts
 
 # netlify
 .netlify
+
+# raw screenshots for scripts/optimize-images.mjs
+/assets/raw/
+
+# playwright
+/test-results/
+/playwright-report/

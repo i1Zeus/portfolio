@@ -123,7 +123,7 @@ export default function NfcStartupScreen({ onComplete }: NfcStartupScreenProps) 
                 style={{ transform: `scaleX(${PROGRESS[step]})` }}
               />
             </div>
-            <p className="label mt-3 pe-14 text-paper/40">NFC 13.56MHz · {dict.socialProfile.tapToConnectProtocol}</p>
+            <p className="label mt-3 pe-14 text-paper/55">NFC 13.56MHz · {dict.socialProfile.tapToConnectProtocol}</p>
           </div>
         </motion.div>
       )}

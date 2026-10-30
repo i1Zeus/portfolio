@@ -10,12 +10,6 @@ export interface TestimonialTranslation {
   title: string;
 }
 
-export interface ExperienceTranslation {
-  id: number;
-  title: string;
-  desc: string;
-}
-
 export interface ApproachPhaseTranslation {
   order: string;
   title: string;
@@ -33,29 +27,16 @@ export interface Dictionary {
     title: string;
     description: string;
     keywords: string[];
-    ogTitle: string;
-    ogDescription: string;
     personJobTitle: string;
     nfcTitle: string;
     nfcDescription: string;
     imageAlt: string;
     breadcrumbHome: string;
   };
-  nav: {
-    home: string;
-    about: string;
-    projects: string;
-    testimonials: string;
-    contact: string;
-  };
-  hero: {
-    tagline: string;
-    title: string;
-    description: string;
-    showWork: string;
-    downloadCv: string;
-  };
+
+
   home: {
+    downloadCv: string;
     bootLabel: string;
     available: string;
     location: string;
@@ -114,8 +95,6 @@ export interface Dictionary {
     rights: string;
   };
   projects: {
-    headingPrefix: string;
-    headingHighlight: string;
     backToProjects: string;
     descriptionTitle: string;
     techStackTitle: string;
@@ -162,28 +141,13 @@ export interface Dictionary {
     backHome: string;
   };
   clients: {
-    headingPrefix: string;
-    headingHighlight: string;
     items: TestimonialTranslation[];
   };
-  experience: {
-    headingPrefix: string;
-    headingHighlight: string;
-    items: ExperienceTranslation[];
-  };
+
   approach: {
-    headingPrefix: string;
-    headingHighlight: string;
     phases: ApproachPhaseTranslation[];
   };
-  footer: {
-    readyPrefix: string;
-    flipWords: string[];
-    readySuffix: string;
-    description: string;
-    ctaButton: string;
-    copyright: string;
-  };
+
   terminal: {
     buttonTitle: string;
     headerTitle: string;
@@ -196,11 +160,9 @@ export interface Dictionary {
     projectUsageHint: string;
     contactText: string;
     cmdNotFound: string;
-    langChanged: string;
   };
   socialProfile: {
     portfolioBack: string;
-    nfcCardActive: string;
     location: string;
     cardHolderName: string;
     cardRole: string;

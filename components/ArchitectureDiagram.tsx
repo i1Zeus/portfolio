@@ -39,7 +39,7 @@ interface ConnectionCoord {
 export default function ArchitectureDiagram({
   architecture,
 }: ArchitectureDiagramProps) {
-  const { dict, locale } = useLocale();
+  const { dict } = useLocale();
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [selectedNode, setSelectedNode] = useState<NodeData | null>(null);
   const [connections, setConnections] = useState<ConnectionCoord[]>([]);
@@ -128,7 +128,7 @@ export default function ArchitectureDiagram({
       case "external":
         return <BiCloud className="size-6 text-paper/80" />;
       default:
-        return <BiServer className="size-6 text-paper/45" />;
+        return <BiServer className="size-6 text-paper/55" />;
     }
   };
 
@@ -251,7 +251,7 @@ export default function ArchitectureDiagram({
                     <h3 className="heading text-xl md:text-2xl text-paper">
                       {node.label}
                     </h3>
-                    <span className="text-[10px] text-paper/45 uppercase mt-0.5 block tracking-wider">
+                    <span className="text-[10px] text-paper/55 uppercase mt-0.5 block tracking-wider">
                       {dict.projects.clientUi}
                     </span>
                   </div>
@@ -289,7 +289,7 @@ export default function ArchitectureDiagram({
                     <h3 className="heading text-xl md:text-2xl text-paper">
                       {node.label}
                     </h3>
-                    <span className="text-[10px] text-paper/45 uppercase mt-0.5 block tracking-wider">
+                    <span className="text-[10px] text-paper/55 uppercase mt-0.5 block tracking-wider">
                       {dict.projects.serverApi}
                     </span>
                   </div>
@@ -333,7 +333,7 @@ export default function ArchitectureDiagram({
                     <h3 className="heading text-xl md:text-2xl text-paper">
                       {node.label}
                     </h3>
-                    <span className="text-[10px] text-paper/45 uppercase mt-0.5 block tracking-wider">
+                    <span className="text-[10px] text-paper/55 uppercase mt-0.5 block tracking-wider">
                       {node.type === "database" ? dict.projects.dataStore : dict.projects.externalApi}
                     </span>
                   </div>
@@ -375,7 +375,7 @@ export default function ArchitectureDiagram({
               </p>
             </motion.div>
           ) : (
-            <div className="text-paper/45 text-sm font-light font-mono uppercase tracking-[0.1em] text-[11px] flex items-center justify-center h-[80px]">
+            <div className="text-paper/55 text-sm font-light font-mono uppercase tracking-[0.1em] text-[11px] flex items-center justify-center h-[80px]">
               {dict.projects.architectureHint}
             </div>
           )}

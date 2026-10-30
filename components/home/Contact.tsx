@@ -63,7 +63,7 @@ export default function Contact() {
                 {h.ctaContact}
               </a>
               <a href="/hussein-najah-cv.pdf" download className="btn-ghost">
-                {dict.hero.downloadCv} ↓
+                {h.downloadCv} ↓
               </a>
             </div>
           </div>

@@ -50,6 +50,15 @@
   button {
     @apply active:outline-none;
   }
+  /* Keyboard focus is always visible, even with the custom cursor */
+  :focus-visible {
+    outline: 2px solid #f2f2ee;
+    outline-offset: 3px;
+  }
+  /* Letter-spacing breaks Arabic joining; keep tracking only on text marked dir="ltr" */
+  html[dir="rtl"] [class*="tracking-"]:not([dir="ltr"]) {
+    letter-spacing: 0;
+  }
 }
 
 @layer utilities {
