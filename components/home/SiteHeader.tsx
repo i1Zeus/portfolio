@@ -52,6 +52,7 @@ export default function SiteHeader() {
   return (
     <>
       <header
+        data-print-hide
         className={cn(
           "fixed inset-x-2 top-2 z-50 border-b transition-colors duration-500 sm:inset-x-2",
           scrolled ? "border-line bg-ink/80 backdrop-blur-md" : "border-transparent"
@@ -87,13 +88,12 @@ export default function SiteHeader() {
 
           <div className="flex items-center gap-5">
             <div className="hidden md:block">{langToggle}</div>
-            <a
-              href="/hussein-najah-cv.pdf"
-              download
+            <Link
+              href={`/${locale}/cv`}
               className="hidden border border-line-strong px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.12em] transition-colors hover:border-paper hover:bg-paper hover:text-ink sm:inline-block"
             >
-              {dict.home.cv} ↓
-            </a>
+              {dict.home.cv}
+            </Link>
             <button
               type="button"
               onClick={() => setOpen(true)}
@@ -145,9 +145,9 @@ export default function SiteHeader() {
         </ul>
         <div className="mt-8 flex items-center justify-between">
           {langToggle}
-          <a href="/hussein-najah-cv.pdf" download className="btn-ghost px-3 py-2">
-            {dict.home.cv} ↓
-          </a>
+          <Link href={`/${locale}/cv`} onClick={() => setOpen(false)} className="btn-ghost px-3 py-2">
+            {dict.home.cv}
+          </Link>
         </div>
       </div>
     </>

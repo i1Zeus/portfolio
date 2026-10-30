@@ -182,6 +182,22 @@ export const ar: Dictionary = {
     sourceCode: "الشيفرة المصدرية",
     highlightsTitle: "ما قمت به",
   },
+  cv: {
+    title: "السيرة الذاتية",
+    description:
+      "السيرة الذاتية لحسين نجاح، مهندس برمجيات في البصرة، العراق: الخبرة في Devhouse و Gulf Falcon و LVN، المشاريع، المهارات، التعليم والشهادات.",
+    summary: "نبذة",
+    experience: "الخبرة العملية",
+    projects: "مشاريع مختارة",
+    skills: "المهارات والأدوات",
+    languages: "اللغات",
+    education: "التعليم",
+    certificates: "الشهادات",
+    downloadPdf: "تحميل PDF",
+    print: "طباعة",
+    caseStudy: "دراسة الحالة",
+    verify: "تحقق",
+  },
   notFound: {
     title: "الصفحة غير موجودة",
     description: "عذراً، لم نتمكن من العثور على الصفحة التي تبحث عنها.",

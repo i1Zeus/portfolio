@@ -264,3 +264,34 @@ html.has-cursor textarea {
     transition: none;
   }
 }
+
+/* Print (the CV page): plain black on white, chrome hidden */
+@media print {
+  @page {
+    margin: 14mm;
+  }
+  html,
+  body {
+    background: #fff !important;
+  }
+  .site-frame::before,
+  .site-frame::after,
+  [data-print-hide] {
+    display: none !important;
+  }
+  html.js .reveal,
+  html.js .split .split-char {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  body * {
+    color: #111 !important;
+    border-color: #c8c8c8 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  .crosshair::before,
+  .crosshair::after {
+    display: none;
+  }
+}

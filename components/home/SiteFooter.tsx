@@ -28,7 +28,7 @@ export default function SiteFooter() {
   }, [locale]);
 
   return (
-    <footer className="overflow-hidden border-t border-line">
+    <footer className="overflow-hidden border-t border-line" data-print-hide>
       <div className={cn("grid grid-cols-1 gap-6 py-8 md:grid-cols-3 md:items-center", sectionPad)}>
         <p className="label">
           <span dir="ltr">©2026</span> {dict.socialProfile.cardHolderName} — {h.rights}

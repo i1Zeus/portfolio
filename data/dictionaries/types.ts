@@ -141,6 +141,21 @@ export interface Dictionary {
     sourceCode: string;
     highlightsTitle: string;
   };
+  cv: {
+    title: string;
+    description: string;
+    summary: string;
+    experience: string;
+    projects: string;
+    skills: string;
+    languages: string;
+    education: string;
+    certificates: string;
+    downloadPdf: string;
+    print: string;
+    caseStudy: string;
+    verify: string;
+  };
   notFound: {
     title: string;
     description: string;

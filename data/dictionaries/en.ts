@@ -182,6 +182,22 @@ export const en: Dictionary = {
     sourceCode: "Source code",
     highlightsTitle: "What I did",
   },
+  cv: {
+    title: "CV",
+    description:
+      "CV of Hussein Najah, software engineer in Basra, Iraq: experience at Devhouse, Gulf Falcon and LVN, projects, skills, education and certificates.",
+    summary: "Profile",
+    experience: "Experience",
+    projects: "Selected projects",
+    skills: "Skills & tools",
+    languages: "Languages",
+    education: "Education",
+    certificates: "Certificates",
+    downloadPdf: "Download PDF",
+    print: "Print",
+    caseStudy: "Case study",
+    verify: "Verify",
+  },
   notFound: {
     title: "Page Not Found",
     description: "Sorry, we couldn't find the page you're looking for.",

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { contactEmail, stackGroups } from "./index";
+import { cv } from "@/content/cv";
 import { Locale, siteUrl } from "./locales";
 import { getDictionary } from "./dictionaries";
 
@@ -105,6 +106,14 @@ export function siteGraph(locale: Locale) {
       address: { "@type": "PostalAddress", addressLocality: "Basra", addressCountry: "IQ" },
       sameAs,
       knowsAbout: stackGroups.flatMap((g) => g.items),
+      knowsLanguage: cv.languages.map((l) => l.name.en),
+      alumniOf: cv.education.map((e) => ({ "@type": "CollegeOrUniversity", name: e.school.en })),
+      hasCredential: cv.certificates.map((c) => ({
+        "@type": "EducationalOccupationalCredential",
+        name: c.name,
+        recognizedBy: { "@type": "Organization", name: c.issuer },
+        ...(c.url ? { url: c.url } : {}),
+      })),
     },
     {
       "@type": "WebSite",

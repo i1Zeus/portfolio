@@ -35,6 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         [project.cover, ...project.gallery].map((src) => `${baseUrl}${src}`)
       )
     ),
+    ...localized("/cv", { lastModified, changeFrequency: "monthly", priority: 0.7 }),
     // /qr renders the same card and declares /nfc as canonical, so only /nfc is listed.
     ...localized("/nfc", { lastModified, changeFrequency: "monthly", priority: 0.5 }),
   ];

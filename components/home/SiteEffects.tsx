@@ -118,12 +118,12 @@ export default function SiteEffects({ waitForBoot = false }: { waitForBoot?: boo
       <div
         ref={ringRef}
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[90] -ml-[17px] -mt-[17px] h-[34px] w-[34px] rounded-full border border-paper/60 opacity-0 mix-blend-difference transition-opacity duration-300"
+        className="pointer-events-none fixed left-0 top-0 z-[90] print:hidden -ml-[17px] -mt-[17px] h-[34px] w-[34px] rounded-full border border-paper/60 opacity-0 mix-blend-difference transition-opacity duration-300"
       />
       <div
         ref={dotRef}
         aria-hidden="true"
-        className="pointer-events-none fixed left-0 top-0 z-[90] -ml-[2px] -mt-[2px] h-1 w-1 rounded-full bg-paper opacity-0 mix-blend-difference"
+        className="pointer-events-none fixed left-0 top-0 z-[90] print:hidden -ml-[2px] -mt-[2px] h-1 w-1 rounded-full bg-paper opacity-0 mix-blend-difference"
       />
     </>
   );
