@@ -2,19 +2,26 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { RiQrCodeLine } from "react-icons/ri";
-import { MdNfc } from "react-icons/md";
-import { FaRotate } from "react-icons/fa6";
 import QRCode from "qrcode";
 import { soundManager } from "@/utils/soundEffects";
 import { triggerHapticFeedback } from "@/utils/vcard";
 import { useLocale } from "../LocaleContext";
+
+const NfcWaves = ({ className = "" }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" className={className} aria-hidden="true">
+    <path d="M8.5 8.5a5 5 0 0 1 0 7M11.8 6a8.5 8.5 0 0 1 0 12M15.1 3.5a12 12 0 0 1 0 17" strokeLinecap="round" />
+  </svg>
+);
+
+const face =
+  "absolute inset-0 h-full w-full overflow-hidden border border-line-strong bg-stage [backface-visibility:hidden] [-webkit-backface-visibility:hidden]";
 
 export default function HolographicCard() {
   const [isFlipped, setIsFlipped] = useState(false);
   const [qrDataUrl, setQrDataUrl] = useState<string>("");
   const cardRef = useRef<HTMLDivElement>(null);
   const { dict } = useLocale();
+  const p = dict.socialProfile;
 
   // Mouse tilt physics (isolated from the 180deg flip)
   const x = useMotionValue(0);
@@ -23,10 +30,10 @@ export default function HolographicCard() {
   const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 });
   const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 });
 
-  const tiltRotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
-  const tiltRotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
+  const tiltRotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const tiltRotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
 
-  // Holographic glare position
+  // Light sweep position
   const glareX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
   const glareY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
 
@@ -41,8 +48,8 @@ export default function HolographicCard() {
       width: 260,
       margin: 1,
       color: {
-        dark: "#000319",
-        light: "#ffffff",
+        dark: "#050505",
+        light: "#f2f2ee",
       },
     })
       .then((url) => setQrDataUrl(url))
@@ -52,14 +59,8 @@ export default function HolographicCard() {
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
   };
 
   const handleMouseLeave = () => {
@@ -74,11 +75,11 @@ export default function HolographicCard() {
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center my-4">
+    <div className="flex w-full flex-col items-center">
       {/* 3D Perspective Card Viewport */}
       <div
         style={{ perspective: 1200 }}
-        className="w-full max-w-[370px] sm:max-w-[420px] aspect-[1.586/1] relative cursor-pointer group select-none"
+        className="crosshair group relative aspect-[1.586/1] w-full cursor-pointer select-none"
         onClick={handleFlip}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
@@ -92,183 +93,122 @@ export default function HolographicCard() {
             transformStyle: "preserve-3d",
             WebkitTransformStyle: "preserve-3d",
           }}
-          className="w-full h-full relative"
+          className="relative h-full w-full"
         >
           {/* Layer 2: 180-Degree 3D Card Flip */}
           <motion.div
             initial={false}
-            animate={{
-              rotateY: isFlipped ? 180 : 0,
-            }}
-            transition={{
-              duration: 0.6,
-              ease: [0.23, 1, 0.32, 1],
-            }}
-            style={{
-              transformStyle: "preserve-3d",
-              WebkitTransformStyle: "preserve-3d",
-            }}
-            className="w-full h-full relative rounded-2xl shadow-2xl transition-shadow duration-300 group-hover:shadow-[0_20px_50px_rgba(203,172,249,0.25)]"
+            animate={{ rotateY: isFlipped ? 180 : 0 }}
+            transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+            style={{ transformStyle: "preserve-3d", WebkitTransformStyle: "preserve-3d" }}
+            className="relative h-full w-full shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)]"
           >
-            {/* ======================================================== */}
             {/* CARD FRONT FACE */}
-            {/* ======================================================== */}
-            <div
-              style={{
-                backfaceVisibility: "hidden",
-                WebkitBackfaceVisibility: "hidden",
-                transformStyle: "preserve-3d",
-                WebkitTransformStyle: "preserve-3d",
-              }}
-              className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#0c0d1e] via-[#050616] to-[#120826] border border-white/15 p-6 flex flex-col justify-between shadow-inner"
-            >
-              {/* Holographic Sheen Layer */}
+            <div className={`${face} flex flex-col justify-between p-5 sm:p-6`}>
+              <div className="art-lines art-fade pointer-events-none absolute -end-1/4 -top-1/4 h-[130%] w-3/4 opacity-25" />
               <motion.div
                 style={{
-                  background:
-                    "radial-gradient(circle at center, rgba(203,172,249,0.22) 0%, rgba(120,119,198,0.1) 40%, transparent 80%)",
+                  background: "radial-gradient(circle, rgba(242,242,238,0.12) 0%, transparent 55%)",
                   left: glareX,
                   top: glareY,
                   transform: "translate(-50%, -50%)",
                 }}
-                className="absolute w-[200%] h-[200%] pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity"
+                className="pointer-events-none absolute h-[200%] w-[200%]"
               />
 
-              {/* Brushed Metal Texture Overlay */}
-              <div className="absolute inset-0 bg-dot-white/[0.1] pointer-events-none" />
-
-              {/* Top Row: Chip & Contactless Wave */}
-              <div className="flex items-center justify-between relative z-10">
-                {/* EMV Microchip Graphic */}
-                <div className="relative w-11 h-9 rounded-md bg-gradient-to-br from-amber-200 via-yellow-400 to-amber-600 p-[1px] shadow-md">
-                  <div className="w-full h-full rounded-[5px] bg-gradient-to-br from-yellow-300 via-amber-400 to-amber-500 flex flex-col justify-between p-1 border border-yellow-200/50">
-                    <div className="w-full h-[1px] bg-amber-700/60" />
-                    <div className="flex justify-between items-center w-full">
-                      <div className="w-2.5 h-[1px] bg-amber-700/60" />
-                      <div className="w-2.5 h-2.5 rounded-full border border-amber-800/50" />
-                      <div className="w-2.5 h-[1px] bg-amber-700/60" />
-                    </div>
-                    <div className="w-full h-[1px] bg-amber-700/60" />
-                  </div>
-                </div>
-
-                {/* NFC Contactless Wave */}
-                <div className="flex items-center gap-1.5 text-white/80">
-                  <MdNfc className="text-2xl text-purple drop-shadow-[0_0_8px_rgba(203,172,249,0.8)]" />
-                  <span className="text-[10px] font-mono tracking-widest text-purple/90 font-semibold uppercase">
-                    {dict.socialProfile.nfcWallet}
-                  </span>
-                </div>
-              </div>
-
-              {/* Middle Row: Embossed Digits Placeholder & Tagline */}
-              <div className="relative z-10 my-auto text-start">
-                <p className="font-mono text-xs tracking-[0.3em] text-white/40 mb-1" dir="ltr">
-                  ••••  ••••  ••••  2026
-                </p>
-                <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-                  {dict.socialProfile.cardHolderName}
-                </h2>
-                <p className="text-xs font-medium text-purple/90 tracking-wider">
-                  {dict.socialProfile.cardRole}
-                </p>
-              </div>
-
-              {/* Bottom Row: Social Handle & Brand */}
-              <div className="flex items-center justify-between relative z-10 pt-2 border-t border-white/10">
-                <div className="flex items-center gap-1.5">
-                  <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-                  <span className="font-mono text-xs font-medium text-white/90 tracking-wide" dir="ltr">
-                    @i1Zeus
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono tracking-widest text-white/40 uppercase">
-                  {dict.socialProfile.tapToFlip}
+              {/* Top Row: Mark, Chip & Contactless */}
+              <div className="relative z-10 flex items-start justify-between">
+                <span
+                  className="border border-paper/70 px-1.5 pb-0.5 pt-1 font-display text-[18px] font-semibold uppercase leading-none tracking-tight text-paper"
+                  dir="ltr"
+                >
+                  HN
                 </span>
+                <div className="flex items-center gap-3">
+                  {/* Outlined EMV chip */}
+                  <div className="grid h-8 w-10 grid-cols-3 grid-rows-3 border border-paper/50" aria-hidden="true">
+                    {Array.from({ length: 9 }).map((_, i) => (
+                      <span key={i} className="border-[0.5px] border-paper/25" />
+                    ))}
+                  </div>
+                  <NfcWaves className="h-6 w-6 text-paper/80" />
+                </div>
+              </div>
+
+              {/* Middle Row: Name & Role */}
+              <div className="relative z-10 text-start">
+                <p className="label mb-2 text-paper/40" dir="ltr">
+                  ••••&nbsp;&nbsp;••••&nbsp;&nbsp;••••&nbsp;&nbsp;2026
+                </p>
+                <h2 className="display text-[clamp(2rem,9vw,2.9rem)] text-paper">{p.cardHolderName}</h2>
+                <p className="label mt-1.5 text-paper/70">{p.cardRole}</p>
+              </div>
+
+              {/* Bottom Row: Handle & Flip hint */}
+              <div className="relative z-10 flex items-center justify-between border-t border-line pt-2.5">
+                <span className="flex items-center gap-2 font-mono text-[11px] tracking-[0.08em] text-paper/90" dir="ltr">
+                  <span className="h-1.5 w-1.5 rounded-full bg-paper" />
+                  @i1Zeus
+                </span>
+                <span className="label text-[10px] text-paper/45">{p.tapToFlip}</span>
               </div>
             </div>
 
-            {/* ======================================================== */}
             {/* CARD BACK FACE (Revealed when rotated 180deg) */}
-            {/* ======================================================== */}
             <div
-              style={{
-                backfaceVisibility: "hidden",
-                WebkitBackfaceVisibility: "hidden",
-                transform: "rotateY(180deg)",
-                WebkitTransform: "rotateY(180deg)",
-                transformStyle: "preserve-3d",
-                WebkitTransformStyle: "preserve-3d",
-              }}
-              className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-[#070817] via-[#050616] to-[#120826] border border-purple/30 p-5 flex flex-col justify-between shadow-2xl"
+              style={{ transform: "rotateY(180deg)", WebkitTransform: "rotateY(180deg)" }}
+              className={`${face} flex flex-col justify-between p-4 sm:p-5`}
             >
               {/* Magnetic Stripe */}
-              <div className="absolute top-4 left-0 w-full h-8 bg-black/90 border-y border-white/10" />
+              <div className="absolute inset-x-0 top-4 h-8 border-y border-line bg-ink" />
 
-              {/* Signature & Security Panel */}
-              <div className="relative z-10 mt-10 flex items-center justify-between gap-4">
-                <div className="flex-1 bg-white/15 h-8 rounded px-3 flex items-center border border-white/20">
-                  <span className="font-mono text-xs text-white/70 italic tracking-wider" dir="ltr">
+              {/* Signature Panel */}
+              <div className="relative z-10 mt-10 flex items-center gap-2">
+                <div className="art-lines flex h-7 flex-1 items-center border border-line px-3 opacity-90">
+                  <span className="bg-stage px-1 font-mono text-[11px] italic tracking-wider text-paper/75" dir="ltr">
                     Hussein Najah // @i1Zeus
                   </span>
                 </div>
-                <div className="bg-white/20 h-8 px-2.5 rounded flex items-center justify-center font-mono text-xs text-white/90 border border-white/20">
-                  <span>CVC 777</span>
-                </div>
+                <span className="flex h-7 items-center border border-line px-2 font-mono text-[11px] text-paper/80" dir="ltr">
+                  CVC 777
+                </span>
               </div>
 
               {/* Live QR Code & Scan Instructions */}
-              <div className="relative z-10 flex items-center justify-between gap-4 bg-white/5 p-2.5 rounded-xl border border-white/10 text-start">
-                <div className="flex flex-col text-start">
-                  <div className="flex items-center gap-1 text-purple text-xs font-semibold">
-                    <RiQrCodeLine className="text-sm shrink-0" />
-                    <span>{dict.socialProfile.instantConnect}</span>
-                  </div>
-                  <p className="text-[11px] text-white/70 mt-0.5 leading-tight">
-                    {dict.socialProfile.instantConnectDesc}
-                  </p>
+              <div className="relative z-10 flex items-center justify-between gap-4 border border-line bg-ink/60 p-2.5 text-start">
+                <div className="min-w-0">
+                  <p className="label text-paper">{p.instantConnect}</p>
+                  <p className="mt-1 text-[11px] leading-snug text-paper/60">{p.instantConnectDesc}</p>
                 </div>
-
-                {/* QR Image */}
                 {qrDataUrl ? (
-                  <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-lg overflow-hidden bg-white p-1 shadow-md shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={qrDataUrl}
-                      alt="Hussein Najah QR Code"
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={qrDataUrl} alt="Hussein Najah QR Code" className="h-16 w-16 shrink-0 bg-paper p-1" />
                 ) : (
-                  <div className="w-16 h-16 rounded-lg bg-white/10 animate-pulse shrink-0" />
+                  <div className="h-16 w-16 shrink-0 animate-pulse bg-paper/10" />
                 )}
               </div>
 
               {/* Bottom Status */}
-              <div className="flex items-center justify-between text-[10px] font-mono text-white/40 relative z-10">
-                <span className="truncate">{dict.socialProfile.signatureRequired}</span>
-                <span className="text-purple/80 font-medium shrink-0">{dict.socialProfile.tapToFlip}</span>
+              <div className="relative z-10 flex items-center justify-between gap-3">
+                <span className="label truncate text-[10px] text-paper/40">{p.signatureRequired}</span>
+                <span className="label shrink-0 text-[10px] text-paper/70">{p.tapToFlip}</span>
               </div>
             </div>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Floating Flip Helper Button */}
+      {/* Flip Helper Button */}
       <button
         type="button"
         onClick={(e) => {
           e.stopPropagation();
           handleFlip();
         }}
-        className="mt-3 flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono text-white/70 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-purple/30 transition-all cursor-pointer shadow-sm"
+        className="mt-5 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.12em] text-paper/60 transition-colors hover:text-paper"
       >
-        <FaRotate
-          className={`text-purple text-xs transition-transform duration-500 ${
-            isFlipped ? "rotate-180" : ""
-          }`}
-        />
-        <span>{isFlipped ? dict.socialProfile.flipToFront : dict.socialProfile.flipToBack}</span>
+        <span className={`inline-block transition-transform duration-500 ${isFlipped ? "rotate-180" : ""}`}>↻</span>
+        {isFlipped ? p.flipToFront : p.flipToBack}
       </button>
     </div>
   );

@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { FaUserPlus, FaShareNodes, FaQrcode } from "react-icons/fa6";
+import { AnimatePresence, motion } from "framer-motion";
 import confetti from "canvas-confetti";
 import { downloadVCard, triggerHapticFeedback } from "@/utils/vcard";
 import { soundManager } from "@/utils/soundEffects";
@@ -27,13 +26,13 @@ export default function QuickActions({ onOpenQr }: QuickActionsProps) {
     soundManager.playSuccess();
     triggerHapticFeedback([40, 50, 40]);
 
-    // Burst confetti!
     try {
       confetti({
-        particleCount: 70,
+        particleCount: 60,
         spread: 60,
         origin: { y: 0.7 },
-        colors: ["#CBACF9", "#38bdf8", "#818cf8", "#f472b6"],
+        shapes: ["square"],
+        colors: ["#f2f2ee", "#9a9a96", "#5a5a58"],
       });
     } catch {
       // Ignore confetti errors
@@ -87,65 +86,40 @@ export default function QuickActions({ onOpenQr }: QuickActionsProps) {
   };
 
   return (
-    <div className="w-full max-w-[420px] my-4">
-      {/* Toast notification */}
-      {toast && (
-        <motion.div
-          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="fixed top-6 left-1/2 -translate-x-1/2 z-50 bg-[#12163b]/95 border border-purple/40 text-white text-xs px-4 py-2.5 rounded-full shadow-2xl backdrop-blur-md flex items-center gap-2 max-w-[90vw]"
-        >
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span>{toast}</span>
-        </motion.div>
-      )}
+    <div className="w-full">
+      <AnimatePresence>
+        {toast && (
+          <motion.div
+            role="status"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="fixed left-1/2 top-16 z-[70] flex max-w-[90vw] -translate-x-1/2 items-center gap-2 border border-line-strong bg-ink px-4 py-2.5 font-mono text-[11px] uppercase tracking-[0.08em] text-paper"
+          >
+            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-paper" />
+            <span>{toast}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Action Buttons Grid */}
-      <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
-        {/* Save Contact - Highlighted Hero Button */}
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.96 }}
-          onClick={handleSaveContact}
-          className="col-span-2 relative group overflow-hidden rounded-2xl p-[1.5px] shadow-lg shadow-purple/10 cursor-pointer"
-        >
-          {/* Moving gradient border */}
-          <div className="absolute inset-0 bg-gradient-to-r from-purple via-blue-400 to-pink-500 rounded-2xl animate-pulse" />
-
-          <div className="relative flex items-center justify-center gap-2.5 py-3.5 px-4 rounded-2xl bg-[#0b0c26] group-hover:bg-[#0f1133] transition-colors text-white font-medium text-sm">
-            <FaUserPlus className="text-purple text-base group-hover:scale-110 transition-transform" />
-            <span className="font-semibold tracking-wide">
-              {dict.socialProfile.saveContact}
-            </span>
-          </div>
-        </motion.button>
-
-        {/* Share Button */}
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.96 }}
-          onClick={handleShare}
-          className="flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-purple/30 text-white/90 text-xs font-medium transition-all backdrop-blur-md cursor-pointer"
-        >
-          <FaShareNodes className="text-purple text-sm" />
-          <span>{dict.socialProfile.shareCard}</span>
-        </motion.button>
-
-        {/* Show QR Button */}
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.96 }}
+      <div className="grid grid-cols-2 gap-2">
+        <button type="button" onClick={handleSaveContact} className="btn-solid col-span-2 py-4">
+          {dict.socialProfile.saveContact} ↓
+        </button>
+        <button type="button" onClick={handleShare} className="btn-ghost px-3">
+          {dict.socialProfile.shareCard}
+        </button>
+        <button
+          type="button"
           onClick={() => {
             soundManager.playTap();
             triggerHapticFeedback(20);
             onOpenQr();
           }}
-          className="flex items-center justify-center gap-2 py-3 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-purple/30 text-white/90 text-xs font-medium transition-all backdrop-blur-md cursor-pointer"
+          className="btn-ghost px-3"
         >
-          <FaQrcode className="text-purple text-sm" />
-          <span>{dict.socialProfile.showQr}</span>
-        </motion.button>
+          {dict.socialProfile.showQr}
+        </button>
       </div>
     </div>
   );

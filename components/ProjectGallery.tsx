@@ -150,10 +150,10 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
 
   return (
     <div className="w-full mt-20">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-2">
+      <h2 className="heading text-[clamp(2.4rem,5vw,4.5rem)] uppercase text-paper rtl:normal-case mb-3">
         {dict.projects.galleryTitle}
       </h2>
-      <p className="text-center text-white-200 text-sm md:text-base font-light mb-10">
+      <p className="text-paper/60 text-sm md:text-base max-w-xl mb-10">
         {dict.projects.gallerySubtitle}
       </p>
 
@@ -166,7 +166,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
-            className={`relative rounded-3xl border border-white/[0.1] bg-[#04071D] bg-opacity-50 overflow-hidden cursor-pointer group flex flex-col justify-between ${item.span}`}
+            className={`relative rounded-none border border-line bg-stage overflow-hidden cursor-pointer group flex flex-col justify-between ${item.span}`}
             onClick={() => openLightbox(index)}
           >
             {/* Image Wrapper */}
@@ -179,16 +179,16 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
                 className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
               />
               {/* Glassmorphism Hover Overlay */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-sm z-10">
+              <div className="absolute inset-0 bg-ink/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center backdrop-blur-sm z-10">
                 <motion.div
                   initial={{ scale: 0.8, opacity: 0 }}
                   whileHover={{ scale: 1.1 }}
                   animate={{ scale: 1, opacity: 1 }}
-                  className="p-4 rounded-full bg-white/10 border border-white/20 text-white backdrop-blur-md shadow-lg"
+                  className="p-4 rounded-none bg-white/10 border border-white/20 text-white backdrop-blur-md shadow-lg"
                 >
                   <FaEye size={24} />
                 </motion.div>
-                <span className="text-white font-medium mt-3 text-sm tracking-wide">
+                <span className="text-paper font-mono uppercase mt-3 text-[11px] tracking-[0.12em]">
                   {dict.projects.viewFullImage}
                 </span>
               </div>
@@ -204,13 +204,13 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-xl"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-ink/95 backdrop-blur-xl"
             onClick={closeLightbox}
           >
             {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-5 end-5 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200 cursor-pointer"
+              className="absolute top-5 end-5 z-50 p-3 rounded-none bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200 cursor-pointer"
               aria-label={dict.projects.lightboxClose}
               title={dict.projects.lightboxClose}
             >
@@ -223,7 +223,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
                 e.stopPropagation();
                 navigateLightbox("prev");
               }}
-              className="absolute start-5 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200 cursor-pointer"
+              className="absolute start-5 z-50 p-3 rounded-none bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200 cursor-pointer"
               aria-label={dict.projects.lightboxPrev}
               title={dict.projects.lightboxPrev}
             >
@@ -236,7 +236,7 @@ export default function ProjectGallery({ images }: ProjectGalleryProps) {
                 e.stopPropagation();
                 navigateLightbox("next");
               }}
-              className="absolute end-5 z-50 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200 cursor-pointer"
+              className="absolute end-5 z-50 p-3 rounded-none bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors duration-200 cursor-pointer"
               aria-label={dict.projects.lightboxNext}
               title={dict.projects.lightboxNext}
             >

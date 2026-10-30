@@ -1,35 +1,33 @@
-import dynamic from "next/dynamic";
-import Approach from "@/components/Approach";
-import Clients from "@/components/Clients";
-import Experience from "@/components/Experience";
-import Footer from "@/components/Footer";
-import Hero from "@/components/hero";
-import RecentProjects from "@/components/RecentProjects";
-
-const LocalizedFloatingNav = dynamic(
-  () => import("@/components/LocalizedFloatingNav"),
-  {
-    ssr: false,
-  }
-);
-
-const Grid = dynamic(() => import("@/components/Grid"), {
-  ssr: false,
-});
+import About from "@/components/home/About";
+import BootScreen from "@/components/home/BootScreen";
+import Contact from "@/components/home/Contact";
+import Hero from "@/components/home/Hero";
+import Manifesto from "@/components/home/Manifesto";
+import Path from "@/components/home/Path";
+import SiteEffects from "@/components/home/SiteEffects";
+import SiteFooter from "@/components/home/SiteFooter";
+import SiteHeader from "@/components/home/SiteHeader";
+import Stack from "@/components/home/Stack";
+import Words from "@/components/home/Words";
+import Work from "@/components/home/Work";
 
 export default function LocalizedHome() {
   return (
-    <main className="bg-black-100 sm:px-10 overflow-clip relative flex flex-col items-center justify-center px-5 mx-auto">
-      <div className="max-w-7xl w-full">
-        <LocalizedFloatingNav className="max-w-[90vw]" />
+    <>
+      <BootScreen />
+      <SiteEffects waitForBoot />
+      <SiteHeader />
+      <main className="relative w-full overflow-clip bg-ink text-paper">
         <Hero />
-        <Grid />
-        <RecentProjects />
-        <Clients />
-        <Experience />
-        <Approach />
-        <Footer />
-      </div>
-    </main>
+        <Manifesto />
+        <About />
+        <Stack />
+        <Work />
+        <Path />
+        <Words />
+        <Contact />
+      </main>
+      <SiteFooter />
+    </>
   );
 }

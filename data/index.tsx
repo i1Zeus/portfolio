@@ -535,3 +535,43 @@ export const socialMedia = [
     img: "instagram.svg",
   },
 ];
+
+export const contactEmail = "husseinnajah.it@gmail.com";
+
+export const projectTags: Record<number, string[]> = {
+  0: ["React", "NestJS", "PostgreSQL", "Prisma", "Cloudflare R2"],
+  1: ["Next.js", "Prisma", "PostgreSQL", "Stripe", "Tailwind"],
+  2: ["React", "NestJS", "WebSocket", "PostgreSQL", "SindiPay"],
+  3: ["Next.js", "React Native", "Odoo", "Firebase"],
+  4: ["React", "Node.js", "Docker", "MongoDB"],
+  5: ["Laravel", "PHP", "MySQL", "Bootstrap"],
+};
+
+export const stackGroups = [
+  {
+    key: "frontend",
+    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "React Native"],
+  },
+  {
+    key: "backend",
+    items: ["Node.js", "NestJS", "Laravel (PHP)", "REST APIs", "WebSockets"],
+  },
+  {
+    key: "data",
+    items: ["PostgreSQL", "MySQL", "MongoDB", "Redis", "Prisma ORM", "Firebase"],
+  },
+  {
+    key: "infra",
+    items: ["Docker", "Cloudflare R2", "Vercel", "Odoo ERP", "Stripe", "Gemini / OpenAI"],
+  },
+] as const;
+
+export type StackGroupKey = (typeof stackGroups)[number]["key"];
+
+export const contactLinks = [
+  { key: "email", value: contactEmail, href: `mailto:${contactEmail}` },
+  { key: "github", value: "github.com/i1Zeus", href: "https://github.com/i1Zeus" },
+  { key: "linkedin", value: "linkedin.com/in/i1zeus", href: "https://www.linkedin.com/in/i1zeus" },
+  { key: "x", value: "x.com/i1Zeus", href: "https://x.com/i1Zeus" },
+  { key: "instagram", value: "@hxg.1", href: "https://www.instagram.com/hxg.1" },
+] as const;

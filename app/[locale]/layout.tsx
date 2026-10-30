@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Cairo } from "next/font/google";
+import { Big_Shoulders_Display, Cairo } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import dynamic from "next/dynamic";
 
 import "../globals.css";
@@ -12,9 +14,9 @@ const TerminalOverlay = dynamic(() => import("@/components/TerminalOverlay"), {
   ssr: false,
 });
 
-const inter = Inter({
+const display = Big_Shoulders_Display({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-display",
   display: "swap",
 });
 
@@ -134,16 +136,24 @@ export default function RootLocaleLayout({
     <html
       lang={safeLocale}
       dir={dir}
-      className={`${inter.variable} ${cairo.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable} ${cairo.variable}`}
       suppressHydrationWarning
     >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('hn-booted'))d.classList.add('booted')}catch(e){}",
+          }}
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={safeLocale === "ar" ? `${cairo.className} font-cairo` : `${inter.className} font-sans`}>
+      <body
+        className={`site-frame ${safeLocale === "ar" ? "font-cairo" : "font-sans"}`}
+      >
         <LocaleProvider locale={safeLocale}>
           <ThemeProvider
             attribute="class"

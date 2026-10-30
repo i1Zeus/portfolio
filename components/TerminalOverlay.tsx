@@ -258,10 +258,10 @@ export default function TerminalOverlay() {
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="fixed bottom-6 end-6 z-[4999] flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 border border-emerald-500/40 text-emerald-400 backdrop-blur-md shadow-lg shadow-emerald-500/10 hover:bg-emerald-500 hover:text-black hover:scale-105 active:scale-95 transition-all duration-300 select-none cursor-pointer"
+          className="fixed bottom-5 end-5 z-[4999] flex h-11 w-11 items-center justify-center border border-line-strong bg-ink/80 text-paper/80 backdrop-blur-md hover:bg-paper hover:text-ink active:scale-95 transition-colors duration-300 select-none cursor-pointer"
           title={dict.terminal.buttonTitle}
         >
-          <BiTerminal className="size-7 animate-pulse" />
+          <BiTerminal className="size-5" />
         </button>
       )}
 

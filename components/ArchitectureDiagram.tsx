@@ -120,15 +120,15 @@ export default function ArchitectureDiagram({
   const getNodeIcon = (type: string) => {
     switch (type) {
       case "frontend":
-        return <BiDesktop className="size-6 text-indigo-400" />;
+        return <BiDesktop className="size-6 text-paper/80" />;
       case "backend":
-        return <BiServer className="size-6 text-purple-400" />;
+        return <BiServer className="size-6 text-paper/80" />;
       case "database":
-        return <FaDatabase className="size-6 text-emerald-400" />;
+        return <FaDatabase className="size-6 text-paper/80" />;
       case "external":
-        return <BiCloud className="size-6 text-sky-400" />;
+        return <BiCloud className="size-6 text-paper/80" />;
       default:
-        return <BiServer className="size-6 text-zinc-400" />;
+        return <BiServer className="size-6 text-paper/45" />;
     }
   };
 
@@ -136,16 +136,16 @@ export default function ArchitectureDiagram({
     if (active) {
       switch (type) {
         case "frontend":
-          return "border-indigo-500 shadow-indigo-500/20 shadow-md";
+          return "border-paper bg-paper/[0.04]";
         case "backend":
-          return "border-purple-500 shadow-purple-500/20 shadow-md";
+          return "border-paper bg-paper/[0.04]";
         case "database":
-          return "border-emerald-500 shadow-emerald-500/20 shadow-md";
+          return "border-paper bg-paper/[0.04]";
         case "external":
-          return "border-sky-500 shadow-sky-500/20 shadow-md";
+          return "border-paper bg-paper/[0.04]";
       }
     }
-    return "border-white/[0.08] hover:border-white/[0.2]";
+    return "border-line hover:border-line-strong";
   };
 
   const activeNodeInfo =
@@ -153,16 +153,16 @@ export default function ArchitectureDiagram({
 
   return (
     <div className="w-full mt-24">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-2">
+      <h2 className="heading text-[clamp(2.4rem,5vw,4.5rem)] uppercase text-paper rtl:normal-case mb-3">
         {dict.projects.architectureTitle}
       </h2>
-      <p className="text-center text-white-200 text-sm md:text-base font-light mb-12">
+      <p className="text-paper/60 text-sm md:text-base max-w-xl mb-12">
         {dict.projects.architectureSubtitle}
       </p>
 
       <div
         ref={containerRef}
-        className="relative w-full rounded-3xl border border-white/[0.08] bg-[#04071D]/40 backdrop-blur-xl p-6 md:p-10 overflow-visible"
+        className="relative w-full rounded-none border border-line bg-stage p-6 md:p-10 overflow-visible"
       >
         {/* SVG Connectors Layer (Only visible on medium and larger screens where columns align side-by-side) */}
         <svg
@@ -171,12 +171,12 @@ export default function ArchitectureDiagram({
         >
           <defs>
             <linearGradient id="activeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.8" />
+              <stop offset="0%" stopColor="#f2f2ee" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#f2f2ee" stopOpacity="0.8" />
             </linearGradient>
             <linearGradient id="inactiveGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#3f3f46" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#3f3f46" stopOpacity="0.25" />
+              <stop offset="0%" stopColor="#f2f2ee" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="#f2f2ee" stopOpacity="0.16" />
             </linearGradient>
           </defs>
 
@@ -194,7 +194,7 @@ export default function ArchitectureDiagram({
                   <path
                     d={pathD}
                     fill="none"
-                    stroke="#a855f7"
+                    stroke="#f2f2ee"
                     strokeWidth="4"
                     className="opacity-25 blur-sm"
                   />
@@ -224,7 +224,7 @@ export default function ArchitectureDiagram({
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 relative z-10">
           {/* Column 1: Client/Frontend Layer */}
           <div className="flex flex-col gap-6">
-            <div className="text-xs uppercase tracking-wider text-indigo-400 font-bold border-b border-indigo-950/40 pb-2 mb-2 select-none flex items-center gap-2">
+            <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-paper/60 border-b border-line pb-2 mb-2 select-none flex items-center gap-2">
               <BiDesktop /> {dict.projects.clientLayer}
             </div>
             {frontendNodes.map((node) => (
@@ -233,7 +233,7 @@ export default function ArchitectureDiagram({
                 ref={(el) => {
                   nodeRefs.current[node.id] = el;
                 }}
-                className={`relative rounded-2xl bg-[#030617]/95 border p-5 cursor-pointer transition-all duration-300 ${getBorderColor(
+                className={`relative rounded-none bg-ink border p-5 cursor-pointer transition-all duration-300 ${getBorderColor(
                   node.type,
                   hoveredNode === node.id || selectedNode?.id === node.id,
                 )}`}
@@ -244,14 +244,14 @@ export default function ArchitectureDiagram({
                 }
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-lg bg-indigo-950/40 border border-indigo-900/40">
+                  <div className="p-2.5 rounded-none bg-transparent border border-line">
                     {getNodeIcon(node.type)}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm md:text-base leading-tight">
+                    <h3 className="heading text-xl md:text-2xl text-paper">
                       {node.label}
                     </h3>
-                    <span className="text-[10px] text-zinc-500 uppercase mt-0.5 block tracking-wider">
+                    <span className="text-[10px] text-paper/45 uppercase mt-0.5 block tracking-wider">
                       {dict.projects.clientUi}
                     </span>
                   </div>
@@ -262,7 +262,7 @@ export default function ArchitectureDiagram({
 
           {/* Column 2: Server/Backend Layer */}
           <div className="flex flex-col gap-6 justify-center">
-            <div className="text-xs uppercase tracking-wider text-purple-400 font-bold border-b border-purple-950/40 pb-2 mb-2 select-none flex items-center gap-2">
+            <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-paper/60 border-b border-line pb-2 mb-2 select-none flex items-center gap-2">
               <BiServer /> {dict.projects.serverLayer}
             </div>
             {backendNodes.map((node) => (
@@ -271,7 +271,7 @@ export default function ArchitectureDiagram({
                 ref={(el) => {
                   nodeRefs.current[node.id] = el;
                 }}
-                className={`relative rounded-2xl bg-[#030617]/95 border p-5 cursor-pointer transition-all duration-300 ${getBorderColor(
+                className={`relative rounded-none bg-ink border p-5 cursor-pointer transition-all duration-300 ${getBorderColor(
                   node.type,
                   hoveredNode === node.id || selectedNode?.id === node.id,
                 )}`}
@@ -282,14 +282,14 @@ export default function ArchitectureDiagram({
                 }
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2.5 rounded-lg bg-purple-950/40 border border-purple-900/40">
+                  <div className="p-2.5 rounded-none bg-transparent border border-line">
                     {getNodeIcon(node.type)}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm md:text-base leading-tight">
+                    <h3 className="heading text-xl md:text-2xl text-paper">
                       {node.label}
                     </h3>
-                    <span className="text-[10px] text-zinc-500 uppercase mt-0.5 block tracking-wider">
+                    <span className="text-[10px] text-paper/45 uppercase mt-0.5 block tracking-wider">
                       {dict.projects.serverApi}
                     </span>
                   </div>
@@ -300,7 +300,7 @@ export default function ArchitectureDiagram({
 
           {/* Column 3: Data & Integrations Layer */}
           <div className="flex flex-col gap-6">
-            <div className="text-xs uppercase tracking-wider text-emerald-400 font-bold border-b border-emerald-950/40 pb-2 mb-2 select-none flex items-center gap-2">
+            <div className="font-mono text-[11px] uppercase tracking-[0.14em] text-paper/60 border-b border-line pb-2 mb-2 select-none flex items-center gap-2">
               <FaDatabase /> {dict.projects.storageLayer}
             </div>
             {dataNodes.map((node) => (
@@ -309,7 +309,7 @@ export default function ArchitectureDiagram({
                 ref={(el) => {
                   nodeRefs.current[node.id] = el;
                 }}
-                className={`relative rounded-2xl bg-[#030617]/95 border p-5 cursor-pointer transition-all duration-300 ${getBorderColor(
+                className={`relative rounded-none bg-ink border p-5 cursor-pointer transition-all duration-300 ${getBorderColor(
                   node.type,
                   hoveredNode === node.id || selectedNode?.id === node.id,
                 )}`}
@@ -321,19 +321,19 @@ export default function ArchitectureDiagram({
               >
                 <div className="flex items-center gap-3">
                   <div
-                    className={`p-2.5 rounded-lg border ${
+                    className={`p-2.5 rounded-none border ${
                       node.type === "database"
-                        ? "bg-emerald-950/40 border-emerald-900/40"
-                        : "bg-sky-950/40 border-sky-900/40"
+                        ? "bg-transparent border-line"
+                        : "bg-transparent border-line"
                     }`}
                   >
                     {getNodeIcon(node.type)}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-white text-sm md:text-base leading-tight">
+                    <h3 className="heading text-xl md:text-2xl text-paper">
                       {node.label}
                     </h3>
-                    <span className="text-[10px] text-zinc-500 uppercase mt-0.5 block tracking-wider">
+                    <span className="text-[10px] text-paper/45 uppercase mt-0.5 block tracking-wider">
                       {node.type === "database" ? dict.projects.dataStore : dict.projects.externalApi}
                     </span>
                   </div>
@@ -344,7 +344,7 @@ export default function ArchitectureDiagram({
         </div>
 
         {/* Info Details Section */}
-        <div className="mt-10 border-t border-white/[0.08] pt-6 relative z-10 min-h-[120px]">
+        <div className="mt-10 border-t border-line pt-6 relative z-10 min-h-[120px]">
           {activeNodeInfo ? (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -353,29 +353,29 @@ export default function ArchitectureDiagram({
               className="space-y-2"
             >
               <div className="flex items-center gap-2">
-                <span className="text-sm font-bold text-white capitalize">
+                <span className="heading text-2xl text-paper">
                   {activeNodeInfo.label}
                 </span>
                 <span
-                  className={`text-[10px] px-2 py-0.5 rounded-full border font-semibold select-none ${
+                  className={`text-[10px] px-2 py-0.5 rounded-none border font-semibold select-none ${
                     activeNodeInfo.type === "frontend"
-                      ? "text-indigo-400 bg-indigo-950/20 border-indigo-900/40"
+                      ? "text-paper/80 bg-transparent border-line"
                       : activeNodeInfo.type === "backend"
-                        ? "text-purple-400 bg-purple-950/20 border-purple-900/40"
+                        ? "text-paper/80 bg-transparent border-line"
                         : activeNodeInfo.type === "database"
-                          ? "text-emerald-400 bg-emerald-950/20 border-emerald-900/40"
-                          : "text-sky-400 bg-sky-950/20 border-sky-900/40"
+                          ? "text-paper/80 bg-transparent border-line"
+                          : "text-paper/80 bg-transparent border-line"
                   }`}
                 >
                   {activeNodeInfo.type}
                 </span>
               </div>
-              <p className="text-white-200 text-sm leading-relaxed font-light select-text">
+              <p className="text-paper/70 text-sm leading-relaxed font-light select-text">
                 {activeNodeInfo.details}
               </p>
             </motion.div>
           ) : (
-            <div className="text-zinc-500 text-sm font-light italic flex items-center justify-center h-[80px]">
+            <div className="text-paper/45 text-sm font-light font-mono uppercase tracking-[0.1em] text-[11px] flex items-center justify-center h-[80px]">
               {dict.projects.architectureHint}
             </div>
           )}

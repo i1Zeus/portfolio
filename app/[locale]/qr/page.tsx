@@ -8,62 +8,51 @@ import {
   FaInstagram,
   FaFacebook,
   FaGithub,
-  FaEnvelope,
   FaFilePdf,
-  FaGlobe,
-  FaVolumeHigh,
-  FaVolumeXmark,
-  FaArrowLeft,
-  FaArrowRight,
 } from "react-icons/fa6";
-import { MdNfc } from "react-icons/md";
 
 import NfcStartupScreen from "@/components/nfc/NfcStartupScreen";
 import HolographicCard from "@/components/nfc/HolographicCard";
 import QuickActions from "@/components/nfc/QuickActions";
 import SocialLinkCard, { SocialItem } from "@/components/nfc/SocialLinkCard";
 import QrModal from "@/components/nfc/QrModal";
-import LanguageSwitcher from "@/components/LanguageSwitcher";
+import SiteEffects from "@/components/home/SiteEffects";
+import { SectionKicker, SplitText } from "@/components/home/primitives";
 import { useLocale } from "@/components/LocaleContext";
 import { soundManager } from "@/utils/soundEffects";
+import { cn } from "@/utils/cn";
+
+const baghdadTime = () =>
+  new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Asia/Baghdad",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  })
+    .format(new Date())
+    .split(":");
 
 export default function LocalizedQrPage() {
   const [showStartup, setShowStartup] = useState(true);
   const [isQrOpen, setIsQrOpen] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
-  const [baghdadTime, setBaghdadTime] = useState("");
+  const [time, setTime] = useState<string[] | null>(null);
 
-  const { locale, dict, dir } = useLocale();
-  const isRtl = dir === "rtl";
+  const { locale, dict, switchLocale } = useLocale();
+  const p = dict.socialProfile;
 
   const handleStartupComplete = React.useCallback(() => {
     setShowStartup(false);
   }, []);
 
+  const closeQr = React.useCallback(() => setIsQrOpen(false), []);
+
   // Live Baghdad Clock
   useEffect(() => {
-    const updateTime = () => {
-      try {
-        const timeStr = new Intl.DateTimeFormat(
-          locale === "ar" ? "ar-US" : "en-US",
-          {
-            timeZone: "Asia/Baghdad",
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: true,
-          },
-        ).format(new Date());
-        setBaghdadTime(timeStr);
-      } catch {
-        setBaghdadTime(new Date().toLocaleTimeString());
-      }
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, [locale]);
+    setTime(baghdadTime());
+    const id = window.setInterval(() => setTime(baghdadTime()), 10_000);
+    return () => clearInterval(id);
+  }, []);
 
   const toggleSound = () => {
     soundManager.isMuted = !soundManager.isMuted;
@@ -76,147 +65,113 @@ export default function LocalizedQrPage() {
   const socialLinks: SocialItem[] = [
     {
       id: "linkedin",
-      name: dict.socialProfile.links.linkedin.name,
+      name: p.links.linkedin.name,
       handle: "in/i1zeus",
       url: "https://www.linkedin.com/in/i1zeus",
       copyValue: "https://www.linkedin.com/in/i1zeus",
       icon: <FaLinkedin />,
-      gradient: "bg-gradient-to-br from-blue-600 to-cyan-700",
-      accentColor: "#0284c7",
-      badge: dict.socialProfile.links.linkedin.badge,
-      description: dict.socialProfile.links.linkedin.description,
+      badge: p.links.linkedin.badge,
+      description: p.links.linkedin.description,
     },
     {
       id: "github",
-      name: dict.socialProfile.links.github.name,
+      name: p.links.github.name,
       handle: "github.com/i1Zeus",
       url: "https://github.com/i1Zeus",
       copyValue: "https://github.com/i1Zeus",
       icon: <FaGithub />,
-      gradient: "bg-gradient-to-br from-slate-700 to-purple-900",
-      accentColor: "#9333ea",
-      badge: dict.socialProfile.links.github.badge,
-      description: dict.socialProfile.links.github.description,
+      badge: p.links.github.badge,
+      description: p.links.github.description,
     },
     {
       id: "x",
-      name: dict.socialProfile.links.x.name,
+      name: p.links.x.name,
       handle: "@i1Zeus",
       url: "https://x.com/i1Zeus",
       copyValue: "https://x.com/i1Zeus",
       icon: <FaXTwitter />,
-      gradient:
-        "bg-gradient-to-br from-gray-900 to-black border border-white/20",
-      accentColor: "#e2e8f0",
-      badge: dict.socialProfile.links.x.badge,
-      description: dict.socialProfile.links.x.description,
+      badge: p.links.x.badge,
+      description: p.links.x.description,
     },
     {
       id: "instagram",
-      name: dict.socialProfile.links.instagram.name,
+      name: p.links.instagram.name,
       handle: "@hxg.1",
       url: "https://www.instagram.com/hxg.1",
       copyValue: "https://www.instagram.com/hxg.1",
       icon: <FaInstagram />,
-      gradient: "bg-gradient-to-br from-amber-600 via-pink-600 to-purple-700",
-      accentColor: "#db2777",
-      badge: dict.socialProfile.links.instagram.badge,
-      description: dict.socialProfile.links.instagram.description,
+      badge: p.links.instagram.badge,
+      description: p.links.instagram.description,
     },
     {
       id: "facebook",
-      name: dict.socialProfile.links.facebook.name,
+      name: p.links.facebook.name,
       handle: "fb.com/iZeus01",
       url: "https://www.facebook.com/iZeus01",
       copyValue: "https://www.facebook.com/iZeus01",
       icon: <FaFacebook />,
-      gradient: "bg-gradient-to-br from-blue-700 to-indigo-800",
-      accentColor: "#2563eb",
-      badge: dict.socialProfile.links.facebook.badge,
-      description: dict.socialProfile.links.facebook.description,
+      badge: p.links.facebook.badge,
+      description: p.links.facebook.description,
     },
-    // {
-    //   id: "portfolio",
-    //   name: dict.socialProfile.links.portfolio.name,
-    //   handle: "hussein-najah.com",
-    //   url: `/${locale}`,
-    //   copyValue: `https://www.hussein-najah.com/${locale}`,
-    //   icon: <FaGlobe />,
-    //   gradient: "bg-gradient-to-br from-purple to-indigo-900",
-    //   accentColor: "#CBACF9",
-    //   badge: dict.socialProfile.links.portfolio.badge,
-    //   description: dict.socialProfile.links.portfolio.description,
-    // },
     {
       id: "cv",
-      name: dict.socialProfile.links.cv.name,
-      handle:
-        locale === "ar" ? "تحميل السيرة الذاتية PDF" : "Download PDF Resume",
+      name: p.links.cv.name,
+      handle: locale === "ar" ? "تحميل السيرة الذاتية PDF" : "Download PDF Resume",
       url: "/hussein-najah-cv.pdf",
       copyValue: "https://www.hussein-najah.com/hussein-najah-cv.pdf",
       icon: <FaFilePdf />,
-      gradient: "bg-gradient-to-br from-rose-700 to-red-900",
-      accentColor: "#e11d48",
-      badge: dict.socialProfile.links.cv.badge,
-      description: dict.socialProfile.links.cv.description,
+      badge: p.links.cv.badge,
+      description: p.links.cv.description,
     },
-    // {
-    //   id: "email",
-    //   name: dict.socialProfile.links.email.name,
-    //   handle: "husseinnajah.it@gmail.com",
-    //   url: "mailto:husseinnajah.it@gmail.com",
-    //   copyValue: "husseinnajah.it@gmail.com",
-    //   icon: <FaEnvelope />,
-    //   gradient: "bg-gradient-to-br from-emerald-600 to-teal-800",
-    //   accentColor: "#059669",
-    //   badge: dict.socialProfile.links.email.badge,
-    //   description: dict.socialProfile.links.email.description,
-    // },
   ];
 
+  const navBtn =
+    "font-mono text-[11px] uppercase tracking-[0.12em] text-paper/60 transition-colors hover:text-paper";
+
   return (
-    <div className="min-h-screen bg-black-100 text-white flex flex-col items-center justify-start relative overflow-x-hidden selection:bg-purple selection:text-white">
-      {/* NFC Startup Sequence */}
-      {showStartup && <NfcStartupScreen onComplete={handleStartupComplete} />}
+    <div className="relative min-h-screen bg-ink text-paper">
+      {showStartup ? <NfcStartupScreen onComplete={handleStartupComplete} /> : <SiteEffects />}
 
-      {/* Cyber Grid Background */}
-      <div className="fixed inset-0 pointer-events-none bg-dot-white/[0.12]" />
-      <div className="fixed inset-0 pointer-events-none [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)] bg-black-100/80" />
+      <header className="fixed inset-x-2 top-2 z-50 border-b border-line bg-ink/80 backdrop-blur-md">
+        <div className="flex items-center justify-between gap-4 px-3 py-3 sm:px-4 md:px-8">
+          <div className="flex items-center gap-5">
+            <Link
+              href={`/${locale}`}
+              aria-label="Hussein Najah — home"
+              className="border border-paper/70 px-1.5 pb-0.5 pt-1 font-display text-[20px] font-semibold uppercase leading-none tracking-tight text-paper transition-colors hover:bg-paper hover:text-ink"
+              dir="ltr"
+            >
+              HN
+            </Link>
+            <Link href={`/${locale}`} className={cn(navBtn, "flex items-center gap-1.5")}>
+              <span className="rtl:-scale-x-100">←</span>
+              {p.portfolioBack}
+            </Link>
+          </div>
 
-      {/* Ambient background glow orbs */}
-      <div className="fixed -top-40 -left-40 w-96 h-96 rounded-full bg-purple/15 blur-[120px] pointer-events-none" />
-      <div className="fixed -bottom-40 -right-40 w-96 h-96 rounded-full bg-blue-500/15 blur-[120px] pointer-events-none" />
-
-      {/* Main Container */}
-      <main className="w-full max-w-lg z-10 flex flex-col items-center px-4 sm:px-6 pt-6 pb-20">
-        {/* Top Navbar */}
-        <header className="w-full flex items-center justify-between py-2 mb-2 gap-2">
-          {/* Back to Portfolio */}
-          <Link
-            href={`/${locale}`}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors backdrop-blur-md"
-          >
-            {isRtl ? (
-              <FaArrowRight className="text-[10px]" />
-            ) : (
-              <FaArrowLeft className="text-[10px]" />
-            )}
-            <span>{dict.socialProfile.portfolioBack}</span>
-          </Link>
-
-          {/* Center NFC Status Pill */}
-          {/* <div className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono bg-purple/10 border border-purple/20 text-purple/90 backdrop-blur-md">
-            <MdNfc className="text-sm animate-pulse text-purple" />
-            <span>{dict.socialProfile.nfcCardActive}</span>
-          </div> */}
-
-          <div className="flex items-center gap-2">
-            <LanguageSwitcher />
-
-            {/* Sound Toggle */}
+          <div className="flex items-center gap-5">
+            <button
+              type="button"
+              onClick={() => switchLocale(locale === "ar" ? "en" : "ar")}
+              aria-label={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}
+              className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em]"
+              dir="ltr"
+            >
+              <span className={locale === "en" ? "text-paper" : "text-paper/40 hover:text-paper"}>EN</span>
+              <span className="text-paper/30">/</span>
+              <span
+                className={cn(
+                  "font-cairo text-[14px] leading-none",
+                  locale === "ar" ? "text-paper" : "text-paper/40 hover:text-paper"
+                )}
+              >
+                ع
+              </span>
+            </button>
             <button
               type="button"
               onClick={toggleSound}
+              aria-pressed={!isMuted}
               aria-label={
                 isMuted
                   ? locale === "ar"
@@ -226,68 +181,100 @@ export default function LocalizedQrPage() {
                     ? "كتم المؤثرات الصوتية"
                     : "Mute sound effects"
               }
-              className="p-2 rounded-full text-xs text-white/70 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-colors backdrop-blur-md"
+              className={navBtn}
+              dir="ltr"
             >
-              {isMuted ? (
-                <FaVolumeXmark className="text-xs text-red-400" />
-              ) : (
-                <FaVolumeHigh className="text-xs text-purple" />
-              )}
+              SFX <span className={isMuted ? "text-paper/40" : "text-paper"}>{isMuted ? "OFF" : "ON"}</span>
             </button>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* Live Status & Baghdad Local Time */}
-        <div className="w-full flex items-center justify-center gap-2 text-xs font-mono text-white/50 mb-2">
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#34d399]" />
-            <span className="text-white/80">{dict.socialProfile.location}</span>
+      <main className="mx-auto w-full max-w-6xl px-4 pb-10 pt-24 sm:px-6 md:px-10 md:pt-28">
+        {/* Info strip */}
+        <div className="reveal grid grid-cols-2 gap-4 border-y border-line py-4">
+          <div>
+            <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-paper">{p.cardHolderName}</p>
+            <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-paper/55">{p.location}</p>
           </div>
-          {baghdadTime && (
-            <>
-              <span>•</span>
-              <span className="text-purple/80">{baghdadTime}</span>
-            </>
-          )}
-        </div>
-
-        {/* 3D Holographic NFC Card */}
-        <HolographicCard />
-
-        {/* Quick Actions Bar */}
-        <QuickActions onOpenQr={() => setIsQrOpen(true)} />
-
-        {/* Section Divider */}
-        <div className="w-full flex items-center justify-between gap-3 my-4">
-          <div className="h-[1px] flex-1 bg-gradient-to-r from-transparent to-white/15" />
-          <span className="text-[11px] font-mono tracking-[0.2em] text-purple uppercase font-semibold">
-            {dict.socialProfile.connectSocialsHeading}
-          </span>
-          <div className="h-[1px] flex-1 bg-gradient-l from-transparent to-white/15" />
-        </div>
-
-        {/* Social Links Cards List */}
-        <div className="w-full max-w-[420px] flex flex-col gap-2.5">
-          {socialLinks.map((item, idx) => (
-            <SocialLinkCard key={item.id} item={item} index={idx} />
-          ))}
-        </div>
-
-        {/* QR Code Floating Action Card */}
-        <div className="w-full max-w-[420px] mt-8 text-center">
-          <div className="p-4 rounded-2xl bg-[#090b20]/60 border border-white/10 backdrop-blur-md flex flex-col items-center justify-center gap-2">
-            <p className="text-xs text-white/50 font-mono">
-              {dict.socialProfile.scanHintBottom}
+          <div className="text-end">
+            <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-paper/55">{dict.home.localTime}</p>
+            <p className="font-mono text-[12px] uppercase tracking-[0.12em] text-paper">
+              <span dir="ltr">
+                {time ? (
+                  <>
+                    {time[0]}
+                    <span className="animate-blink">:</span>
+                    {time[1]}
+                  </>
+                ) : (
+                  "--:--"
+                )}{" "}
+                <span className="text-paper/55">GMT+3</span>
+              </span>
             </p>
-            <span className="text-[10px] text-purple/80 font-mono tracking-wider">
-              {dict.footer.copyright}
-            </span>
           </div>
         </div>
+
+        <div className="mt-10 grid grid-cols-1 gap-14 lg:mt-14 lg:grid-cols-12 lg:gap-12">
+          {/* Card column */}
+          <section className="lg:col-span-5">
+            <SectionKicker index={1} total={2}>
+              {p.nfcWallet}
+            </SectionKicker>
+            <SplitText as="h1" text={p.cardHolderName} className="display mt-5 block text-[clamp(3.4rem,15vw,6.5rem)]" />
+            <p className="reveal label mt-3 flex items-center gap-2 text-paper/70">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-paper opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-paper" />
+              </span>
+              {p.cardRole}
+            </p>
+
+            <div className="reveal mt-10 mx-auto max-w-[440px]">
+              <HolographicCard />
+            </div>
+
+            <div className="reveal mt-8 mx-auto max-w-[440px]">
+              <QuickActions onOpenQr={() => setIsQrOpen(true)} />
+            </div>
+          </section>
+
+          {/* Links column */}
+          <section className="lg:col-span-6 lg:col-start-7">
+            <SectionKicker index={2} total={2}>
+              {p.connectSocialsHeading}
+            </SectionKicker>
+            <ul className="mt-6 border-t border-line">
+              {socialLinks.map((item, idx) => (
+                <SocialLinkCard key={item.id} item={item} index={idx} />
+              ))}
+            </ul>
+
+            <div className="reveal crosshair mt-10 border border-line p-5">
+              <p className="text-sm leading-relaxed text-paper/70">{p.scanHintBottom}</p>
+              <button
+                type="button"
+                onClick={() => setIsQrOpen(true)}
+                className="mt-4 font-mono text-[11px] uppercase tracking-[0.12em] text-paper/70 underline decoration-line-strong underline-offset-4 transition-colors hover:text-paper hover:decoration-paper"
+              >
+                {p.showQr} <span className="inline-block rtl:-scale-x-100">→</span>
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <footer className="mt-16 flex flex-col gap-2 border-t border-line pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="label">
+            <span dir="ltr">©2026</span> {p.cardHolderName} — {dict.home.rights}
+          </p>
+          <p className="label text-paper/40" dir="ltr">
+            NFC · ISO/IEC 14443-A
+          </p>
+        </footer>
       </main>
 
-      {/* QR Code Modal Overlay */}
-      <QrModal isOpen={isQrOpen} onClose={() => setIsQrOpen(false)} />
+      <QrModal isOpen={isQrOpen} onClose={closeQr} />
     </div>
   );
 }
