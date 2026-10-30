@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import QRCode from "qrcode";
 import { soundManager } from "@/utils/soundEffects";
 import { triggerHapticFeedback } from "@/utils/vcard";
 import { useLocale } from "../LocaleContext";
@@ -18,22 +17,18 @@ export default function QrModal({ isOpen, onClose }: QrModalProps) {
   const [pageUrl, setPageUrl] = useState("https://www.hussein-najah.com/qr");
   const { dict } = useLocale();
 
+  // The QR library and the code itself are only needed once the modal is opened.
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const current = window.location.href;
-      setPageUrl(current);
-      QRCode.toDataURL(current, {
-        width: 400,
-        margin: 2,
-        color: {
-          dark: "#050505",
-          light: "#f2f2ee",
-        },
-      })
-        .then((url) => setQrUrl(url))
-        .catch(console.error);
-    }
-  }, []);
+    if (!isOpen || qrUrl) return;
+    const current = window.location.href;
+    setPageUrl(current);
+    import("qrcode")
+      .then(({ default: QRCode }) =>
+        QRCode.toDataURL(current, { width: 400, margin: 2, color: { dark: "#050505", light: "#f2f2ee" } })
+      )
+      .then(setQrUrl)
+      .catch(console.error);
+  }, [isOpen, qrUrl]);
 
   useEffect(() => {
     if (!isOpen) return;

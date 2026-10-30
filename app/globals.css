@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Width-matched stand-in for Big Shoulders while it loads, so headings don't re-wrap (no layout shift).
+   Big Shoulders 300 sets at ~50% of Arial's width; line-height is em-based, so heights already match. */
+@font-face {
+  font-family: "Big Shoulders Fallback";
+  src: local("Arial"), local("Helvetica Neue"), local("Helvetica"), local("Roboto"), local("Liberation Sans");
+  size-adjust: 51%;
+}
+
 @layer base {
   * {
     @apply border-line !scroll-smooth;
@@ -73,7 +81,7 @@
 
 @layer components {
   .label {
-    @apply font-mono text-[11px] uppercase tracking-[0.14em] text-paper/60;
+    @apply font-mono text-[12px] uppercase tracking-[0.14em] text-paper/60;
   }
   .display {
     font-family: var(--font-display), "Arial Narrow", sans-serif;
@@ -112,7 +120,7 @@
     @apply border border-line-strong text-paper hover:border-paper hover:bg-paper hover:text-ink;
   }
   .chip {
-    @apply inline-flex items-center border border-line px-2 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-paper/70;
+    @apply inline-flex items-center border border-line px-2 py-1 font-mono text-[11px] uppercase tracking-[0.1em] text-paper/70;
   }
 
   .crosshair {
@@ -226,7 +234,6 @@ html[dir="rtl"] .split-word {
 }
 .split-char {
   display: inline-block;
-  will-change: transform;
 }
 html.js .split .split-char {
   transform: translateY(115%);
@@ -244,6 +251,20 @@ html.js .split[data-in] .split-char {
 }
 .animate-blink {
   animation: blink 1.1s steps(2, start) infinite;
+}
+
+@keyframes nfcring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+  60% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
 }
 
 @keyframes scrollcue {

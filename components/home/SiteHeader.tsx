@@ -37,8 +37,8 @@ export default function SiteHeader() {
     <button
       type="button"
       onClick={() => switchLocale(locale === "ar" ? "en" : "ar")}
-      aria-label={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}
-      className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em]"
+      title={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}
+      className="-m-2 flex items-center gap-1.5 p-2 font-mono text-[11px] uppercase tracking-[0.12em]"
       dir="ltr"
     >
       <span className={locale === "en" ? "text-paper" : "text-paper/55 hover:text-paper"}>EN</span>
@@ -46,6 +46,7 @@ export default function SiteHeader() {
       <span className={cn("font-cairo text-[14px] leading-none", locale === "ar" ? "text-paper" : "text-paper/55 hover:text-paper")}>
         ع
       </span>
+      <span className="sr-only">{locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}</span>
     </button>
   );
 
@@ -61,7 +62,7 @@ export default function SiteHeader() {
         <div className="flex items-center justify-between gap-6 px-3 py-3 sm:px-4 md:px-8">
           <Link
             href={`/${locale}`}
-            aria-label="Hussein Najah — home"
+            aria-label="HN — Hussein Najah, home"
             className="border border-paper/70 px-1.5 pb-0.5 pt-1 font-display text-[20px] font-semibold uppercase leading-none tracking-tight text-paper transition-colors hover:bg-paper hover:text-ink"
             dir="ltr"
           >
@@ -99,7 +100,7 @@ export default function SiteHeader() {
               onClick={() => setOpen(true)}
               aria-expanded={open}
               aria-controls="mobile-menu"
-              className="font-mono text-[11px] uppercase tracking-[0.12em] md:hidden"
+              className="-m-3 p-3 font-mono text-[11px] uppercase tracking-[0.12em] md:hidden"
             >
               {dict.home.menu} +
             </button>
@@ -112,6 +113,7 @@ export default function SiteHeader() {
         role="dialog"
         aria-modal="true"
         aria-label={dict.home.menu}
+        inert={!open}
         className={cn(
           "fixed inset-0 z-[80] flex flex-col bg-ink px-5 pb-8 pt-5 transition-[clip-path] duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] md:hidden",
           open ? "[clip-path:inset(0_0_0_0)]" : "pointer-events-none [clip-path:inset(0_0_100%_0)]"
@@ -122,7 +124,7 @@ export default function SiteHeader() {
           <button
             type="button"
             onClick={() => setOpen(false)}
-            className="font-mono text-[11px] uppercase tracking-[0.12em]"
+            className="-m-3 p-3 font-mono text-[11px] uppercase tracking-[0.12em]"
           >
             {dict.home.close} ×
           </button>
@@ -145,7 +147,7 @@ export default function SiteHeader() {
         </ul>
         <div className="mt-8 flex items-center justify-between">
           {langToggle}
-          <Link href={`/${locale}/cv`} onClick={() => setOpen(false)} className="btn-ghost px-3 py-2">
+          <Link href={`/${locale}/cv`} onClick={() => setOpen(false)} className="btn-ghost min-h-11 px-4">
             {dict.home.cv}
           </Link>
         </div>

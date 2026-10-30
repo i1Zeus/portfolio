@@ -83,7 +83,7 @@ export default function SocialLinkCard({ item, index }: SocialLinkCardProps) {
           onClick={handleCopy}
           title={copyLabel}
           aria-label={copyLabel}
-          className="relative z-10 shrink-0 border border-line px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.1em] text-paper/60 transition-colors hover:border-paper hover:text-paper"
+          className="relative z-10 shrink-0 border border-line px-2.5 py-1.5 font-mono text-[11px] uppercase tracking-[0.1em] text-paper/60 transition-colors hover:border-paper hover:text-paper"
         >
           {copied ? "✓" : dict.socialProfile.copyLink}
         </button>

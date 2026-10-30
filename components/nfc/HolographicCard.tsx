@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import QRCode from "qrcode";
 import { soundManager } from "@/utils/soundEffects";
 import { triggerHapticFeedback } from "@/utils/vcard";
 import { useLocale } from "../LocaleContext";
@@ -37,23 +36,21 @@ export default function HolographicCard() {
   const glareX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
   const glareY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
 
+  // The QR on the back of the card is generated once the browser is idle, off the critical path.
   useEffect(() => {
-    // Generate QR for the current card URL
-    const currentUrl =
-      typeof window !== "undefined"
-        ? window.location.href
-        : "https://www.hussein-najah.com/qr";
-
-    QRCode.toDataURL(currentUrl, {
-      width: 260,
-      margin: 1,
-      color: {
-        dark: "#050505",
-        light: "#f2f2ee",
-      },
-    })
-      .then((url) => setQrDataUrl(url))
-      .catch((err) => console.error("QR Code Error:", err));
+    const generate = () =>
+      import("qrcode")
+        .then(({ default: QRCode }) =>
+          QRCode.toDataURL(window.location.href, { width: 260, margin: 1, color: { dark: "#050505", light: "#f2f2ee" } })
+        )
+        .then(setQrDataUrl)
+        .catch((err) => console.error("QR Code Error:", err));
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(generate, { timeout: 3000 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const id = setTimeout(generate, 1500);
+    return () => clearTimeout(id);
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -150,7 +147,7 @@ export default function HolographicCard() {
                   <span className="h-1.5 w-1.5 rounded-full bg-paper" />
                   @i1Zeus
                 </span>
-                <span className="label text-[10px] text-paper/55">{p.tapToFlip}</span>
+                <span className="label text-[11px] text-paper/55">{p.tapToFlip}</span>
               </div>
             </div>
 
@@ -190,8 +187,8 @@ export default function HolographicCard() {
 
               {/* Bottom Status */}
               <div className="relative z-10 flex items-center justify-between gap-3">
-                <span className="label truncate text-[10px] text-paper/55">{p.signatureRequired}</span>
-                <span className="label shrink-0 text-[10px] text-paper/70">{p.tapToFlip}</span>
+                <span className="label truncate text-[11px] text-paper/55">{p.signatureRequired}</span>
+                <span className="label shrink-0 text-[11px] text-paper/70">{p.tapToFlip}</span>
               </div>
             </div>
           </motion.div>

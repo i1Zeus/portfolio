@@ -137,7 +137,7 @@ export default function NfcPage() {
           <div className="flex items-center gap-5">
             <Link
               href={`/${locale}`}
-              aria-label="Hussein Najah — home"
+              aria-label="HN — Hussein Najah, home"
               className="border border-paper/70 px-1.5 pb-0.5 pt-1 font-display text-[20px] font-semibold uppercase leading-none tracking-tight text-paper transition-colors hover:bg-paper hover:text-ink"
               dir="ltr"
             >
@@ -153,7 +153,7 @@ export default function NfcPage() {
             <button
               type="button"
               onClick={() => switchLocale(locale === "ar" ? "en" : "ar")}
-              aria-label={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}
+              title={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}
               className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.12em]"
               dir="ltr"
             >
@@ -167,12 +167,13 @@ export default function NfcPage() {
               >
                 ع
               </span>
+              <span className="sr-only">{locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}</span>
             </button>
             <button
               type="button"
               onClick={toggleSound}
               aria-pressed={!isMuted}
-              aria-label={
+              title={
                 isMuted
                   ? locale === "ar"
                     ? "تشغيل المؤثرات الصوتية"

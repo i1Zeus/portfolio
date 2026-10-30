@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
 import { projects } from "@/content/projects";
 import { useLocale } from "../LocaleContext";
 import { Arrow, SectionKicker, SplitText } from "./primitives";
@@ -17,6 +16,7 @@ export default function Work() {
   const h = dict.home;
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const barRef = useRef<HTMLDivElement>(null);
   const [distance, setDistance] = useState(0);
 
   useEffect(() => {
@@ -37,12 +37,32 @@ export default function Work() {
     };
   }, []);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end end"],
-  });
-  const x = useTransform(scrollYProgress, [0, 1], [0, dir === "rtl" ? distance : -distance]);
-  const progress = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  // Pinned section: vertical scroll through the section moves the track sideways.
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return;
+    if (!distance) {
+      track.style.transform = "";
+      return;
+    }
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const p = Math.min(1, Math.max(0, -section.getBoundingClientRect().top / distance));
+      track.style.transform = `translate3d(${(dir === "rtl" ? 1 : -1) * p * distance}px,0,0)`;
+      if (barRef.current) barRef.current.style.transform = `scaleX(${p})`;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [distance, dir]);
 
   const total = String(projects.length).padStart(2, "0");
 
@@ -68,11 +88,10 @@ export default function Work() {
       style={distance ? { height: `calc(${distance}px + 100vh)` } : undefined}
     >
       <div className="lg:sticky lg:top-0 lg:h-screen lg:overflow-hidden">
-        <motion.div
+        <div
           ref={trackRef}
           onFocus={revealFocused}
-          style={distance ? { x } : undefined}
-          className="flex flex-col lg:h-full lg:w-max lg:flex-row"
+          className="flex flex-col will-change-transform lg:h-full lg:w-max lg:flex-row"
         >
           <div className="flex flex-col justify-between px-4 pb-10 pt-20 sm:px-6 md:px-10 md:pt-28 lg:h-full lg:w-[38vw] lg:border-e lg:border-line lg:pb-14">
             <div>
@@ -162,14 +181,11 @@ export default function Work() {
               </article>
             );
           })}
-        </motion.div>
+        </div>
 
         {distance > 0 && (
           <div className="absolute inset-x-10 bottom-5 hidden h-px bg-line lg:block" aria-hidden="true">
-            <motion.div
-              className="h-px bg-paper ltr:origin-left rtl:origin-right"
-              style={{ scaleX: progress }}
-            />
+            <div ref={barRef} className="h-px scale-x-0 bg-paper ltr:origin-left rtl:origin-right" />
           </div>
         )}
       </div>

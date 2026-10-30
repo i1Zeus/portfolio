@@ -88,12 +88,10 @@ export default function NfcStartupScreen({ onComplete }: NfcStartupScreenProps) 
           {/* Contactless rings */}
           <div className="relative mx-auto flex h-40 w-40 items-center justify-center" aria-hidden="true">
             {[0, 1, 2].map((i) => (
-              <motion.span
+              <span
                 key={i}
-                initial={{ scale: 0.6, opacity: 0.7 }}
-                animate={{ scale: [0.6, 1.6, 2.2], opacity: [0.7, 0.3, 0] }}
-                transition={{ duration: 2, repeat: Infinity, delay: i * 0.5, ease: "easeOut" }}
-                className="absolute h-24 w-24 rounded-full border border-paper/40"
+                className="absolute h-24 w-24 animate-[nfcring_2s_ease-out_infinite] rounded-full border border-paper/40 opacity-0"
+                style={{ animationDelay: `${i * 0.5}s` }}
               />
             ))}
             <span className="relative flex h-20 w-20 items-center justify-center border border-paper/70 bg-ink font-display text-3xl font-semibold uppercase leading-none" dir="ltr">

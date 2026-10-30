@@ -4,6 +4,9 @@ class SoundManager {
 
   private getContext(): AudioContext | null {
     if (typeof window === "undefined") return null;
+    // Browsers refuse to play audio before the first interaction, and creating the
+    // context is expensive, so wait until the visitor has tapped or clicked.
+    if (navigator.userActivation && !navigator.userActivation.hasBeenActive) return null;
     if (!this.ctx) {
       const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (AudioCtx) {

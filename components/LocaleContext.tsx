@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useMemo } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Locale, defaultLocale, localeDetails } from "@/data/locales";
-import { Dictionary, getDictionary } from "@/data/dictionaries";
+import type { Dictionary } from "@/data/dictionaries";
 
 interface LocaleContextValue {
   locale: Locale;
@@ -14,11 +14,14 @@ interface LocaleContextValue {
 
 const LocaleContext = createContext<LocaleContextValue | null>(null);
 
+/** The server passes in only the active language's dictionary, so the other never ships to the browser. */
 export const LocaleProvider = ({
   locale,
+  dict,
   children,
 }: {
   locale: Locale;
+  dict: Dictionary;
   children: React.ReactNode;
 }) => {
   const router = useRouter();
@@ -26,7 +29,6 @@ export const LocaleProvider = ({
 
   const safeLocale: Locale = locale === "ar" ? "ar" : defaultLocale;
   const dir = localeDetails[safeLocale].dir;
-  const dict = useMemo(() => getDictionary(safeLocale), [safeLocale]);
 
   const switchLocale = (newLocale: Locale) => {
     if (newLocale === safeLocale) return;
@@ -65,14 +67,6 @@ export const LocaleProvider = ({
 
 export const useLocale = (): LocaleContextValue => {
   const context = useContext(LocaleContext);
-  if (!context) {
-    // Fallback if rendered outside provider
-    return {
-      locale: defaultLocale,
-      dir: "ltr",
-      dict: getDictionary(defaultLocale),
-      switchLocale: () => {},
-    };
-  }
+  if (!context) throw new Error("useLocale must be used inside <LocaleProvider>");
   return context;
 };

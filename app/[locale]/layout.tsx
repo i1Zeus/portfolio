@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Big_Shoulders, Cairo } from "next/font/google";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { Big_Shoulders, Cairo, Geist, Geist_Mono } from "next/font/google";
 
 import "../globals.css";
 import { LocaleProvider } from "@/components/LocaleContext";
@@ -11,10 +9,23 @@ import { Locale, defaultLocale, locales, localeDetails, siteUrl } from "@/data/l
 import { getDictionary } from "@/data/dictionaries";
 import { SITE_NAME, siteGraph } from "@/data/seo";
 
+// Latin subsets from Google Fonts are about half the size of the full `geist` package files.
+const geistSans = Geist({
+  subsets: ["latin"],
+  variable: "--font-geist-sans",
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+  display: "swap",
+});
+
 const display = Big_Shoulders({
   subsets: ["latin"],
   axes: ["opsz"],
-  fallback: ["Arial Narrow", "sans-serif"],
+  fallback: ["Big Shoulders Fallback", "Arial Narrow", "sans-serif"],
   adjustFontFallback: false,
   variable: "--font-display",
   display: "swap",
@@ -22,6 +33,8 @@ const display = Big_Shoulders({
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
+  // Not preloaded: English pages only need it for the "ع" in the language switch.
+  preload: false,
   variable: "--font-cairo",
   display: "swap",
 });
@@ -88,11 +101,12 @@ export default async function RootLocaleLayout({
   const { locale } = await params;
   const safeLocale: Locale = locale === "ar" ? "ar" : defaultLocale;
   const dir = localeDetails[safeLocale].dir;
+  const dict = getDictionary(safeLocale);
   return (
     <html
       lang={safeLocale}
       dir={dir}
-      className={`${GeistSans.variable} ${GeistMono.variable} ${display.variable} ${cairo.variable}`}
+      className={`${geistSans.variable} ${geistMono.variable} ${display.variable} ${cairo.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -107,7 +121,7 @@ export default async function RootLocaleLayout({
       <body
         className={`site-frame ${safeLocale === "ar" ? "font-cairo" : "font-sans"}`}
       >
-        <LocaleProvider locale={safeLocale}>
+        <LocaleProvider locale={safeLocale} dict={dict}>
           {children}
           <TerminalOverlay />
         </LocaleProvider>

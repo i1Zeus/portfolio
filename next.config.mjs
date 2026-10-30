@@ -47,6 +47,10 @@ const nextConfig = {
   // Lets CI and local verification build into a separate folder without touching a running dev server.
   distDir: process.env.NEXT_DIST_DIR || ".next",
   poweredByHeader: false,
+  experimental: {
+    // ~11 KB of CSS: inlining it removes the render-blocking request on first load.
+    inlineCss: true,
+  },
   images: {
     // Images in /public are pre-converted to WebP, so the runtime optimizer is never needed.
     unoptimized: true,
