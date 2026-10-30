@@ -179,227 +179,8 @@ export const en: Dictionary = {
     lightboxNext: "Next Image",
     close: "Close",
     notFound: "Project not found",
-    items: {
-      6: {
-        id: 6,
-        title: "IMA Portal | Iraqi Medical Association — Basra Branch",
-        des: "Designed and built the official digital portal of the Iraqi Medical Association's Basra branch, a full-stack platform that moves the association's services online: an accredited doctor directory with a profile page and QR code for every doctor, in-person electronic exams with auto-graded multiple choice, seminars and courses with CME credit tracking, secure electronic elections, surveys, research and medical book management, and digital certificates with admin approval and QR verification. Bilingual Arabic/English with full RTL/LTR support and light and dark themes.",
-        architectureNodes: {
-          fe: {
-            label: "TanStack Start (React SSR)",
-            details:
-              "Server-rendered React app on TanStack Start with file-based routing, Tailwind CSS, Arabic/English i18n with RTL/LTR switching, and light and dark themes.",
-          },
-          api: {
-            label: "Server Functions",
-            details:
-              "Type-safe TanStack Start server functions for doctor accreditation, exam sessions and grading, CME credits, elections, surveys and certificate issuance with QR verification.",
-          },
-          auth: {
-            label: "Better Auth",
-            details:
-              "Session-based authentication with role-based access for doctors, students, examiners and association administrators.",
-          },
-          rt: {
-            label: "Socket.IO Realtime",
-            details:
-              "Real-time channel that pushes live updates to exam sessions, elections and admin dashboards.",
-          },
-          db: {
-            label: "PostgreSQL + Prisma",
-            details:
-              "Relational schema managed with Prisma ORM for doctors, specialties, exams, CME ledgers, elections, surveys and certificates.",
-          },
-          r2: {
-            label: "Cloudflare R2 Storage",
-            details:
-              "Object storage for accreditation documents, research papers, medical books and generated certificates.",
-          },
-        },
-      },
-      0: {
-        id: 0,
-        title: "iZeus-ERP",
-        des: "Independently designed, developed, and deployed a full-stack Enterprise Resource Planning (ERP) system from the ground up, integrating core business operations into a centralized platform that was successfully sold and implemented for clients. Architected scalable frontend and backend solutions to support business process automation and efficient data management. Collaborated directly with clients to gather requirements, customize workflows, and deliver solutions aligned with operational needs.",
-        architectureNodes: {
-          fe: {
-            label: "Vite + React SPA",
-            details:
-              "High-performance Single Page Application built using React 19, TypeScript, and Tailwind CSS. Employs Zustand, TanStack Query, and Ant Design plots for interactive administrative, POS, and HR dashboards.",
-          },
-          api: {
-            label: "NestJS Modular Monolith",
-            details:
-              "Modular Node.js server engine built with NestJS & TypeScript. Governs JWT/Passport auth, multi-tenant workspace routing, payroll processing, PDFKit invoice rendering, and background cron schedules.",
-          },
-          db: {
-            label: "PostgreSQL Database",
-            details:
-              "Relational database schema managed via Prisma ORM, capturing comprehensive records for accounting logs, multi-tenant workspaces, HR attendance, and CRM pipelines.",
-          },
-          s3: {
-            label: "Cloudflare R2 Storage",
-            details:
-              "S3-compatible object storage used for storing user uploads, contracts, employee documents, and generated invoices with secure presigned URLs.",
-          },
-          ai: {
-            label: "AI Orchestrator",
-            details:
-              "Integrates Google Gemini AI and OpenAI services to power intelligent automated actions, data parsing, and smart ERP features.",
-          },
-          comm: {
-            label: "Notification Services",
-            details:
-              "Handles messaging via WhatsApp (Green API Client) and SMTP (Nodemailer) for real-time employee updates, task alerts, and transaction billing.",
-          },
-        },
-      },
-      1: {
-        id: 1,
-        title: "NexoGroup",
-        des: "NexoGroup - E-commerce platform for selling electronics products. including pc parts and other, it's has all the modern features and security. fully responsive and mobile first. designed by me. built from the ground up where user comes first.",
-        architectureNodes: {
-          fe: {
-            label: "Next.js 16 Storefront",
-            details:
-              "Server-Side Rendered (SSR) storefront utilizing React Server Components (RSC) and Tailwind CSS. Features optimized search, multi-step checkouts, and custom PC builders.",
-          },
-          api: {
-            label: "Next.js API Routes",
-            details:
-              "Serverless Route Handlers executing authentication (NextAuth.js), inventory validation, secure checkouts, and system integration.",
-          },
-          db: {
-            label: "PostgreSQL Database",
-            details:
-              "Structured relational database storing inventory specs, purchase records, and user data, queried using Prisma Client ORM.",
-          },
-          stripe: {
-            label: "Stripe Gateway",
-            details:
-              "Processes payments securely and dispatches transactional webhooks to confirm client e-commerce orders.",
-          },
-        },
-      },
-      2: {
-        id: 2,
-        title: "Taeen Platform",
-        des: "Taeen تعيين - Iraq's Fastest Growing Recruitment Platform. Developed a modern recruitment platform connecting job seekers with opportunities across Iraq.",
-        architectureNodes: {
-          fe: {
-            label: "React 19 SPA Client",
-            details:
-              "High-performance React 19 SPA powered by TypeScript and Tailwind CSS. Features candidate dashboards, multi-step resume builders, and real-time overlays.",
-          },
-          api: {
-            label: "NestJS Backend API",
-            details:
-              "Modular NestJS REST engine orchestrating recruitment logic, candidate matching models, CV parsing queues, and API routes.",
-          },
-          ws: {
-            label: "WebSocket Gateway",
-            details:
-              "NestJS gateway handling real-time WebSocket messaging for ongoing recruiter-candidate live chats and immediate dashboard notifications.",
-          },
-          db: {
-            label: "PostgreSQL Database",
-            details:
-              "Relational database capturing normalized resume entities, job boards, and message threads, queried using Prisma ORM.",
-          },
-          pay: {
-            label: "SindiPay Gateway",
-            details:
-              "Integrates SindiPay for localized payment processing of company subscription packages and job post postings.",
-          },
-        },
-      },
-      3: {
-        id: 3,
-        title: "Estore | Iraq's Leading E-commerce Platform",
-        des: "Contributed to both web and mobile app development, upgrading the platform to React 19 and integrating Odoo ERP to manage central business data alongside compatible realtime services.",
-        architectureNodes: {
-          fe: {
-            label: "Next.js (React 19) & React Native",
-            details:
-              "Cross-platform mobile apps (iOS/Android) and modern web UI built on React 19, connecting to serverless API gateways.",
-          },
-          api: {
-            label: "Serverless Route Handlers",
-            details:
-              "Next.js serverless functions acting as API gateways to query Odoo ERP and orchestrate compatible third-party services.",
-          },
-          odoo: {
-            label: "Odoo ERP System",
-            details:
-              "Centralized business suite serving as the primary data engine for inventory management, product catalogs, customer CRM, and billing.",
-          },
-          db: {
-            label: "Firebase Firestore",
-            details:
-              "NoSQL realtime database to handle compatible instant sync features such as live shopping cart updates and active auctions.",
-          },
-          storage: {
-            label: "Firebase Cloud Storage",
-            details:
-              "Houses product images, user profile avatars, and attachment files.",
-          },
-        },
-      },
-      4: {
-        id: 4,
-        title: "Hoster | Web Hosting Platform",
-        des: "Developed web and mobile app versions to deliver a seamless hosting management experience for developers. Implemented responsive design patterns and cross-platform functionality.",
-        architectureNodes: {
-          fe: {
-            label: "React Control Panel",
-            details:
-              "Dashboard client that enables users to spin up VPS containers, view CPU/RAM usage graphs, and configure subdomains.",
-          },
-          api: {
-            label: "Host Manager Daemon",
-            details:
-              "Node.js daemon service communicating with local systems via Docker API, SSH agents, and process supervisors.",
-          },
-          db: {
-            label: "MongoDB Store",
-            details:
-              "Stores user accounts, server resource graphs, billing entries, and dynamic server environment blueprints.",
-          },
-          docker: {
-            label: "Docker Daemon / VPS Node",
-            details:
-              "Local or remote nodes hosting user environments inside isolated containers.",
-          },
-        },
-      },
-      5: {
-        id: 5,
-        title: "Abdulkareem for Charity",
-        des: "A charity website created by a set of college developers including myself, to help raise money for charity events, and any other events like environment, animals, etc.",
-        architectureNodes: {
-          fe: {
-            label: "Blade UI Template",
-            details:
-              "Responsive HTML templates rendered server-side with Bootstrap 5 design tokens, emphasizing accessibility and donor readability.",
-          },
-          api: {
-            label: "Laravel Core Framework",
-            details:
-              "Monolithic Laravel application processing backend routes, donation tallies, campaign management, and admin forms.",
-          },
-          db: {
-            label: "MySQL DB Storage",
-            details:
-              "Stores event timelines, active campaigns, financial donation records, and donor audit logs.",
-          },
-          sms: {
-            label: "SMS Gateway API",
-            details:
-              "Sends thank-you verification messages and updates to donors on active campaigns.",
-          },
-        },
-      },
-    },
+    sourceCode: "Source code",
+    highlightsTitle: "What I did",
   },
   notFound: {
     title: "Page Not Found",
@@ -511,8 +292,9 @@ export const en: Dictionary = {
   help      - Show this help directory
   about     - Learn more about Hussein
   skills    - List tech stack & proficiencies
-  projects  - List all projects and their IDs
-  project   - View project details. Usage: project <id> (e.g. project 0)
+  projects  - List all projects and their numbers
+  project   - Open a project. Usage: project <number|slug> (e.g. project 1)
+  cv        - Open the CV page
   lang      - Switch language. Usage: lang <en|ar>
   contact   - Display contact details & social networks
   clear     - Clear terminal buffer
@@ -520,14 +302,9 @@ export const en: Dictionary = {
     aboutText: `About Hussein:
 -------------------------------------------
 I am a dedicated full-stack developer and UI/UX engineer with a passion for constructing premium, highly interactive web applications. Specializing in the Next.js ecosystem, I design, code, and deploy solutions from the ground up, prioritizing client collaboration and system reliability.`,
-    skillsText: `Skills & Technologies:
--------------------------------------------
-- Frontend: React.js, Next.js, TypeScript, Tailwind CSS, Framer Motion
-- Backend: NestJS, Node.js, Laravel (PHP), REST / WebSocket APIs
-- Databases: PostgreSQL, MySQL, MongoDB, Redis, Prisma ORM
-- Core Competencies: System Architecture, UX/UI Design, Full-Stack Dev`,
+    skillsHeading: "Skills & Technologies:",
     projectsHeading: "Portfolio Projects:",
-    projectUsageHint: "Type 'project <id>' to view the interactive detail page.",
+    projectUsageHint: "Type 'project <number>' to open a project page.",
     contactText: `Contact Details & Socials:
 -------------------------------------------
 - Email:     husseinnajah.it@gmail.com

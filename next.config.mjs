@@ -19,6 +19,16 @@ const csp = [
   ...(isDev ? [] : ["upgrade-insecure-requests"]),
 ].join("; ");
 
+const legacyProjectSlugs = {
+  0: "izeus-erp",
+  1: "nexogroup",
+  2: "taeen",
+  3: "estore",
+  4: "hoster",
+  5: "abdulkareem-charity",
+  6: "ima-portal",
+};
+
 const securityHeaders = [
   { key: "Content-Security-Policy", value: csp },
   { key: "Strict-Transport-Security", value: "max-age=63072000" },
@@ -34,6 +44,8 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Lets CI and local verification build into a separate folder without touching a running dev server.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   poweredByHeader: false,
   images: {
     // Images in /public are pre-converted to WebP, so the runtime optimizer is never needed.
@@ -57,6 +69,12 @@ const nextConfig = {
         destination: "/sitemap.xml",
         permanent: true,
       },
+      // Projects used to live at /project/<id>; ids are frozen, so this map never changes.
+      ...Object.entries(legacyProjectSlugs).map(([id, slug]) => ({
+        source: `/:locale(en|ar)/project/${id}`,
+        destination: `/:locale/project/${slug}`,
+        permanent: true,
+      })),
     ];
   },
 };

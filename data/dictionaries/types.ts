@@ -4,13 +4,6 @@ export interface ProjectNodeTranslation {
   details: string;
 }
 
-export interface ProjectTranslation {
-  id: number;
-  title: string;
-  des: string;
-  architectureNodes?: Record<string, { label: string; details: string }>;
-}
-
 export interface TestimonialTranslation {
   quote: string;
   name: string;
@@ -145,7 +138,8 @@ export interface Dictionary {
     lightboxNext: string;
     close: string;
     notFound: string;
-    items: Record<number, ProjectTranslation>;
+    sourceCode: string;
+    highlightsTitle: string;
   };
   notFound: {
     title: string;
@@ -182,7 +176,7 @@ export interface Dictionary {
     welcome: string;
     helpText: string;
     aboutText: string;
-    skillsText: string;
+    skillsHeading: string;
     projectsHeading: string;
     projectUsageHint: string;
     contactText: string;

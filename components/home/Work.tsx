@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { projects, projectTags } from "@/data";
+import { projects } from "@/content/projects";
 import { useLocale } from "../LocaleContext";
 import { Arrow, SectionKicker, SplitText } from "./primitives";
 
@@ -79,15 +79,15 @@ export default function Work() {
           </div>
 
           {projects.map((project, i) => {
-            const localized = dict.projects.items[project.id];
-            const fullTitle = localized?.title || project.title;
-            const [title, subtitle] = fullTitle.split(" | ");
-            const description = localized?.des || project.des;
-            const caseHref = `/${locale}/project/${project.id}`;
+            const title = project.title[locale];
+            const subtitle = project.subtitle?.[locale];
+            const description = project.description[locale];
+            const caseHref = `/${locale}/project/${project.slug}`;
+            const external = project.link ?? project.repo;
 
             return (
               <article
-                key={project.id}
+                key={project.slug}
                 className="group flex flex-col border-t border-line px-4 py-10 sm:px-6 md:px-10 lg:h-full lg:w-[60vw] lg:border-e lg:border-t-0 lg:pb-12 lg:pt-24 xl:w-[52vw]"
               >
                 <div className="label mb-5 flex items-baseline justify-between gap-4">
@@ -95,7 +95,7 @@ export default function Work() {
                     <span className="text-paper">{String(i + 1).padStart(2, "0")}</span> / {total}
                   </span>
                   <span className="truncate">
-                    {subtitle ?? (project.link ? new URL(project.link).hostname.replace("www.", "") : h.caseStudy)}
+                    {subtitle ?? (external ? new URL(external).hostname.replace("www.", "") : h.caseStudy)}
                   </span>
                 </div>
 
@@ -105,7 +105,7 @@ export default function Work() {
                   className="relative block aspect-[4/3] overflow-hidden border border-line bg-stage lg:aspect-auto lg:min-h-0 lg:flex-1"
                 >
                   <Image
-                    src={`/project/${project.img}`}
+                    src={project.cover}
                     alt={title}
                     fill
                     sizes="(min-width: 1024px) 60vw, 100vw"
@@ -121,7 +121,7 @@ export default function Work() {
                   <div className="lg:col-span-7">
                     <p className="line-clamp-3 leading-relaxed text-paper/65">{description}</p>
                     <ul className="mt-4 flex flex-wrap gap-1.5">
-                      {(projectTags[project.id] ?? []).map((tag) => (
+                      {project.tags.map((tag) => (
                         <li key={tag} className="chip">
                           {tag}
                         </li>
@@ -131,14 +131,14 @@ export default function Work() {
                       <Link href={caseHref} className="btn-ghost px-4 py-2.5">
                         {h.caseStudy} <Arrow />
                       </Link>
-                      {project.link && (
+                      {external && (
                         <a
-                          href={project.link}
+                          href={external}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn-ghost px-4 py-2.5"
                         >
-                          {h.liveSite} <Arrow />
+                          {project.link ? h.liveSite : dict.projects.sourceCode} <Arrow />
                         </a>
                       )}
                     </div>

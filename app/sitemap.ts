@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { projects } from "@/data";
+import { projects } from "@/content/projects";
 import { locales, siteUrl } from "@/data/locales";
 
 const baseUrl = siteUrl;
@@ -31,10 +31,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       `${baseUrl}/og/home-${locale}.jpg`,
     ]),
     ...projects.flatMap((project) =>
-      localized(`/project/${project.id}`, { lastModified, changeFrequency: "monthly", priority: 0.8 }, () => [
-        `${baseUrl}/project/${project.img}`,
-        ...(project.images ?? []).map((src) => `${baseUrl}${src}`),
-      ])
+      localized(`/project/${project.slug}`, { lastModified, changeFrequency: "monthly", priority: 0.8 }, () =>
+        [project.cover, ...project.gallery].map((src) => `${baseUrl}${src}`)
+      )
     ),
     // /qr renders the same card and declares /nfc as canonical, so only /nfc is listed.
     ...localized("/nfc", { lastModified, changeFrequency: "monthly", priority: 0.5 }),

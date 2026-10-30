@@ -1,6 +1,7 @@
 "use client";
 
-import { projects } from "@/data";
+import { projects } from "@/content/projects";
+import { stackGroups } from "@/data";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { BiTerminal } from "react-icons/bi";
@@ -101,52 +102,54 @@ export default function TerminalOverlay() {
 
       case "skills":
       case "مهارات":
-        outputText = dict.terminal.skillsText;
+        outputText = `${dict.terminal.skillsHeading}\n-------------------------------------------\n${stackGroups
+          .map((g) => `- ${dict.home.stackGroups[g.key]}: ${g.items.join(", ")}`)
+          .join("\n")}`;
         break;
 
       case "projects":
       case "مشاريع":
         outputText = `${dict.terminal.projectsHeading}\n-------------------------------------------\n${projects
-          .map((p) => {
-            const pTitle = dict.projects.items[p.id]?.title || p.title;
-            const pDes = dict.projects.items[p.id]?.des || p.des;
-            return `[${p.id}] ${pTitle} - ${pDes.substring(0, 80)}...`;
-          })
+          .map((p, i) => `[${i + 1}] ${p.title[locale]} - ${p.description[locale].substring(0, 80)}...`)
           .join("\n")}\n\n${dict.terminal.projectUsageHint}`;
         break;
 
       case "project":
       case "مشروع": {
-        const idStr = args[0];
-        if (!idStr) {
-          outputText =
-            locale === "ar"
-              ? "خطأ: يرجى تحديد معرف المشروع. الاستخدام: project <id> (مثال: project 0)"
-              : "Error: Please specify a project ID. Usage: project <id> (e.g., project 0)";
-          isError = true;
-          break;
-        }
-        const idNum = parseInt(idStr, 10);
-        const match = projects.find((p) => p.id === idNum);
+        const query = args[0]?.toLowerCase();
+        const match = query
+          ? projects.find((p, i) => p.slug === query || String(i + 1) === query)
+          : undefined;
         if (!match) {
-          outputText =
-            locale === "ar"
-              ? `خطأ: لم يتم العثور على مشروع بالمعرف ${idNum}. اكتب 'projects' لعرض المعرفات المتاحة.`
-              : `Error: Project with ID ${idNum} not found. Type 'projects' to list valid IDs.`;
+          outputText = query
+            ? locale === "ar"
+              ? `خطأ: لا يوجد مشروع '${query}'. اكتب 'projects' لعرض الأرقام المتاحة.`
+              : `Error: no project '${query}'. Type 'projects' to list valid numbers.`
+            : locale === "ar"
+              ? "خطأ: حدد رقم المشروع. الاستخدام: project <رقم> (مثال: project 1)"
+              : "Error: specify a project. Usage: project <number> (e.g., project 1)";
           isError = true;
           break;
         }
-        const matchTitle = dict.projects.items[idNum]?.title || match.title;
         outputText =
           locale === "ar"
-            ? `جارٍ التوجيه إلى صفحة المشروع '${matchTitle}'...`
-            : `Redirecting you to the project page for '${matchTitle}'...`;
+            ? `جارٍ التوجيه إلى صفحة المشروع '${match.title[locale]}'...`
+            : `Redirecting you to the project page for '${match.title[locale]}'...`;
         setTimeout(() => {
           setIsOpen(false);
-          router.push(`/${locale}/project/${idNum}`);
+          router.push(`/${locale}/project/${match.slug}`);
         }, 800);
         break;
       }
+
+      case "cv":
+      case "سيرة":
+        outputText = locale === "ar" ? "جارٍ فتح صفحة السيرة الذاتية..." : "Opening the CV page...";
+        setTimeout(() => {
+          setIsOpen(false);
+          router.push(`/${locale}/cv`);
+        }, 800);
+        break;
 
       case "lang":
       case "language":
@@ -236,6 +239,7 @@ export default function TerminalOverlay() {
         "skills",
         "projects",
         "project",
+        "cv",
         "lang",
         "qr",
         "nfc",

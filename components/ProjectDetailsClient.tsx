@@ -10,19 +10,19 @@ import SiteEffects from "@/components/home/SiteEffects";
 import SiteFooter from "@/components/home/SiteFooter";
 import { Arrow, KeyValue, SplitText, sectionPad } from "@/components/home/primitives";
 import { useLocale } from "./LocaleContext";
-import { projects, projectTags } from "@/data";
+import { getProject, projects } from "@/content/projects";
 import { cn } from "@/utils/cn";
 
 interface ProjectDetailsClientProps {
-  id: string;
+  slug: string;
 }
 
-export default function ProjectDetailsClient({ id }: ProjectDetailsClientProps) {
+export default function ProjectDetailsClient({ slug }: ProjectDetailsClientProps) {
   const { dict, locale } = useLocale();
   const h = dict.home;
 
-  const index = projects.findIndex((p) => p.id === Number(id));
-  const project = projects[index];
+  const project = getProject(slug);
+  const index = project ? projects.indexOf(project) : -1;
 
   if (!project) {
     return (
@@ -35,23 +35,19 @@ export default function ProjectDetailsClient({ id }: ProjectDetailsClientProps) 
     );
   }
 
-  const localized = dict.projects.items[project.id];
-  const [title, subtitle] = (localized?.title || project.title).split(" | ");
-  const des = localized?.des || project.des;
+  const title = project.title[locale];
+  const subtitle = project.subtitle?.[locale];
+  const des = project.description[locale];
   const next = projects[(index + 1) % projects.length];
-  const nextTitle = (dict.projects.items[next.id]?.title || next.title).split(" | ")[0];
+  const nextTitle = next.title[locale];
 
-  // Localized architecture if available
   const localizedArchitecture = project.architecture
     ? {
-        nodes: project.architecture.nodes.map((node) => {
-          const locNode = localized?.architectureNodes?.[node.id];
-          return {
-            ...node,
-            label: locNode?.label || node.label,
-            details: locNode?.details || node.details,
-          };
-        }),
+        nodes: project.architecture.nodes.map((node) => ({
+          ...node,
+          label: node.label[locale],
+          details: node.details[locale],
+        })),
         edges: project.architecture.edges,
       }
     : undefined;
@@ -79,7 +75,7 @@ export default function ProjectDetailsClient({ id }: ProjectDetailsClientProps) 
         <section className={cn("mt-10 md:mt-14", sectionPad)}>
           <div className="reveal group relative aspect-[16/10] w-full overflow-hidden border border-line bg-stage md:aspect-[16/8]">
             <Image
-              src={`/project/${project.img}`}
+              src={project.cover}
               alt={title}
               fill
               priority
@@ -93,11 +89,26 @@ export default function ProjectDetailsClient({ id }: ProjectDetailsClientProps) 
           <div className="reveal lg:col-span-7">
             <p className="label mb-5">{dict.projects.descriptionTitle}</p>
             <p className="heading text-[clamp(1.5rem,2.3vw,2.3rem)] leading-[1.15] text-paper">{des}</p>
+            {project.highlights && (
+              <div className="mt-12">
+                <p className="label mb-4">{dict.projects.highlightsTitle}</p>
+                <ol className="border-t border-line">
+                  {project.highlights.map((item, i) => (
+                    <li key={i} className="flex gap-5 border-b border-line py-4 text-paper/80">
+                      <span className="label shrink-0 pt-1 text-paper/60" dir="ltr">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="leading-relaxed">{item[locale]}</span>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            )}
           </div>
           <aside className="reveal lg:col-span-4 lg:col-start-9">
             <div className="crosshair border border-line p-5">
               <p className="label mb-3">{dict.projects.techStackTitle}</p>
-              {(projectTags[project.id] ?? []).map((tag, i) => (
+              {project.tags.map((tag, i) => (
                 <KeyValue key={tag} k={String(i + 1).padStart(2, "0")} v={tag} />
               ))}
               {project.link && (
@@ -110,17 +121,27 @@ export default function ProjectDetailsClient({ id }: ProjectDetailsClientProps) 
                   {dict.projects.liveSite} <Arrow />
                 </a>
               )}
+              {project.repo && (
+                <a
+                  href={project.repo}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-ghost mt-2 w-full"
+                >
+                  {dict.projects.sourceCode} <Arrow />
+                </a>
+              )}
             </div>
           </aside>
         </section>
 
         <div className={cn("pb-10", sectionPad)}>
           {localizedArchitecture && <ArchitectureDiagram architecture={localizedArchitecture} />}
-          <ProjectGallery images={project.images || []} title={title} />
+          <ProjectGallery images={project.gallery} title={title} />
         </div>
 
         <Link
-          href={`/${locale}/project/${next.id}`}
+          href={`/${locale}/project/${next.slug}`}
           className={cn(
             "group mt-16 flex flex-col gap-4 border-t border-line py-14 transition-colors duration-500 hover:bg-paper hover:text-ink md:py-20",
             sectionPad
